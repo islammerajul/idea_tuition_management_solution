@@ -26,6 +26,9 @@ class _SplashScrenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
+    Timer(Duration(seconds: 3), () {
+      Navigator.pushNamed(context, Routes.studentLogin);
+    });
   }
   @override
   void didChangeDependencies() {
@@ -63,20 +66,20 @@ class _SplashScrenState extends State<SplashScreen> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Image.asset("assets/logo/idea_logo.svg",height: 200,width: 200,),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Text(
-                        "Dholaimama",
-                        style: CustomTextStyle.SplashTextColor,
-                      ),
-                      Text(
-                        "Admin",
-                        style: CustomTextStyle.SplashTextColor,
-                      ),
-                    ],
-                  ),
+                  Image.asset("assets/logo/idea_logo.png",height: 200,width: 300,),
+                  // Column(
+                  //   crossAxisAlignment: CrossAxisAlignment.center,
+                  //   children: [
+                  //     Text(
+                  //       "Dholaimama",
+                  //       style: CustomTextStyle.SplashTextColor,
+                  //     ),
+                  //     Text(
+                  //       "Admin",
+                  //       style: CustomTextStyle.SplashTextColor,
+                  //     ),
+                  //   ],
+                  // ),
                   // Observer(
                   //   builder: (context) {
                   //     return splashStore.loading
@@ -109,23 +112,23 @@ class _SplashScrenState extends State<SplashScreen> {
   }
 
 
-  Widget navigate(BuildContext context) {
-    print("init navigate");
-    Future.delayed(const Duration(milliseconds: 2000), () async {
-      SharedPreferences preferences = await SharedPreferences.getInstance();
-      print(preferences.getBool(Preferences.is_logged_in));
-
-      if (preferences.getBool(Preferences.is_logged_in) ?? false) {
-        if(preferences.getBool(Preferences.local_auth_status) ?? false) {
-          //Navigator.of(context).pushReplacementNamed(Routes.localAuthScreen);
-        }else{
-          //Navigator.of(context).pushReplacementNamed(Routes.coreNavigation);
-        }
-      } else {
-        //Navigator.of(context).pushReplacementNamed(Routes.login);
-      }
-    });
-    return Container();
-  }
+  // Widget navigate(BuildContext context) {
+  //   print("init navigate");
+  //   Future.delayed(const Duration(milliseconds: 2000), () async {
+  //     SharedPreferences preferences = await SharedPreferences.getInstance();
+  //     print(preferences.getBool(Preferences.is_logged_in));
+  //
+  //     if (preferences.getBool(Preferences.is_logged_in) ?? false) {
+  //       if(preferences.getBool(Preferences.local_auth_status) ?? false) {
+  //         //Navigator.of(context).pushReplacementNamed(Routes.localAuthScreen);
+  //       }else{
+  //         //Navigator.of(context).pushReplacementNamed(Routes.coreNavigation);
+  //       }
+  //     } else {
+  //       //Navigator.of(context).pushReplacementNamed(Routes.login);
+  //     }
+  //   });
+  //   return Container();
+  // }
 }
 

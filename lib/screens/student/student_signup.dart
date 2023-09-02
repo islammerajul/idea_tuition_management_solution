@@ -4,6 +4,7 @@ import 'package:idea_tuition_managment_app/constants/colors.dart';
 import 'package:idea_tuition_managment_app/style/custom_text_style.dart';
 import 'package:idea_tuition_managment_app/utils/routes/routes.dart';
 import 'package:idea_tuition_managment_app/widgets/custom_button.dart';
+import 'package:idea_tuition_managment_app/widgets/dialogs/show_error_dialog.dart';
 import 'package:idea_tuition_managment_app/widgets/text_form_field_widget.dart';
 
 class StudentSignupScreen extends StatefulWidget {
@@ -20,6 +21,8 @@ class _StudentSignupScreenState extends State<StudentSignupScreen> {
   TextEditingController _passwordController = TextEditingController();
   TextEditingController _confirmPasswordController = TextEditingController();
   TextEditingController _phoneNumController = TextEditingController();
+
+  CustomSEdialog dialog = CustomSEdialog();
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -154,6 +157,16 @@ class _StudentSignupScreenState extends State<StudentSignupScreen> {
                             onTap: () async {
                               if (_formkey.currentState!.validate()) {
                                 print("All fields are valid");
+                                if(_passwordController != _confirmPasswordController){
+                                  dialog.seCustomDialog(context,
+                                      headerTitle: 'ERROR',
+                                      desTitle: 'Password doesnot match',
+                                      headerTitleColor: Colors.red,
+                                      callback: (){
+                                    Navigator.pop(context);
+                                      }
+                                  );
+                                }
                                 //_authStore.createEmailSession(_emailController.text, _passwordController.text);
                               } else {
                                 //_showErrorMessage("Please fill all the data");

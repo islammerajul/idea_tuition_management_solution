@@ -64,7 +64,7 @@ class _MyAppState extends State<MyApp> {
             localizationsDelegates: const [
               AppLocalizations.delegate,
             ],
-            home: const TeacherLoginScreen(),
+            home: const SplashScreen(),
           );
         },
       ),

@@ -51,7 +51,7 @@ class CustomSEdialog{
                         desTitle!,
                         style: TextStyle(
                             fontWeight: FontWeight.w400,
-                            fontSize: 24,
+                            fontSize: 22,
                             color: CustomColors.PrimaryColor),
                         textAlign: TextAlign.center,
                       ),
@@ -65,7 +65,7 @@ class CustomSEdialog{
                     //   textAlign: TextAlign.center,
                     // ),
                     Text(
-                      message!,
+                      message ?? "",
                       style: TextStyle(
                           fontWeight: FontWeight.w400,
                           fontSize: 18,

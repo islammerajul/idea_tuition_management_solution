@@ -58,6 +58,7 @@ class TextFormFieldWidget extends StatelessWidget {
             height: containerHeight != null ? 56 : containerHeight,
             width: double.infinity,
             child: TextFormField(
+              style: style ?? TextStyle(fontWeight: FontWeight.w400,fontSize: 16,color: CustomColors.White),
               readOnly: readOnly ?? false,
               initialValue: initialValue,
               controller: controller,

@@ -1,10 +1,13 @@
 
 import 'package:flutter/material.dart';
+import 'package:idea_tuition_managment_app/screens/auth_module/student/student_login.dart';
+import 'package:idea_tuition_managment_app/screens/auth_module/student/student_signup.dart';
+import 'package:idea_tuition_managment_app/screens/auth_module/teacher/teacher_login.dart';
+import 'package:idea_tuition_managment_app/screens/auth_module/teacher/teacher_signup.dart';
+import 'package:idea_tuition_managment_app/screens/dashboard.dart';
+import 'package:idea_tuition_managment_app/screens/navigation_bar.dart';
 import 'package:idea_tuition_managment_app/screens/splash_screen.dart';
-import 'package:idea_tuition_managment_app/screens/student/student_login.dart';
-import 'package:idea_tuition_managment_app/screens/student/student_signup.dart';
-import 'package:idea_tuition_managment_app/screens/teacher/teacher_login.dart';
-import 'package:idea_tuition_managment_app/screens/teacher/teacher_signup.dart';
+
 
 class Routes {
   Routes._();
@@ -16,6 +19,7 @@ class Routes {
   static const String teacherSignup = '/teacher-signup';
   static const String studentSignup = '/student-signup';
   static const String dashboard = '/dashboard';
+  static const String navigationBarScreen = '/navigation-barScreen';
   // static const String coreNavigation = '/core-navigation';
   // static const String orderRequest = '/order-request';
   // static const String createCustomer = '/create-customer';
@@ -40,6 +44,8 @@ class Routes {
     teacherLogin: (BuildContext context) => const TeacherLoginScreen(),
     teacherSignup: (BuildContext context) => const TeacherSignupScreen(),
     studentSignup: (BuildContext context) => const StudentSignupScreen(),
+    dashboard: (BuildContext context) => const Dashboard(),
+    navigationBarScreen: (BuildContext context) => const NavigationBarScreen(),
 
     // signup: (BuildContext context) => const SignupScreen(),
     // orderRequest: (BuildContext context) => OrderRequestScreen(),

@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:idea_tuition_managment_app/screens/splash_screen.dart';
-import 'package:idea_tuition_managment_app/screens/teacher/teacher_login.dart';
 import 'package:idea_tuition_managment_app/services/navigation_service.dart';
 import 'package:idea_tuition_managment_app/stores/language/language_store.dart';
 import 'package:idea_tuition_managment_app/stores/theme/theme_store.dart';

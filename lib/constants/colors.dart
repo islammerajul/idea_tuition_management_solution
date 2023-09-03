@@ -21,6 +21,7 @@ class AppColors {
 class CustomColors{
 
   static const BrandColor =  Color(0xFF17B9C5);
+  static const AppBarColor =  Color(0xFF252D52);
   static const titleBlack =  Color(0xFF2B2B2B);
   static const icontitleBlack =  Color(0xFF4B4B4B);
   static const White =  Color(0xFFFFFFFF);

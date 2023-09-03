@@ -208,6 +208,7 @@ class _TeacherLoginScreenState extends State<TeacherLoginScreen> {
                           onTap: () async {
                             if (_formkey.currentState!.validate()) {
                               print("All fields are valid");
+                              Navigator.pushNamed(context, Routes.navigationBarScreen);
                               //_authStore.createEmailSession(_emailController.text, _passwordController.text);
                             } else {
                               //_showErrorMessage("Please fill all the data");

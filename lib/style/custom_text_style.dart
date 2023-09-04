@@ -15,8 +15,7 @@ class CustomTextStyle {
     fontSize: 13.0,
     fontWeight: FontWeight.w400,
     fontFamily: 'Poppins',
-    //color: Color(0xffE0FFFF),
-    color: CustomColors.PrimaryColor,
+    color: Color(0xff492E51),
   );
   static const icontitle2 = TextStyle(
     fontSize: 13.0,
@@ -134,6 +133,6 @@ class CustomTextStyle {
     fontSize: 36.0,
     fontWeight: FontWeight.w400,
     fontFamily: 'Poppins',
-    color: CustomColors.PrimaryColor,
+    color: Color(0xff0A1416)
   );
 }

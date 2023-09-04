@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:idea_tuition_managment_app/constants/colors.dart';
 import 'package:idea_tuition_managment_app/screens/batch_screen.dart';
-import 'package:idea_tuition_managment_app/screens/dashboard.dart';
-import 'package:idea_tuition_managment_app/screens/student_screen.dart';
 import 'package:idea_tuition_managment_app/screens/tuition_fees_screen.dart';
+import 'package:idea_tuition_managment_app/screens/student_screen.dart';
+import 'package:idea_tuition_managment_app/screens/dashboard.dart';
 
 class NavigationBarScreen extends StatefulWidget {
   const NavigationBarScreen({super.key});
@@ -18,7 +18,7 @@ class _NavigationBarScreenState extends State<NavigationBarScreen> {
     Dashboard(),
     StudentScreen(),
     BatchScreen(),
-    TuitionFeesScreen()
+    TuitionFeesScreen(),
   ];
   void _onItemTapped(int index) {
     setState(() {

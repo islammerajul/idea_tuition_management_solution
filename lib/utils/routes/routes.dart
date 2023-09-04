@@ -4,7 +4,9 @@ import 'package:idea_tuition_managment_app/screens/auth_module/student/student_l
 import 'package:idea_tuition_managment_app/screens/auth_module/student/student_signup.dart';
 import 'package:idea_tuition_managment_app/screens/auth_module/teacher/teacher_login.dart';
 import 'package:idea_tuition_managment_app/screens/auth_module/teacher/teacher_signup.dart';
-import 'package:idea_tuition_managment_app/screens/dashboard.dart';
+import 'package:idea_tuition_managment_app/screens/create_student.dart';
+import 'package:idea_tuition_managment_app/screens/student_screen.dart';
+import 'package:idea_tuition_managment_app/screens/tuition_fees_screen.dart';
 import 'package:idea_tuition_managment_app/screens/navigation_bar.dart';
 import 'package:idea_tuition_managment_app/screens/splash_screen.dart';
 
@@ -20,6 +22,8 @@ class Routes {
   static const String studentSignup = '/student-signup';
   static const String dashboard = '/dashboard';
   static const String navigationBarScreen = '/navigation-barScreen';
+  static const String createStudent = '/create-student';
+  static const String student = '/student';
   // static const String coreNavigation = '/core-navigation';
   // static const String orderRequest = '/order-request';
   // static const String createCustomer = '/create-customer';
@@ -44,8 +48,10 @@ class Routes {
     teacherLogin: (BuildContext context) => const TeacherLoginScreen(),
     teacherSignup: (BuildContext context) => const TeacherSignupScreen(),
     studentSignup: (BuildContext context) => const StudentSignupScreen(),
-    dashboard: (BuildContext context) => const Dashboard(),
+    dashboard: (BuildContext context) => const TuitionFeesScreen(),
     navigationBarScreen: (BuildContext context) => const NavigationBarScreen(),
+    createStudent: (BuildContext context) => const CreateStudentScreen(),
+    student: (BuildContext context) => const StudentScreen(),
 
     // signup: (BuildContext context) => const SignupScreen(),
     // orderRequest: (BuildContext context) => OrderRequestScreen(),

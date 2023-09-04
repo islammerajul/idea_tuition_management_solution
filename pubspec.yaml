@@ -40,6 +40,8 @@ dependencies:
   shared_preferences: ^2.2.0
   another_flushbar: ^1.12.30 #Use this package if you need more customization when notifying your user. For Android developers, it is made to substitute toasts and snackbars.
   awesome_dialog: ^3.1.0 #A new Flutter package project for simple and awesome dialogs
+  image_picker: ^1.0.4
+
 
   #state management
   provider: ^6.0.5

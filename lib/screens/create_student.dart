@@ -21,7 +21,7 @@ class CreateStudentScreen extends StatefulWidget {
 
 class _CreateStudentScreenState extends State<CreateStudentScreen> {
   final GlobalKey<FormState> _formkey = GlobalKey<FormState>();
-  TextEditingController _userNameController = TextEditingController();
+  TextEditingController _fullNameController = TextEditingController();
   TextEditingController _dateController = TextEditingController();
   TextEditingController _institutionNameController = TextEditingController();
 
@@ -67,7 +67,7 @@ class _CreateStudentScreenState extends State<CreateStudentScreen> {
                           fontWeight: FontWeight.w400,
                           color: Color(0xffCCDADC),
                         ),
-                        controller: _userNameController,
+                        controller: _fullNameController,
                         keyboardType: TextInputType.text,
                         //maxLength: 11,
                         validator: (value) {
@@ -86,7 +86,7 @@ class _CreateStudentScreenState extends State<CreateStudentScreen> {
                           fontWeight: FontWeight.w400,
                           color: Color(0xffCCDADC),
                         ),
-                        controller: _userNameController,
+                        controller: _fullNameController,
                         keyboardType: TextInputType.phone,
                         maxLength: 11,
                         validator: (value) {
@@ -115,6 +115,7 @@ class _CreateStudentScreenState extends State<CreateStudentScreen> {
                                   height: 11,
                                 ),
                                 DropdownButtonFormField(
+                                  iconEnabledColor: CustomColors.White,
                                   value: select_batch,
                                     dropdownColor: CustomColors.AppBarColor,
                                     decoration: InputDecoration(
@@ -164,6 +165,7 @@ class _CreateStudentScreenState extends State<CreateStudentScreen> {
                                   height: 11,
                                 ),
                                 DropdownButtonFormField(
+                                    iconEnabledColor: CustomColors.White,
                                   value: select_timeSchedule,
                                     dropdownColor: CustomColors.AppBarColor,
                                     decoration: InputDecoration(
@@ -201,6 +203,56 @@ class _CreateStudentScreenState extends State<CreateStudentScreen> {
                     ),
                     Row(
                       children: [
+                        Expanded(
+                            flex: 1,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  "Gender",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.w400,
+                                      fontSize: 16,
+                                      color: CustomColors.White),
+                                ),
+                                SizedBox(
+                                  height: 11,
+                                ),
+                                DropdownButtonFormField(
+                                    iconEnabledColor: CustomColors.White,
+                                    value: select_gender,
+                                    dropdownColor: CustomColors.AppBarColor,
+                                    decoration: InputDecoration(
+                                      hintText: 'Select',
+                                      hintStyle: CustomTextStyle.icontitle
+                                          .copyWith(color: CustomColors.White),
+                                      filled: true,
+                                      fillColor: const Color(0xff492E51),
+                                      border: OutlineInputBorder(
+                                          borderRadius:
+                                          BorderRadius.circular(5),
+                                          borderSide: BorderSide.none),
+                                    ),
+                                    items: gender
+                                        ?.map((item) => DropdownMenuItem(
+                                        value: item,
+                                        child: Text(item,
+                                            style: TextStyle(
+                                                fontSize: 14.0,
+                                                fontWeight: FontWeight.w400,
+                                                color:
+                                                CustomColors.White))))
+                                        .toList(),
+                                    onChanged: (item) {
+                                      setState(() {
+                                        select_gender = item;
+                                      });
+                                    }),
+                              ],
+                            )),
+                        SizedBox(
+                          width: 10,
+                        ),
                         Expanded(
                             flex: 1,
                             child: TextFormFieldWidget(
@@ -247,55 +299,7 @@ class _CreateStudentScreenState extends State<CreateStudentScreen> {
 
                               ),
                             )),
-                        SizedBox(
-                          width: 10,
-                        ),
-                        Expanded(
-                            flex: 1,
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  "Gender",
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.w400,
-                                      fontSize: 16,
-                                      color: CustomColors.White),
-                                ),
-                                SizedBox(
-                                  height: 11,
-                                ),
-                                DropdownButtonFormField(
-                                  value: select_gender,
-                                    dropdownColor: CustomColors.AppBarColor,
-                                    decoration: InputDecoration(
-                                      hintText: 'Select',
-                                      hintStyle: CustomTextStyle.icontitle
-                                          .copyWith(color: CustomColors.White),
-                                      filled: true,
-                                      fillColor: const Color(0xff492E51),
-                                      border: OutlineInputBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(5),
-                                          borderSide: BorderSide.none),
-                                    ),
-                                    items: gender
-                                        ?.map((item) => DropdownMenuItem(
-                                            value: item,
-                                            child: Text(item,
-                                                style: TextStyle(
-                                                    fontSize: 14.0,
-                                                    fontWeight: FontWeight.w400,
-                                                    color:
-                                                        CustomColors.White))))
-                                        .toList(),
-                                    onChanged: (item) {
-                                      setState(() {
-                                        select_gender = item;
-                                      });
-                                    }),
-                              ],
-                            )),
+
                       ],
                     ),
                     SizedBox(
@@ -324,14 +328,6 @@ class _CreateStudentScreenState extends State<CreateStudentScreen> {
                         onTap: () async {
                           if (_formkey.currentState!.validate()) {
                             print("All fields are valid");
-                            // dialog.seCustomDialog(context,
-                            //     headerTitle: 'ERROR',
-                            //     desTitle: 'Password doesnot match',
-                            //     headerTitleColor: Colors.red,
-                            //     callbackForCancled: (){
-                            //       Navigator.pop(context);
-                            //     }
-                            // );
                             dialog.addMoreCustomDialog(context,
                                 headerTitle: 'Congratulation',
                                 desTitle: 'Student added',

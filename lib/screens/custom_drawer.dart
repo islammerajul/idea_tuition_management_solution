@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:idea_tuition_managment_app/constants/colors.dart';
 import 'package:idea_tuition_managment_app/style/custom_text_style.dart';
+import 'package:idea_tuition_managment_app/utils/routes/routes.dart';
 
 class CustomDrawer extends StatefulWidget {
   const CustomDrawer({super.key});
@@ -63,7 +64,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
           style: CustomTextStyle.drawerText.copyWith(color: CustomColors.White),
         ),
         onTap: () {
-          //Navigator.of(context).push(MaterialPageRoute(builder: (context)=> DoctorProfileScreen()));
+          Navigator.pushNamed(context, Routes.profile);
         },
       ),
       ListTile(
@@ -74,7 +75,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
           style: CustomTextStyle.drawerText.copyWith(color: CustomColors.White),
         ),
         onTap: () {
-          // Navigator.of(context).push(MaterialPageRoute(builder: (context)=> AdvertisementModelScreen()));
+          Navigator.pushNamed(context, Routes.newsBlogs);
         },
       ),
       ListTile(
@@ -86,7 +87,19 @@ class _CustomDrawerState extends State<CustomDrawer> {
           style: CustomTextStyle.drawerText.copyWith(color: CustomColors.White),
         ),
         onTap: () {
-          //Navigator.of(context).push(MaterialPageRoute(builder: (context)=>Settings()));
+          Navigator.pushNamed(context, Routes.settings);
+        },
+      ),
+      ListTile(
+        leading: Image.asset("assets/drawer_icon/package.png",height: 40,width: 40,),
+
+        //leading: SvgPicture.asset("assets/icons/drawer_icon/setting.svg"),
+        title: Text(
+          "Package",
+          style: CustomTextStyle.drawerText.copyWith(color: CustomColors.White),
+        ),
+        onTap: () {
+          Navigator.pushNamed(context, Routes.packageMenu);
         },
       ),
       ListTile(
@@ -96,7 +109,9 @@ class _CustomDrawerState extends State<CustomDrawer> {
           "Support",
           style: CustomTextStyle.drawerText.copyWith(color: CustomColors.White),
         ),
-        onTap: () {},
+        onTap: () {
+          Navigator.pushNamed(context, Routes.support);
+        },
       ),
       ListTile(
         leading: Image.asset("assets/drawer_icon/info.png",height: 31,width: 30,),
@@ -105,7 +120,9 @@ class _CustomDrawerState extends State<CustomDrawer> {
           "Terms & Conditions",
           style: CustomTextStyle.drawerText.copyWith(color: CustomColors.White),
         ),
-        onTap: () {},
+        onTap: () {
+          Navigator.pushNamed(context, Routes.termsConditions);
+        },
       ),
       ListTile(
         leading: Image.asset("assets/drawer_icon/privacy.png",height: 34,width: 34,),
@@ -114,7 +131,9 @@ class _CustomDrawerState extends State<CustomDrawer> {
           "Privacy Policy",
           style: CustomTextStyle.drawerText.copyWith(color: CustomColors.White),
         ),
-        onTap: () {},
+        onTap: () {
+          Navigator.pushNamed(context, Routes.privacyPolicy);
+        },
       ),
 
     ],

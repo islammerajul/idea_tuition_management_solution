@@ -18,6 +18,7 @@ class AppColors {
   };
 }
 
+
 class CustomColors{
 
   static const BrandColor =  Color(0xFF17B9C5);
@@ -69,4 +70,13 @@ class CustomColors{
       end: const FractionalOffset(1.0, 0.0),
       stops: [0.0, 1.0],
       tileMode: TileMode.clamp);
+  static const codeGradient = LinearGradient(
+      begin: Alignment.topCenter,
+      end: Alignment.bottomCenter,
+      colors: [
+        Color(0xff492E51),
+        Color(0xff181D2A),
+        Color(0xff252D52),
+      ]);
+
 }

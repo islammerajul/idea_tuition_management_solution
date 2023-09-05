@@ -4,7 +4,17 @@ import 'package:idea_tuition_managment_app/screens/auth_module/student/student_l
 import 'package:idea_tuition_managment_app/screens/auth_module/student/student_signup.dart';
 import 'package:idea_tuition_managment_app/screens/auth_module/teacher/teacher_login.dart';
 import 'package:idea_tuition_managment_app/screens/auth_module/teacher/teacher_signup.dart';
+import 'package:idea_tuition_managment_app/screens/create_batch.dart';
+import 'package:idea_tuition_managment_app/screens/menu_journey/news_blogs.dart';
+import 'package:idea_tuition_managment_app/screens/menu_journey/packageMenu.dart';
+import 'package:idea_tuition_managment_app/screens/menu_journey/privacy_policy.dart';
+import 'package:idea_tuition_managment_app/screens/menu_journey/profile.dart';
+import 'package:idea_tuition_managment_app/screens/menu_journey/settings.dart';
+import 'package:idea_tuition_managment_app/screens/menu_journey/support.dart';
+import 'package:idea_tuition_managment_app/screens/menu_journey/terms_conditions.dart';
+import 'package:idea_tuition_managment_app/screens/notice_journey/create_notice.dart';
 import 'package:idea_tuition_managment_app/screens/create_student.dart';
+import 'package:idea_tuition_managment_app/screens/notice_journey/notice_list.dart';
 import 'package:idea_tuition_managment_app/screens/student_screen.dart';
 import 'package:idea_tuition_managment_app/screens/tuition_fees_screen.dart';
 import 'package:idea_tuition_managment_app/screens/navigation_bar.dart';
@@ -24,6 +34,16 @@ class Routes {
   static const String navigationBarScreen = '/navigation-barScreen';
   static const String createStudent = '/create-student';
   static const String student = '/student';
+  static const String createBatch = '/create-batch';
+  static const String createNotice = '/create-notice';
+  static const String noticeList = '/notice-list';
+  static const String profile = '/profile';
+  static const String newsBlogs = '/news-blogs';
+  static const String settings = '/settings';
+  static const String support = '/support';
+  static const String termsConditions = '/terms-conditions';
+  static const String privacyPolicy = '/privacy-policy';
+  static const String packageMenu = '/package-menu';
   // static const String coreNavigation = '/core-navigation';
   // static const String orderRequest = '/order-request';
   // static const String createCustomer = '/create-customer';
@@ -52,6 +72,16 @@ class Routes {
     navigationBarScreen: (BuildContext context) => const NavigationBarScreen(),
     createStudent: (BuildContext context) => const CreateStudentScreen(),
     student: (BuildContext context) => const StudentScreen(),
+    createBatch: (BuildContext context) => const CreateBatch(),
+    createNotice: (BuildContext context) => const CreateNotice(),
+    noticeList: (BuildContext context) => const NoticeList(),
+    profile: (BuildContext context) => const Profile(),
+    newsBlogs: (BuildContext context) => const NewsBlogs(),
+    settings: (BuildContext context) => const Settings(),
+    support: (BuildContext context) => const Support(),
+    termsConditions: (BuildContext context) => const TermsConditions(),
+    privacyPolicy: (BuildContext context) => const PrivacyPolicy(),
+    packageMenu: (BuildContext context) => const PackageMenu(),
 
     // signup: (BuildContext context) => const SignupScreen(),
     // orderRequest: (BuildContext context) => OrderRequestScreen(),

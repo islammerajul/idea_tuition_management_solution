@@ -193,9 +193,7 @@ class _DashboardState extends State<Dashboard> {
                           icon: "assets/person.svg",
                           task: "Create Batch",
                           onTap: (){
-                            //Navigator.of(context).push(MaterialPageRoute(builder: (_)=>CreateOrders()));
-                            //Navigator.of(context).push(MaterialPageRoute(builder: (_)=>OrderListScreen()));
-                            //Navigator.pushNamed(context, '/create-order');
+                            Navigator.pushNamed(context, Routes.createBatch);
                           },
                         ),
                       ),
@@ -224,6 +222,9 @@ class _DashboardState extends State<Dashboard> {
                         child: TaskWidget(
                           icon: "assets/person.svg",
                           task: "Create Notice",
+                          onTap: (){
+                            Navigator.pushNamed(context, Routes.createNotice);
+                          },
                         ),
                       ),
                     ],

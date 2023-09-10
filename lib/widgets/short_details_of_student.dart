@@ -113,7 +113,9 @@ class _ShortDetailsOfStudentState extends State<ShortDetailsOfStudent> {
               width: 175,
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
-                  color: CustomColors.AppBarColor),
+                  color: CustomColors.AppBarColor,
+                border: Border.all(color: CustomColors.White,width: 0.1)
+              ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [

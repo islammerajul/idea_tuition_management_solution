@@ -104,9 +104,10 @@ class _StudentScreenState extends State<StudentScreen> {
                       Expanded(
                         flex: 1,
                         child: DashboardBox(
-                          height: 125,
-                          title: "All Customer",
+                          title: "Total Student",
                           value: "22",
+                          textStyle: CustomTextStyle.subtitle2,
+                          colorOfValueField: CustomColors.titleBlack,
                         ),
                       ),
                       SizedBox(
@@ -115,9 +116,10 @@ class _StudentScreenState extends State<StudentScreen> {
                       Expanded(
                         flex: 1,
                         child: DashboardBox(
-                          height: 125,
-                          title: "Active \nCustomer",
+                          title: "Total Active Student",
                           value: "50",
+                          textStyle: CustomTextStyle.subtitle2,
+                          colorOfValueField: CustomColors.titleBlack,
                         ),
                       ),
                     ],
@@ -130,9 +132,10 @@ class _StudentScreenState extends State<StudentScreen> {
                       Expanded(
                         flex: 1,
                         child: DashboardBox(
-                          height: 125,
-                          title: "Inactive Customers",
+                          title: "Active Students",
                           value: "50",
+                          textStyle: CustomTextStyle.subtitle2,
+                          colorOfValueField: CustomColors.titleBlack,
                         ),
                       ),
                       SizedBox(
@@ -141,9 +144,10 @@ class _StudentScreenState extends State<StudentScreen> {
                       Expanded(
                         flex: 1,
                         child: DashboardBox(
-                          height: 125,
-                          title: "Vendor Customer",
+                          title: "Active Batch",
                           value: "35",
+                          textStyle: CustomTextStyle.subtitle2,
+                          colorOfValueField: CustomColors.titleBlack,
                         ),
                       ),
                     ],
@@ -165,7 +169,7 @@ class _StudentScreenState extends State<StudentScreen> {
                           child: TaskWidget(
                             height: 53,
                             icon: "assets/person.svg",
-                            task: "Create \nCustomer",
+                            task: "Create Students",
                           )),
                       SizedBox(
                         width: 20,
@@ -175,7 +179,7 @@ class _StudentScreenState extends State<StudentScreen> {
                         child: TaskWidget(
                           height: 53,
                           icon: "assets/person.svg",
-                          task: "Create Orders",
+                          task: "Delete  Student",
                           onTap: (){
                             //Navigator.of(context).push(MaterialPageRoute(builder: (_)=>CreateOrders()));
                             //Navigator.of(context).push(MaterialPageRoute(builder: (_)=>OrderListScreen()));
@@ -195,7 +199,7 @@ class _StudentScreenState extends State<StudentScreen> {
                           child: TaskWidget(
                             height: 53,
                             icon: "assets/person.svg",
-                            task: "Create Task",
+                            task: "Edit Student",
                             onTap: (){
                               //Navigator.of(context).push(MaterialPageRoute(builder: (_)=>CreateOrders()));
                               //Navigator.pushNamed(context, Routes.showConfirmedOrders);
@@ -209,7 +213,7 @@ class _StudentScreenState extends State<StudentScreen> {
                         child: TaskWidget(
                           height: 53,
                           icon: "assets/person.svg",
-                          task: "Create \nVendors",
+                          task: "Student add to batch",
                         ),
                       ),
                     ],

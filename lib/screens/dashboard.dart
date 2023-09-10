@@ -125,6 +125,8 @@ class _DashboardState extends State<Dashboard> {
                         child: DashboardBox(
                           title: "Today’s class",
                           value: "22",
+                          textStyle: CustomTextStyle.subtitle2,
+                          colorOfValueField: CustomColors.titleBlack,
                         ),
                       ),
                       SizedBox(
@@ -135,6 +137,8 @@ class _DashboardState extends State<Dashboard> {
                         child: DashboardBox(
                           title: "Today’s Batch",
                           value: "50",
+                          textStyle: CustomTextStyle.subtitle2,
+                          colorOfValueField: CustomColors.titleBlack,
                         ),
                       ),
                     ],
@@ -149,6 +153,8 @@ class _DashboardState extends State<Dashboard> {
                         child: DashboardBox(
                           title: "Active Students",
                           value: "50",
+                          textStyle: CustomTextStyle.subtitle2,
+                          colorOfValueField: CustomColors.titleBlack,
                         ),
                       ),
                       SizedBox(
@@ -159,6 +165,8 @@ class _DashboardState extends State<Dashboard> {
                         child: DashboardBox(
                           title: "Active Batch",
                           value: "35",
+                          textStyle: CustomTextStyle.subtitle2,
+                          colorOfValueField: CustomColors.titleBlack,
                         ),
                       ),
                     ],

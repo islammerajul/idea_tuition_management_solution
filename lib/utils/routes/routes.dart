@@ -15,6 +15,13 @@ import 'package:idea_tuition_managment_app/screens/menu_journey/terms_conditions
 import 'package:idea_tuition_managment_app/screens/notice_journey/create_notice.dart';
 import 'package:idea_tuition_managment_app/screens/create_student.dart';
 import 'package:idea_tuition_managment_app/screens/notice_journey/notice_list.dart';
+import 'package:idea_tuition_managment_app/screens/student_portal_screens/edit_student_profile.dart';
+import 'package:idea_tuition_managment_app/screens/student_portal_screens/student_attendence.dart';
+import 'package:idea_tuition_managment_app/screens/student_portal_screens/student_dashboard.dart';
+import 'package:idea_tuition_managment_app/screens/student_portal_screens/student_leave.dart';
+import 'package:idea_tuition_managment_app/screens/student_portal_screens/student_navigation_bar.dart';
+import 'package:idea_tuition_managment_app/screens/student_portal_screens/student_profile.dart';
+import 'package:idea_tuition_managment_app/screens/student_portal_screens/today_schedule.dart';
 import 'package:idea_tuition_managment_app/screens/student_screen.dart';
 import 'package:idea_tuition_managment_app/screens/tuition_fees_screen.dart';
 import 'package:idea_tuition_managment_app/screens/navigation_bar.dart';
@@ -44,6 +51,13 @@ class Routes {
   static const String termsConditions = '/terms-conditions';
   static const String privacyPolicy = '/privacy-policy';
   static const String packageMenu = '/package-menu';
+  static const String studentPortalDashboard = '/student-portalDashboard';
+  static const String scheduleOfToday = '/schedule-OfToday';
+  static const String studentProfile = '/student-profile';
+  static const String editStudentProfile = '/edit-studentProfile';
+  static const String studentAttendance = '/student-attendance';
+  static const String studentNavigationBar = '/student-navigationBar';
+  static const String studentLeave = '/student-leave';
   // static const String coreNavigation = '/core-navigation';
   // static const String orderRequest = '/order-request';
   // static const String createCustomer = '/create-customer';
@@ -82,6 +96,13 @@ class Routes {
     termsConditions: (BuildContext context) => const TermsConditions(),
     privacyPolicy: (BuildContext context) => const PrivacyPolicy(),
     packageMenu: (BuildContext context) => const PackageMenu(),
+    studentPortalDashboard: (BuildContext context) => const StudentPortalDashboard(),
+    scheduleOfToday: (BuildContext context) => const TodaySchedulScreen(),
+    studentProfile: (BuildContext context) => const StudentProfileScreen(),
+    editStudentProfile: (BuildContext context) => const EditStudentProfile(),
+    studentAttendance: (BuildContext context) => const StudentAttendanceScreen(),
+    studentNavigationBar: (BuildContext context) => const StudentNavigationBar(),
+    studentLeave: (BuildContext context) => const StudentLeave(),
 
     // signup: (BuildContext context) => const SignupScreen(),
     // orderRequest: (BuildContext context) => OrderRequestScreen(),

@@ -85,7 +85,7 @@ class _TuitionFeesScreenState extends State<TuitionFeesScreen> {
           child: Padding(
             padding: const EdgeInsets.only(top: 24, left: 16, right: 16),
             child: Container(
-              height: MediaQuery.of(context).size.height,
+              //height: MediaQuery.of(context).size.height,
               child:
                   Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
                 Row(
@@ -101,6 +101,7 @@ class _TuitionFeesScreenState extends State<TuitionFeesScreen> {
                     Expanded(
                       flex: 2,
                       child: DropdownButtonFormField(
+                        iconEnabledColor: CustomColors.White,
 //dropdownColor: Colors.blue,
                           decoration: InputDecoration.collapsed(hintText: ''),
                           hint: Text(
@@ -128,10 +129,12 @@ class _TuitionFeesScreenState extends State<TuitionFeesScreen> {
                     Expanded(
                       flex: 1,
                       child: DashboardBox(
-//height: 125,
                         title: "Total collected Fee ",
                         value: "200000",
                         showCurrencyType: true,
+                        staticValue: 'TAKA',
+                        textStyle: CustomTextStyle.subtitle2,
+                        colorOfValueField: CustomColors.titleBlack,
                       ),
                     ),
                     SizedBox(
@@ -140,10 +143,12 @@ class _TuitionFeesScreenState extends State<TuitionFeesScreen> {
                     Expanded(
                       flex: 1,
                       child: DashboardBox(
-//height: 125,
                         title: "Total Due’s",
                         value: "16000",
                         showCurrencyType: true,
+                        staticValue: 'TAKA',
+                        textStyle: CustomTextStyle.subtitle2,
+                        colorOfValueField: CustomColors.titleBlack,
                       ),
                     ),
                   ],
@@ -156,9 +161,10 @@ class _TuitionFeesScreenState extends State<TuitionFeesScreen> {
                     Expanded(
                       flex: 1,
                       child: DashboardBox(
-                        height: 125,
                         title: "Active Students",
                         value: "248",
+                        textStyle: CustomTextStyle.subtitle2,
+                        colorOfValueField: CustomColors.titleBlack,
                       ),
                     ),
                     SizedBox(
@@ -169,9 +175,10 @@ class _TuitionFeesScreenState extends State<TuitionFeesScreen> {
                       child: InkWell(
                         onTap: () {},
                         child: DashboardBox(
-                          height: 125,
                           title: "Active Batches",
                           value: "14",
+                          textStyle: CustomTextStyle.subtitle2,
+                          colorOfValueField: CustomColors.titleBlack,
                         ),
                       ),
                     ),

@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'package:idea_tuition_managment_app/screens/attendence.dart';
 import 'package:idea_tuition_managment_app/screens/auth_module/student/student_login.dart';
 import 'package:idea_tuition_managment_app/screens/auth_module/student/student_signup.dart';
 import 'package:idea_tuition_managment_app/screens/auth_module/teacher/teacher_login.dart';
@@ -58,6 +59,7 @@ class Routes {
   static const String studentAttendance = '/student-attendance';
   static const String studentNavigationBar = '/student-navigationBar';
   static const String studentLeave = '/student-leave';
+  static const String attendence = '/attendence';
   // static const String coreNavigation = '/core-navigation';
   // static const String orderRequest = '/order-request';
   // static const String createCustomer = '/create-customer';
@@ -103,6 +105,7 @@ class Routes {
     studentAttendance: (BuildContext context) => const StudentAttendanceScreen(),
     studentNavigationBar: (BuildContext context) => const StudentNavigationBar(),
     studentLeave: (BuildContext context) => const StudentLeave(),
+    attendence: (BuildContext context) => const AttendenceScreen(),
 
     // signup: (BuildContext context) => const SignupScreen(),
     // orderRequest: (BuildContext context) => OrderRequestScreen(),

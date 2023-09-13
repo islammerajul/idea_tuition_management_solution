@@ -22,6 +22,7 @@ class CreateStudentScreen extends StatefulWidget {
 class _CreateStudentScreenState extends State<CreateStudentScreen> {
   final GlobalKey<FormState> _formkey = GlobalKey<FormState>();
   TextEditingController _fullNameController = TextEditingController();
+  TextEditingController _phoneController = TextEditingController();
   TextEditingController _dateController = TextEditingController();
   TextEditingController _institutionNameController = TextEditingController();
 
@@ -86,7 +87,7 @@ class _CreateStudentScreenState extends State<CreateStudentScreen> {
                           fontWeight: FontWeight.w400,
                           color: Color(0xffCCDADC),
                         ),
-                        controller: _fullNameController,
+                        controller: _phoneController,
                         keyboardType: TextInputType.phone,
                         maxLength: 11,
                         validator: (value) {
@@ -333,9 +334,9 @@ class _CreateStudentScreenState extends State<CreateStudentScreen> {
                                 desTitle: 'Student added',
                                 headerTitleColor: Color(0xff0BC974),
                                 callbackForAdd: (){
-                              Navigator.pushNamed(context, Routes.createStudent);
+                              Navigator.pushReplacementNamed(context, Routes.createStudent);
                                 }, callbackForCancled: (){
-                                  Navigator.pushNamed(context, Routes.navigationBarScreen);
+                                  Navigator.pushReplacementNamed(context, Routes.navigationBarScreen);
                             });
                             //Navigator.pushNamed(context, Routes.navigationBarScreen);
                           } else {

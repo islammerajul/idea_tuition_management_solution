@@ -41,8 +41,9 @@ class _CustomScheduleState extends State<CustomSchedule> {
                 ],
               ),
             ),
+
             Expanded(
-                flex: 4,
+                flex: 3,
                 child: Container(
                   height: 60,
                   width: double.infinity,

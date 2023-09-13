@@ -140,9 +140,9 @@ class _CreateBatchState extends State<CreateBatch> {
                                 desTitle: 'Create a batch successfully',
                                 headerTitleColor: Color(0xff0BC974),
                                 callbackForAdd: (){
-                                  Navigator.pushNamed(context, Routes.createBatch);
+                                  Navigator.pushReplacementNamed(context, Routes.createBatch);
                                 }, callbackForCancled: (){
-                                  Navigator.pushNamed(context, Routes.navigationBarScreen);
+                                  Navigator.pushReplacementNamed(context, Routes.navigationBarScreen);
                                 });
                             //Navigator.pushNamed(context, Routes.navigationBarScreen);
                           } else {

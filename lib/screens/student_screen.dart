@@ -170,6 +170,9 @@ class _StudentScreenState extends State<StudentScreen> {
                             height: 53,
                             icon: "assets/person.svg",
                             task: "Create Students",
+                            onTap: (){
+                              Navigator.pushReplacementNamed(context, Routes.createStudent);
+                            },
                           )),
                       SizedBox(
                         width: 20,
@@ -285,90 +288,98 @@ class _StudentScreenState extends State<StudentScreen> {
               topRight: Radius.circular(10.0),
             ),
           ),
-          child: SingleChildScrollView(
-            scrollDirection: Axis.vertical,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  "Search Students",
-                  style: TextStyle(
-                      color: CustomColors.White, fontSize: 21,fontWeight: FontWeight.w400),
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-                Text(
-                  "Search Students",
-                  style: TextStyle(
-                      color: CustomColors.White, fontSize: 15,fontWeight: FontWeight.w400),
-                ),
-                SizedBox(
-                  height: 20,
-                ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "Search Students",
+                      style: TextStyle(
+                          color: CustomColors.White, fontSize: 21,fontWeight: FontWeight.w400),
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Text(
+                      "Search Students",
+                      style: TextStyle(
+                          color: CustomColors.White, fontSize: 15,fontWeight: FontWeight.w400),
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
 
-                Container(
-                  height: 42,
-                  width: double.infinity,
-                  child: Row(
-                    mainAxisAlignment:
-                    MainAxisAlignment.spaceBetween,
-                    children: [
-                      Expanded(
-                        flex: 8,
-                        child: Container(
-                          height: 42,
-                          //width: 275,
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(5),
-                              color: Color(0xffFFFFFF)),
-                          child: Row(
-                            mainAxisAlignment:
-                            MainAxisAlignment.spaceBetween,
-                            children: [
-                              Expanded(
-                                  flex: 1,
-                                  child: Icon(
-                                    Icons.search,
-                                    size: 20,
-                                  )),
-                              Expanded(
-                                flex: 7,
-                                child: TextField(
-                                  decoration: InputDecoration(
-                                    border: InputBorder.none,
-                                    hintText:
-                                    'Search a doctor or health issue',
-                                    hintStyle: CustomTextStyle.field
-                                        .copyWith(
-                                        fontWeight: FontWeight.w100),
+                    Container(
+                      height: 42,
+                      width: double.infinity,
+                      child: Row(
+                        mainAxisAlignment:
+                        MainAxisAlignment.spaceBetween,
+                        children: [
+                          Expanded(
+                            flex: 8,
+                            child: Container(
+                              height: 42,
+                              //width: 275,
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(5),
+                                  color: Color(0xffFFFFFF)),
+                              child: Row(
+                                mainAxisAlignment:
+                                MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Expanded(
+                                      flex: 1,
+                                      child: Icon(
+                                        Icons.search,
+                                        size: 20,
+                                      )),
+                                  Expanded(
+                                    flex: 7,
+                                    child: TextField(
+                                      decoration: InputDecoration(
+                                        border: InputBorder.none,
+                                        hintText:
+                                        'Search a doctor or health issue',
+                                        hintStyle: CustomTextStyle.field
+                                            .copyWith(
+                                            fontWeight: FontWeight.w100),
+                                      ),
+                                    ),
                                   ),
-                                ),
+                                ],
                               ),
-                            ],
+                            ),
                           ),
-                        ),
+                          SizedBox(
+                            width: 5,
+                          ),
+                          Expanded(
+                            flex: 1,
+                            child: SvgPicture.asset(
+                              "assets/filter.svg",
+                              height: 42,
+                              width: 31,
+                            ),
+                          ),
+                        ],
                       ),
-                  SizedBox(
-                    width: 5,
-                  ),
-                  Expanded(
-                    flex: 1,
-                    child: SvgPicture.asset(
-                            "assets/filter.svg",
-                            height: 42,
-                            width: 31,
-                          ),
-                  ),
-                    ],
-                  ),
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                  ],
                 ),
-                SizedBox(
-                  height: 20,
-                ),
-                Container(
-                  padding: const EdgeInsets.only(
-                      top: 20, left: 26, right: 16, bottom: 20),
+              ),
+              Container(
+                height: 300,
+                padding: const EdgeInsets.only(
+                    top: 20, left: 26, right: 16, bottom: 20),
+                child: SingleChildScrollView(
+                  scrollDirection: Axis.vertical,
                   child: GridView.builder(
                     physics: NeverScrollableScrollPhysics(),
                       scrollDirection: Axis.vertical,
@@ -385,37 +396,40 @@ class _StudentScreenState extends State<StudentScreen> {
                         return Stack(
                           clipBehavior: Clip.none,
                           children: [
-                            Container(
-                              padding: EdgeInsets.only(left: 30),
+                            Padding(
+                              padding: const EdgeInsets.only(left: 25),
+                              child: Container(
+                                padding: EdgeInsets.only(left: 30),
 
-                              //height: 50,
-                              width: double.infinity,
-                              decoration: BoxDecoration(
-                                  borderRadius:
-                                  BorderRadius.circular(
-                                      5),
-                                  color:
-                                  CustomColors.White),
-                              child: Column(
-                                crossAxisAlignment:
-                                CrossAxisAlignment
-                                    .start,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    "Naimul Hassan Noor",style: TextStyle(fontSize: 13, fontWeight: FontWeight.w500,color: Colors.black),),
-                                  SizedBox(
-                                    height: 4,
-                                  ),
-                                  Text(
-                                    "Batch : 21 (Inter-Morning)",style: TextStyle(fontSize: 9, fontWeight: FontWeight.w400,color: Color(0xffb2b2b2)),),
-                                ],
+                                //height: 50,
+                                width: double.infinity,
+                                decoration: BoxDecoration(
+                                    borderRadius:
+                                    BorderRadius.circular(
+                                        5),
+                                    color:
+                                    CustomColors.White),
+                                child: Column(
+                                  crossAxisAlignment:
+                                  CrossAxisAlignment
+                                      .start,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      "Naimul Hassan Noor",style: TextStyle(fontSize: 13, fontWeight: FontWeight.w500,color: Colors.black),),
+                                    SizedBox(
+                                      height: 4,
+                                    ),
+                                    Text(
+                                      "Batch : 21 (Inter-Morning)",style: TextStyle(fontSize: 9, fontWeight: FontWeight.w400,color: Color(0xffb2b2b2)),),
+                                  ],
+                                ),
                               ),
                             ),
                             Positioned(
                               top: 0,
                               bottom: 0,
-                              left: -22,
+                              left: 2,
                               child: CircleAvatar(
                                 radius: 22,
                                 backgroundImage: AssetImage("assets/imgs/person.jpg",),
@@ -425,12 +439,12 @@ class _StudentScreenState extends State<StudentScreen> {
                         );
                       }),
                 ),
-                SizedBox(
-                  height: 20,
-                ),
+              ),
+              SizedBox(
+                height: 20,
+              ),
 
-              ],
-            ),
+            ],
           ),
         ));
   }

@@ -90,7 +90,7 @@ class _CreateNoticeState extends State<CreateNotice> {
                                 headerTitleColor: Color(0xff0BC974),
                                  callback: () {
                                   //Navigator.pushNamed(context, Routes.navigationBarScreen);
-                                  Navigator.pushNamed(context, Routes.noticeList);
+                                  Navigator.pushReplacementNamed(context, Routes.noticeList);
                                 });
                             //Navigator.pushNamed(context, Routes.navigationBarScreen);
                           } else {

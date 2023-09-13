@@ -222,7 +222,7 @@ class _StudentPortalDashboardState extends State<StudentPortalDashboard> {
                             iconColor: Colors.white,
                             textColor: CustomColors.White,
                             onTap: (){
-                              Navigator.pushNamed(context, Routes.createBatch);
+                              //Navigator.pushNamed(context, Routes.createBatch);
                             },
                           ),
                         ),

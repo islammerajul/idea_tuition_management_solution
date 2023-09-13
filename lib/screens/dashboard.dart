@@ -100,6 +100,7 @@ class _DashboardState extends State<Dashboard> {
                       Expanded(
                         flex: 2,
                         child: DropdownButtonFormField(
+                          iconEnabledColor: CustomColors.White,
                           //dropdownColor: Colors.blue,
                             decoration: InputDecoration.collapsed(hintText: ''),
                             hint: Text("Today",style: CustomTextStyle.field.copyWith(color: CustomColors.White),),
@@ -174,6 +175,7 @@ class _DashboardState extends State<Dashboard> {
                   SizedBox(
                     height: 27,
                   ),
+
                   Text(
                     "Task",
                     style: CustomTextStyle.field.copyWith(color: CustomColors.White),
@@ -189,7 +191,7 @@ class _DashboardState extends State<Dashboard> {
                             icon: "assets/person.svg",
                             task: "Create Students",
                             onTap: (){
-                              Navigator.pushNamed(context, Routes.createStudent);
+                              Navigator.pushReplacementNamed(context, Routes.createStudent);
                             },
                           )),
                       SizedBox(
@@ -201,7 +203,7 @@ class _DashboardState extends State<Dashboard> {
                           icon: "assets/person.svg",
                           task: "Create Batch",
                           onTap: (){
-                            Navigator.pushNamed(context, Routes.createBatch);
+                            Navigator.pushReplacementNamed(context, Routes.createBatch);
                           },
                         ),
                       ),
@@ -231,7 +233,7 @@ class _DashboardState extends State<Dashboard> {
                           icon: "assets/person.svg",
                           task: "Create Notice",
                           onTap: (){
-                            Navigator.pushNamed(context, Routes.createNotice);
+                            Navigator.pushReplacementNamed(context, Routes.createNotice);
                           },
                         ),
                       ),

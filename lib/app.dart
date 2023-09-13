@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:idea_tuition_managment_app/screens/attendence.dart';
 import 'package:idea_tuition_managment_app/screens/splash_screen.dart';
 import 'package:idea_tuition_managment_app/services/navigation_service.dart';
 import 'package:idea_tuition_managment_app/stores/language/language_store.dart';
@@ -64,6 +65,7 @@ class _MyAppState extends State<MyApp> {
               AppLocalizations.delegate,
             ],
             home: const SplashScreen(),
+            //home: AttendenceScreen(),
           );
         },
       ),

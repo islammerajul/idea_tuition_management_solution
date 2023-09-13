@@ -20,6 +20,7 @@ class _TeacherLoginScreenState extends State<TeacherLoginScreen> {
   TextEditingController _passwordController = TextEditingController();
 
   bool select_account = false;
+  bool passwordVisible = true;
 
   @override
   Widget build(BuildContext context) {
@@ -173,13 +174,37 @@ class _TeacherLoginScreenState extends State<TeacherLoginScreen> {
                           hintStyle: TextStyle(fontSize: 14,fontWeight: FontWeight.w400,color: Color(0xffCCDADC),),
                           controller: _passwordController,
                           keyboardType: TextInputType.emailAddress,
-                          obscureText: true,
+                          obscureText: passwordVisible,
                           obscuringCharacter: '*',
                           maxLines: 1,
                           //maxLength: 11,
+                          suffixIcon: IconButton(
+                            icon: Icon(passwordVisible
+                                ? Icons.visibility_off
+                                : Icons.visibility,color: CustomColors.White,),
+                            onPressed: () {
+                              setState(
+                                    () {
+                                  passwordVisible = !passwordVisible;
+                                },
+                              );
+                            },
+                          ),
                           validator: (value) {
-                            if (value!.isEmpty) {
-                              return "Please enter your password";
+                            RegExp regex = RegExp(
+                                r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$');
+                            if (value.isEmpty) {
+                              return 'Please enter password';
+                            } else {
+                              if (value.toString().length < 8) {
+                                return 'Password must be 8 characters';
+                              }
+                              if (!regex.hasMatch(value)) {
+                                return 'Enter valid password';
+                              }
+                              else {
+                                return null;
+                              }
                             }
                           }),
 

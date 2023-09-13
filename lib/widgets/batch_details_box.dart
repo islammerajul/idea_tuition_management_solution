@@ -39,13 +39,18 @@ class _BatchDetailsBoxState extends State<BatchDetailsBox> {
           ),
           Row(
             children: [
-              SvgPicture.asset("assets/info_icon/Calendar.svg"),
+              Expanded(
+                flex: 1,
+                  child: SvgPicture.asset("assets/info_icon/Calendar.svg")),
               SizedBox(
                 width: 5,
               ),
-              AutoSizeText(
-                "SAN,MON,WED",
-                style: CustomTextStyle.field.copyWith(color: CustomColors.White,fontWeight: FontWeight.w300),
+              Expanded(
+                flex: 5,
+                child: AutoSizeText(
+                  "SAN,MON,WED",
+                  style: CustomTextStyle.field.copyWith(color: CustomColors.White,fontWeight: FontWeight.w300),
+                ),
               ),
             ],
           ),
@@ -70,13 +75,18 @@ class _BatchDetailsBoxState extends State<BatchDetailsBox> {
           ),
           Row(
             children: [
-              // SvgPicture.asset("assets/info_icon/User_cicrle.svg"),
-              // SizedBox(
-              //   width: 5,
-              // ),
-              AutoSizeText(
-                "Naimul Hassan Noor",
-                style: CustomTextStyle.field.copyWith(color: CustomColors.White,fontWeight: FontWeight.w300),
+              Expanded(
+                  flex: 1,
+                  child: SvgPicture.asset("assets/info_icon/User_cicrle.svg")),
+              SizedBox(
+                width: 5,
+              ),
+              Expanded(
+                flex: 5,
+                child: AutoSizeText(
+                  "Naimul Hassan Noor",
+                  style: CustomTextStyle.field.copyWith(color: CustomColors.White,fontWeight: FontWeight.w300),
+                ),
               ),
             ],
           )

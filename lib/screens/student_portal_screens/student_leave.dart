@@ -72,7 +72,7 @@ class _StudentLeaveState extends State<StudentLeave> {
                         height: 460,
                         width: double.infinity,
                         decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(20),
+                          borderRadius: BorderRadius.circular(5),
                           color: Colors.white,
                         ),
                         child: InkWell(
@@ -135,7 +135,7 @@ class _StudentLeaveState extends State<StudentLeave> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            "Gender",
+                            "Leave Type",
                             style: TextStyle(
                                 fontWeight: FontWeight.w400,
                                 fontSize: 16,
@@ -178,7 +178,7 @@ class _StudentLeaveState extends State<StudentLeave> {
                         height: 20,
                       ),
                       TextFormFieldWidget(
-                          headerName: 'Leave Decs',
+                          headerName: 'Description',
                           //hint: "Type Your Username",
                           hintStyle: TextStyle(
                             fontSize: 14,

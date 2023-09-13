@@ -11,7 +11,7 @@ class TextFormFieldWidget extends StatelessWidget {
       this.controller,
       this.suffixIcon,
       this.prefix,
-      this.obscureText = false,
+      this.obscureText,
       this.headerName,
       this.keyboardType,
       this.style,

@@ -10,13 +10,20 @@ import 'package:idea_tuition_managment_app/widgets/student_id_box.dart';
 import 'package:idea_tuition_managment_app/widgets/student_info_box.dart';
 
 class StudentProfileScreen extends StatefulWidget {
-  const StudentProfileScreen({super.key});
+ const StudentProfileScreen({super.key});
+  //String? father_name, mother_name, phone_number;
 
   @override
   State<StudentProfileScreen> createState() => _StudentProfileScreenState();
 }
 
 class _StudentProfileScreenState extends State<StudentProfileScreen> {
+  String fatherName = 'Mr.Alam';
+  String motherName = 'Nasrin Sultana Ahmend Nib';
+  String phoneNumber = '01733433672';
+  String gender = 'Male';
+  String DOB = '16-09-2023';
+  String address = '1659,Palashpur, Dani,Dhaka-1236';
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -73,7 +80,7 @@ class _StudentProfileScreenState extends State<StudentProfileScreen> {
                             padding: const EdgeInsets.only(bottom: 12),
                             child: StudentInfoBox(
                               title: 'Date of Birth',
-                              value: '16-09-2023',
+                              value: DOB,
                               icon: "assets/info_icon/Calendar.svg",
                             ),
                           ),
@@ -81,7 +88,7 @@ class _StudentProfileScreenState extends State<StudentProfileScreen> {
                             padding: const EdgeInsets.only(bottom: 12),
                             child: StudentInfoBox(
                               title: 'Gender',
-                              value: 'Male',
+                              value: gender,
                               icon: "assets/info_icon/share.svg",
                             ),
                           ),
@@ -97,7 +104,7 @@ class _StudentProfileScreenState extends State<StudentProfileScreen> {
                             padding: const EdgeInsets.only(bottom: 12),
                             child: StudentInfoBox(
                               title: "Father's Name",
-                              value: 'Mr.Alam',
+                              value: fatherName,
                               icon: "assets/info_icon/User_cicrle_duotone_line.svg",
                             ),
                           ),
@@ -105,7 +112,7 @@ class _StudentProfileScreenState extends State<StudentProfileScreen> {
                             padding: const EdgeInsets.only(bottom: 12),
                             child: StudentInfoBox(
                               title: "Mother's Name",
-                              value: 'Nasrin Sultana Ahmend Nib',
+                              value: motherName,
                               icon: "assets/info_icon/User_cicrle_duotone_line.svg",
                             ),
                           ),
@@ -113,7 +120,7 @@ class _StudentProfileScreenState extends State<StudentProfileScreen> {
                             padding: const EdgeInsets.only(bottom: 12),
                             child: StudentInfoBox(
                               title: "Parent's phone",
-                              value: '01733433672',
+                              value: phoneNumber,
                               icon: "assets/info_icon/Phone.svg",
                             ),
                           ),
@@ -121,7 +128,7 @@ class _StudentProfileScreenState extends State<StudentProfileScreen> {
                             padding: const EdgeInsets.only(bottom: 12),
                             child: StudentInfoBox(
                               title: 'Address',
-                              value: '1659,Palashpur, Dani,Dhaka-1236',
+                              value: address,
                               icon: "assets/info_icon/Map.svg",
                             ),
                           ),
@@ -139,12 +146,11 @@ class _StudentProfileScreenState extends State<StudentProfileScreen> {
                       height: 20,
                     ),
                     GridView.builder(gridDelegate:
-
                         const SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: 2,
                         mainAxisSpacing: 21.0,
                         crossAxisSpacing: 20.0,
-                        childAspectRatio: 1/1.2
+                        childAspectRatio: 1/1.3
                     ),
                         //physics: NeverScrollableScrollPhysics(),
                         scrollDirection: Axis.vertical,
@@ -161,8 +167,14 @@ class _StudentProfileScreenState extends State<StudentProfileScreen> {
                     ),
                     CustomButton(
                         onTap: ()  {
-
-                            Navigator.pushNamed(context, Routes.editStudentProfile);
+                          Navigator.pushNamed(context, Routes.editStudentProfile, arguments: {
+                              'father_name' : fatherName,
+                              'mother_name' : motherName,
+                              'phone_number' : phoneNumber,
+                              'DOB' : DOB,
+                              'gender' : gender,
+                            'address' : address
+                            });
 
                         },
                         //onTap: login,

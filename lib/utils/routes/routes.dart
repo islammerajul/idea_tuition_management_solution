@@ -100,7 +100,7 @@ class Routes {
     packageMenu: (BuildContext context) => const PackageMenu(),
     studentPortalDashboard: (BuildContext context) => const StudentPortalDashboard(),
     scheduleOfToday: (BuildContext context) => const TodaySchedulScreen(),
-    studentProfile: (BuildContext context) => const StudentProfileScreen(),
+    studentProfile: (BuildContext context) =>  StudentProfileScreen(),
     editStudentProfile: (BuildContext context) => const EditStudentProfile(),
     studentAttendance: (BuildContext context) => const StudentAttendanceScreen(),
     studentNavigationBar: (BuildContext context) => const StudentNavigationBar(),

@@ -4,6 +4,7 @@ import 'package:idea_tuition_managment_app/constants/colors.dart';
 import 'package:idea_tuition_managment_app/style/custom_text_style.dart';
 import 'package:idea_tuition_managment_app/utils/routes/routes.dart';
 import 'package:idea_tuition_managment_app/widgets/custom_button.dart';
+import 'package:idea_tuition_managment_app/widgets/dialogs/show_error_dialog.dart';
 import 'package:idea_tuition_managment_app/widgets/text_form_field_widget.dart';
 
 class TeacherSignupScreen extends StatefulWidget {
@@ -20,6 +21,11 @@ class _TeacherSignupScreenState extends State<TeacherSignupScreen> {
   TextEditingController _passwordController = TextEditingController();
   TextEditingController _confirmPasswordController = TextEditingController();
   TextEditingController _phoneNumController = TextEditingController();
+
+  bool passwordVisible = true;
+  bool confirmPasswordVisible = true;
+
+  CustomSEdialog dialog = CustomSEdialog();
 
   @override
   Widget build(BuildContext context) {
@@ -75,7 +81,7 @@ class _TeacherSignupScreenState extends State<TeacherSignupScreen> {
                             hint: "Please enter your Full name",
                             hintStyle: TextStyle(fontSize: 14,fontWeight: FontWeight.w400,color: Color(0xffCCDADC),),
                             controller: _nameController,
-                            keyboardType: TextInputType.emailAddress,
+                            keyboardType: TextInputType.text,
                             //maxLength: 11,
                             validator: (value) {
                               if (value!.isEmpty) {
@@ -90,8 +96,8 @@ class _TeacherSignupScreenState extends State<TeacherSignupScreen> {
                             hint: "Type Your phone number",
                             hintStyle: TextStyle(fontSize: 14,fontWeight: FontWeight.w400,color: Color(0xffCCDADC),),
                             controller: _phoneNumController,
-                            keyboardType: TextInputType.emailAddress,
-                            //maxLength: 11,
+                            keyboardType: TextInputType.phone,
+                            maxLength: 11,
                             validator: (value) {
                               if (value!.isEmpty) {
                                 return "Please type Your phone number";
@@ -111,6 +117,9 @@ class _TeacherSignupScreenState extends State<TeacherSignupScreen> {
                               if (value!.isEmpty) {
                                 return "Please type Your Email ";
                               }
+                              if (!value.contains("@")) {
+                                return "Invalid Email ";
+                              }
                             }),
                         SizedBox(
                           height: 15,
@@ -121,13 +130,37 @@ class _TeacherSignupScreenState extends State<TeacherSignupScreen> {
                             hintStyle: TextStyle(fontSize: 14,fontWeight: FontWeight.w400,color: Color(0xffCCDADC),),
                             controller: _passwordController,
                             keyboardType: TextInputType.emailAddress,
-                            obscureText: true,
+                            obscureText: passwordVisible,
                             obscuringCharacter: '*',
                             maxLines: 1,
                             //maxLength: 11,
+                            suffixIcon: IconButton(
+                              icon: Icon(passwordVisible
+                                  ? Icons.visibility_off
+                                  : Icons.visibility,color: CustomColors.White,),
+                              onPressed: () {
+                                setState(
+                                      () {
+                                    passwordVisible = !passwordVisible;
+                                  },
+                                );
+                              },
+                            ),
                             validator: (value) {
-                              if (value!.isEmpty) {
-                                return "Please enter your password";
+                              RegExp regex = RegExp(
+                                  r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$');
+                              if (value.isEmpty) {
+                                return 'Please enter password';
+                              } else {
+                                if (value.toString().length < 8) {
+                                  return 'Password must be 8 characters';
+                                }
+                                if (!regex.hasMatch(value)) {
+                                  return 'Enter valid password';
+                                }
+                                else {
+                                  return null;
+                                }
                               }
                             }),
                         SizedBox(
@@ -139,13 +172,35 @@ class _TeacherSignupScreenState extends State<TeacherSignupScreen> {
                             hintStyle: TextStyle(fontSize: 14,fontWeight: FontWeight.w400,color: Color(0xffCCDADC),),
                             controller: _confirmPasswordController,
                             keyboardType: TextInputType.emailAddress,
-                            obscureText: true,
+                            obscureText: confirmPasswordVisible,
                             obscuringCharacter: '*',
                             maxLines: 1,
                             //maxLength: 11,
+                            suffixIcon: IconButton(
+                              icon: Icon(confirmPasswordVisible
+                                  ? Icons.visibility_off
+                                  : Icons.visibility,color: CustomColors.White,),
+                              onPressed: () {
+                                setState(
+                                      () {
+                                    confirmPasswordVisible = !confirmPasswordVisible;
+                                  },
+                                );
+                              },
+                            ),
                             validator: (value) {
-                              if (value!.isEmpty) {
-                                return "Please enter your Confirmed password";
+                              RegExp regex = RegExp(
+                                  r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$');
+                              if (value.isEmpty) {
+                                return 'Please enter your Confirmed password';
+                              } else {
+                                if (_passwordController.text !=
+                                    _confirmPasswordController.text) {
+                                  return 'Enter valid password ';
+                                }
+                                else {
+                                  return null;
+                                }
                               }
                             }),
                         SizedBox(
@@ -156,6 +211,18 @@ class _TeacherSignupScreenState extends State<TeacherSignupScreen> {
                               if (_formkey.currentState!.validate()) {
                                 print("All fields are valid");
                                 //_authStore.createEmailSession(_emailController.text, _passwordController.text);
+                                if (_passwordController.text !=
+                                    _confirmPasswordController.text) {
+                                  dialog.seCustomDialog(context,
+                                      headerTitle: 'ERROR',
+                                      desTitle: 'Password doesnot match',
+                                      headerTitleColor: Colors.red, callback: () {
+                                        Navigator.pop(context);
+                                      });
+                                } else {
+                                  Navigator.pushReplacementNamed(
+                                      context, Routes.studentNavigationBar);
+                                }
                               } else {
                                 //_showErrorMessage("Please fill all the data");
                               }

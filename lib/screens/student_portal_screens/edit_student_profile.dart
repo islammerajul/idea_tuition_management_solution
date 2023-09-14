@@ -210,7 +210,7 @@ class _EditStudentProfileState extends State<EditStudentProfile> {
                             if (_formkey.currentState!.validate()) {
                               print("All fields are valid");
                               //Navigator.pushNamed(context, Routes.studentNavigationBar);
-                              //Navigator.pushNamed(context, Routes.studentNavigationBar);
+                              Navigator.pushNamed(context, Routes.studentNavigationBar);
                               //_authStore.createEmailSession(_emailController.text, _passwordController.text);
                             print(_phoneController.text);
                             print(_fatherNameController.text);

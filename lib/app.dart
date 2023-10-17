@@ -9,6 +9,7 @@ import 'package:idea_tuition_managment_app/stores/language/language_store.dart';
 import 'package:idea_tuition_managment_app/stores/theme/theme_store.dart';
 import 'package:idea_tuition_managment_app/utils/locale/app_localization.dart';
 import 'package:idea_tuition_managment_app/utils/routes/routes.dart';
+import 'package:idea_tuition_managment_app/utils/scroll_glow/scroll_glow.dart';
 import 'package:provider/provider.dart';
 
 
@@ -54,6 +55,12 @@ class _MyAppState extends State<MyApp> {
         name: 'global-observer',
         builder: (context) {
           return MaterialApp(
+            builder: (context, child) {
+              return ScrollConfiguration(
+                behavior: MyBehavior(),
+                child: child!,
+              );
+            },
             navigatorKey: getIt<NavigationService>().navigatorKey,
             debugShowCheckedModeBanner: false,
             title: Strings.appName,

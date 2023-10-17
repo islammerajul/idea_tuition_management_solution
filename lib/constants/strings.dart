@@ -2,7 +2,7 @@ class Strings {
   Strings._();
 
   //General
-  static const String appName = "WILIIR";
+  static const String appName = "IDEA";
   //LANGUAGE SELECT PAGE
   static const String languageselectInArab = "الرجاء اختيار اللغة";
   static const String languageSelectInEnglish = "Please Choose Your Language";

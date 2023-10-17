@@ -13,9 +13,9 @@ class ClientAppWrite{
 
    ClientAppWrite(){
      client = Client()
-        .setEndpoint("http://154.26.128.15:8081/v1")
-        .setProject("64803ecd05168065e4f1")
-        .setSelfSigned();
+        .setEndpoint("http://penciltech001.penciltech.xyz:9080/v1")
+        .setProject("652e291be0c85ef77871")
+        .setSelfSigned(status: true); // For self signed certificates, only use for development
 
   }
 

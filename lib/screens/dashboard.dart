@@ -100,7 +100,8 @@ class _DashboardState extends State<Dashboard> {
                       Expanded(
                         flex: 2,
                         child: DropdownButtonFormField(
-                          iconEnabledColor: CustomColors.White,
+                          //iconEnabledColor: CustomColors.White,
+                          iconDisabledColor: Colors.blue,
                           //dropdownColor: Colors.blue,
                             decoration: InputDecoration.collapsed(hintText: ''),
                             hint: Text("Today",style: CustomTextStyle.field.copyWith(color: CustomColors.White),),

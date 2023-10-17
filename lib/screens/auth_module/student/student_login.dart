@@ -169,7 +169,7 @@ class _StudentLoginScreenState extends State<StudentLoginScreen> {
                           controller: _passwordController,
                           keyboardType: TextInputType.emailAddress,
                           obscureText: passwordVisible,
-                          obscuringCharacter: '*',
+                          //obscuringCharacter: '.',
                           maxLines: 1,
                           //maxLength: 11,
                           suffixIcon: IconButton(

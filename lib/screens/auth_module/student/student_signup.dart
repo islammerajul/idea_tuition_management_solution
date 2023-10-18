@@ -1,3 +1,4 @@
+import 'package:appwrite/appwrite.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:idea_tuition_managment_app/constants/colors.dart';
@@ -6,6 +7,7 @@ import 'package:idea_tuition_managment_app/utils/routes/routes.dart';
 import 'package:idea_tuition_managment_app/widgets/custom_button.dart';
 import 'package:idea_tuition_managment_app/widgets/dialogs/show_error_dialog.dart';
 import 'package:idea_tuition_managment_app/widgets/text_form_field_widget.dart';
+import 'package:idea_tuition_managment_app/data/client/client_appwrite.dart';
 
 class StudentSignupScreen extends StatefulWidget {
   const StudentSignupScreen({super.key});
@@ -89,6 +91,7 @@ class _StudentSignupScreenState extends State<StudentSignupScreen> {
                     SizedBox(
                       height: 34,
                     ),
+
                     TextFormFieldWidget(
                         headerName: 'Full name',
                         hint: "Please enter your Full name",
@@ -108,6 +111,7 @@ class _StudentSignupScreenState extends State<StudentSignupScreen> {
                     SizedBox(
                       height: 15,
                     ),
+                    /*
                     TextFormFieldWidget(
                         headerName: 'Phone Number',
                         hint: "Type Your phone number",
@@ -127,6 +131,7 @@ class _StudentSignupScreenState extends State<StudentSignupScreen> {
                     SizedBox(
                       height: 15,
                     ),
+                    */
                     TextFormFieldWidget(
                         headerName: 'Email',
                         hint: "Type Your Email ",
@@ -189,8 +194,7 @@ class _StudentSignupScreenState extends State<StudentSignupScreen> {
                             }
                             if (!regex.hasMatch(value)) {
                               return 'Enter valid password';
-                            }
-                            else {
+                            } else {
                               return null;
                             }
                           }
@@ -237,8 +241,7 @@ class _StudentSignupScreenState extends State<StudentSignupScreen> {
                             if (_passwordController.text !=
                                 _confirmPasswordController.text) {
                               return 'Enter valid password ';
-                            }
-                            else {
+                            } else {
                               return null;
                             }
                           }
@@ -259,6 +262,20 @@ class _StudentSignupScreenState extends State<StudentSignupScreen> {
                                 Navigator.pop(context);
                               });
                             } else {
+                              if (_passwordController.text ==
+                                  _confirmPasswordController.text) {
+                                Client client = Client()
+                                    .setEndpoint("http://penciltech001.penciltech.xyz:9080/v1")
+                                    .setProject("652e291be0c85ef77871")
+                                    .setSelfSigned(status: true);
+                                Account account = Account(client);
+                                final user = await account.create(
+                                  userId: ID.unique(),
+                                  name: _nameController.text,
+                                  email: _emailController.text,
+                                  password: _passwordController.text,
+                                );
+                              }
                               Navigator.pushReplacementNamed(
                                   context, Routes.studentNavigationBar);
                             }

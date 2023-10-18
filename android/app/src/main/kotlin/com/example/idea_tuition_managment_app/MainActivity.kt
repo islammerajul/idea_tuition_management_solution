@@ -1,4 +1,4 @@
-package com.example.idea_tuition_managment_app
+package com.pencilTech.idea_tuition_managment_app
 
 import io.flutter.embedding.android.FlutterActivity
 

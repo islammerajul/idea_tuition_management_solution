@@ -1,3 +1,4 @@
+import 'package:appwrite/appwrite.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:idea_tuition_managment_app/constants/colors.dart';
@@ -227,7 +228,21 @@ class _StudentLoginScreenState extends State<StudentLoginScreen> {
                           onTap: () async {
                             if (_formkey.currentState!.validate()) {
                               print("All fields are valid");
-                              Navigator.pushReplacementNamed(context, Routes.studentNavigationBar);
+                              try{
+                                Client client = Client()
+                                    .setEndpoint("http://penciltech001.penciltech.xyz:9080/v1")
+                                    .setProject("652e291be0c85ef77871")
+                                    .setSelfSigned(status: true);
+                                final account = Account(client);
+
+                                final session = await account.createEmailSession(
+                                    email: _emailController.text,
+                                    password: _passwordController.text
+                                );
+                                Navigator.pushReplacementNamed(context, Routes.studentNavigationBar);
+                              }catch(e){
+                                print("Login Exception ::: $e");
+                              }
                               //_authStore.createEmailSession(_emailController.text, _passwordController.text);
                             } else {
                               //_showErrorMessage("Please fill all the data");

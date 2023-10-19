@@ -192,7 +192,7 @@ class _DashboardState extends State<Dashboard> {
                             icon: "assets/person.svg",
                             task: "Create Students",
                             onTap: (){
-                              Navigator.pushReplacementNamed(context, Routes.createStudent);
+                              Navigator.pushNamed(context, Routes.createStudent);
                             },
                           )),
                       SizedBox(
@@ -204,7 +204,7 @@ class _DashboardState extends State<Dashboard> {
                           icon: "assets/person.svg",
                           task: "Create Batch",
                           onTap: (){
-                            Navigator.pushReplacementNamed(context, Routes.createBatch);
+                            Navigator.pushNamed(context, Routes.createBatch);
                           },
                         ),
                       ),

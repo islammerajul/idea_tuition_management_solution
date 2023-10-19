@@ -1,3 +1,4 @@
+import 'package:appwrite/appwrite.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:idea_tuition_managment_app/constants/colors.dart';
@@ -91,6 +92,7 @@ class _TeacherSignupScreenState extends State<TeacherSignupScreen> {
                         SizedBox(
                           height: 15,
                         ),
+                        /*
                         TextFormFieldWidget(
                             headerName: 'Phone Number',
                             hint: "Type Your phone number",
@@ -106,6 +108,7 @@ class _TeacherSignupScreenState extends State<TeacherSignupScreen> {
                         SizedBox(
                           height: 15,
                         ),
+                        */
                         TextFormFieldWidget(
                             headerName: 'Email',
                             hint: "Type Your Email ",
@@ -220,8 +223,22 @@ class _TeacherSignupScreenState extends State<TeacherSignupScreen> {
                                         Navigator.pop(context);
                                       });
                                 } else {
+                                  if (_passwordController.text ==
+                                      _confirmPasswordController.text) {
+                                    Client client = Client()
+                                        .setEndpoint("http://penciltech001.penciltech.xyz:9080/v1")
+                                        .setProject("652e291be0c85ef77871")
+                                        .setSelfSigned(status: true);
+                                    Account account = Account(client);
+                                    final user = await account.create(
+                                      userId: ID.unique(),
+                                      name: _nameController.text,
+                                      email: _emailController.text,
+                                      password: _passwordController.text,
+                                    );
+                                  }
                                   Navigator.pushReplacementNamed(
-                                      context, Routes.studentNavigationBar);
+                                      context, Routes.navigationBarScreen);
                                 }
                               } else {
                                 //_showErrorMessage("Please fill all the data");

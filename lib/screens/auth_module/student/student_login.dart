@@ -1,11 +1,17 @@
+import 'package:another_flushbar/flushbar_helper.dart';
 import 'package:appwrite/appwrite.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:idea_tuition_managment_app/constants/colors.dart';
+import 'package:idea_tuition_managment_app/screens/student_portal_screens/student_navigation_bar.dart';
+import 'package:idea_tuition_managment_app/stores/auth/auth_store.dart';
 import 'package:idea_tuition_managment_app/style/custom_text_style.dart';
 import 'package:idea_tuition_managment_app/utils/routes/routes.dart';
 import 'package:idea_tuition_managment_app/widgets/custom_button.dart';
+import 'package:idea_tuition_managment_app/widgets/progress_indicator_widget.dart';
 import 'package:idea_tuition_managment_app/widgets/text_form_field_widget.dart';
+import 'package:provider/provider.dart';
 
 class StudentLoginScreen extends StatefulWidget {
   const StudentLoginScreen({super.key});
@@ -21,10 +27,44 @@ class _StudentLoginScreenState extends State<StudentLoginScreen> {
 
   bool passwordVisible = true;
   bool select_account = false;
+
+  //store
+  late AuthStore _authStore;
+
+  @override
+  void didChangeDependencies() {
+    _authStore = Provider.of<AuthStore>(context);
+    super.didChangeDependencies();
+  }
+
   @override
   Widget build(BuildContext context) {
+    return Stack(
+      children: <Widget>[
+        Center(child: mainBody(context)),
+        Observer(
+          builder: (context) {
+            disableErrorBoundaries: false;
+            print("success-obj${_authStore.success}");
+            return _authStore.success
+                ? _navigate(context)
+                : _showErrorMessage(_authStore.noDataFound);
+          },
+        ),
+        Observer(
+          builder: (context) {
+            return Visibility(
+              visible: _authStore.loading,
+              child: CustomProgressIndicatorWidget(),
+            );
+          },
+        )
+      ],
+    );
+  }
+  mainBody(BuildContext context){
     return SafeArea(
-      top: true,
+        top: true,
         child: Scaffold(
           body: Container(
             height: double.infinity,
@@ -109,7 +149,7 @@ class _StudentLoginScreenState extends State<StudentLoginScreen> {
                           InkWell(
                             onTap: () {
                               select_account = !select_account;
-                               Navigator.pushReplacementNamed(context, Routes.teacherLogin);
+                              Navigator.pushReplacementNamed(context, Routes.teacherLogin);
                             },
                             child: Padding(
                               padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -228,6 +268,7 @@ class _StudentLoginScreenState extends State<StudentLoginScreen> {
                           onTap: () async {
                             if (_formkey.currentState!.validate()) {
                               print("All fields are valid");
+                              /*
                               try{
                                 Client client = Client()
                                     .setEndpoint("http://penciltech001.penciltech.xyz:9080/v1")
@@ -243,9 +284,10 @@ class _StudentLoginScreenState extends State<StudentLoginScreen> {
                               }catch(e){
                                 print("Login Exception ::: $e");
                               }
-                              //_authStore.createEmailSession(_emailController.text, _passwordController.text);
+                              */
+                              _authStore.createEmailSession(_emailController.text, _passwordController.text);
                             } else {
-                              //_showErrorMessage("Please fill all the data");
+                              _showErrorMessage("Please fill all the data");
                             }
                           },
                           //onTap: login,
@@ -260,6 +302,52 @@ class _StudentLoginScreenState extends State<StudentLoginScreen> {
               ),
             ),
           ),
-    ));
+        ));
   }
+
+  // General Methods:-----------------------------------------------------------
+
+  _navigate(context){
+    print("success login");
+    WidgetsBinding.instance.addPostFrameCallback((_){
+
+      // Add Your Code here.
+      Navigator.of(context).pushReplacement(
+          MaterialPageRoute(
+              builder: (context) => const StudentNavigationBar()));
+    });
+
+  }
+  _showErrorMessage(String message) {
+    print('error-$message');
+    if (message.isNotEmpty) {
+      Future.delayed(const Duration(milliseconds: 0), () {
+        if (message.isNotEmpty) {
+          FlushbarHelper.createError(
+            message: message,
+            title: "Error",
+            duration: const Duration(seconds: 3),
+          ).show(context);
+        }
+      });
+    }
+    _setStoreValueAgain();
+
+
+    return SizedBox.shrink();
+  }
+
+  // dispose:-------------------------------------------------------------------
+  @override
+  void dispose() {
+    // Clean up the controller when the Widget is removed from the Widget tree
+    _emailController.dispose();
+    _passwordController.dispose();
+    super.dispose();
+  }
+
+  void _setStoreValueAgain() {
+    _authStore.noDataFound="";
+  }
+
 }

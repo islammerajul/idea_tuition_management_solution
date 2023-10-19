@@ -41,6 +41,11 @@ class CustomTextStyle {
     fontFamily: 'Poppins',
     color: CustomColors.titleBlack,
   );
+  static const header = TextStyle(
+      fontWeight: FontWeight.w400,
+      fontSize: 16,
+      color: CustomColors.White);
+
   static const subtitle = TextStyle(
     fontSize: 16.0,
     fontWeight: FontWeight.w300,

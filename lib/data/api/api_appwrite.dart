@@ -58,54 +58,54 @@ class AppwriteApi {
   //   }
   // }
 
-  Future<ResponseObject> getProductList() async {
-    try {
-      final res = await _clientAppWrite.listDocuments(AppDatabase.core_db,AppDatabase.productlist);
+  // Future<ResponseObject> getProductList() async {
+  //   try {
+  //     final res = await _clientAppWrite.listDocuments(AppDatabase.core_db,AppDatabase.productlist);
+  //
+  //     if (res is NetworkException) {
+  //       return ResponseObject(id: ResponseCode.FAILED, object: res.message);
+  //     } else {
+  //       _storeProducts(res);
+  //       print("SUCCESSFUL");
+  //       print(res);
+  //       return ResponseObject(id: ResponseCode.SUCCESSFUL, object: res);
+  //     }
+  //   } catch (e) {
+  //      print("productlist-exception::$e");
+  //     return ResponseObject(id: ResponseCode.FAILED, object: "Try again.");
+  //   }
+  // }
 
-      if (res is NetworkException) {
-        return ResponseObject(id: ResponseCode.FAILED, object: res.message);
-      } else {
-        _storeProducts(res);
-        print("SUCCESSFUL");
-        print(res);
-        return ResponseObject(id: ResponseCode.SUCCESSFUL, object: res);
-      }
-    } catch (e) {
-       print("productlist-exception::$e");
-      return ResponseObject(id: ResponseCode.FAILED, object: "Try again.");
-    }
-  }
+  // Future<ResponseObject> getOrderList() async {
+  //   try {
+  //     final res = await _clientAppWrite.listDocuments(AppDatabase.core_db,AppDatabase.orderlist);
+  //
+  //     if (res is NetworkException) {
+  //       return ResponseObject(id: ResponseCode.FAILED, object: res.message);
+  //     } else {
+  //       return ResponseObject(id: ResponseCode.SUCCESSFUL, object: res);
+  //     }
+  //   } catch (e) {
+  //     print("order_list_exception::$e");
+  //     return ResponseObject(id: ResponseCode.FAILED, object: "Try again.");
+  //   }
+  // }
 
-  Future<ResponseObject> getOrderList() async {
-    try {
-      final res = await _clientAppWrite.listDocuments(AppDatabase.core_db,AppDatabase.orderlist);
-
-      if (res is NetworkException) {
-        return ResponseObject(id: ResponseCode.FAILED, object: res.message);
-      } else {
-        return ResponseObject(id: ResponseCode.SUCCESSFUL, object: res);
-      }
-    } catch (e) {
-      print("order_list_exception::$e");
-      return ResponseObject(id: ResponseCode.FAILED, object: "Try again.");
-    }
-  }
-
-  Future<ResponseObject> getAppSettingsList() async {
-    try {
-      final res = await _clientAppWrite.listDocuments(AppDatabase.core_db,AppDatabase.appSettings);
-
-      if (res is NetworkException) {
-        return ResponseObject(id: ResponseCode.FAILED, object: res.message);
-      } else {
-        _storeAppSettings(res);
-        return ResponseObject(id: ResponseCode.SUCCESSFUL, object: res);
-      }
-    } catch (e) {
-      print("app settings list-exception::$e");
-      return ResponseObject(id: ResponseCode.FAILED, object: "Try again.");
-    }
-  }
+  // Future<ResponseObject> getAppSettingsList() async {
+  //   try {
+  //     final res = await _clientAppWrite.listDocuments(AppDatabase.core_db,AppDatabase.appSettings);
+  //
+  //     if (res is NetworkException) {
+  //       return ResponseObject(id: ResponseCode.FAILED, object: res.message);
+  //     } else {
+  //       _storeAppSettings(res);
+  //       return ResponseObject(id: ResponseCode.SUCCESSFUL, object: res);
+  //     }
+  //   } catch (e) {
+  //     print("app settings list-exception::$e");
+  //     return ResponseObject(id: ResponseCode.FAILED, object: "Try again.");
+  //   }
+  // }
 
 
   Future<ResponseObject> getDocumentList(tag) async {

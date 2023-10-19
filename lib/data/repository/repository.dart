@@ -80,21 +80,21 @@ class Repository {
   //   });
   // }
 
-  Future<ResponseObject> getProductList() async {
-    return await _appwriteApi.getProductList().then((res) {
-      return res;
-    }).catchError((error) {
-      return ResponseObject(id: ResponseCode.FAILED, object: "Try again");
-    });
-  }
+  // Future<ResponseObject> getProductList() async {
+  //   return await _appwriteApi.getProductList().then((res) {
+  //     return res;
+  //   }).catchError((error) {
+  //     return ResponseObject(id: ResponseCode.FAILED, object: "Try again");
+  //   });
+  // }
 
-  Future<ResponseObject> getAppSettingsList() async {
-    return await _appwriteApi.getAppSettingsList().then((res) {
-      return res;
-    }).catchError((error) {
-      return ResponseObject(id: ResponseCode.FAILED, object: "Try again");
-    });
-  }
+  // Future<ResponseObject> getAppSettingsList() async {
+  //   return await _appwriteApi.getAppSettingsList().then((res) {
+  //     return res;
+  //   }).catchError((error) {
+  //     return ResponseObject(id: ResponseCode.FAILED, object: "Try again");
+  //   });
+  // }
   Future<ResponseObject> getDocumentList(tag) async {
     return await _appwriteApi.getDocumentList(tag).then((res) {
       return res;
@@ -123,13 +123,13 @@ class Repository {
 
 
 
-  Future<ResponseObject> getOrderList() async {
-    return await _appwriteApi.getOrderList().then((res) {
-      return res;
-    }).catchError((error) {
-      return ResponseObject(id: ResponseCode.FAILED, object: "Try again");
-    });
-  }
+  // Future<ResponseObject> getOrderList() async {
+  //   return await _appwriteApi.getOrderList().then((res) {
+  //     return res;
+  //   }).catchError((error) {
+  //     return ResponseObject(id: ResponseCode.FAILED, object: "Try again");
+  //   });
+  // }
   Future<void> saveIsLoggedIn(bool value) => _sharedPrefsHelper.saveIsLoggedIn(value);
   Future<void> saveIsDoctors(bool value) => _sharedPrefsHelper.saveIsDoctor(value);
 

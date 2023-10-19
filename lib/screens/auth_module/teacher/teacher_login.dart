@@ -1,10 +1,13 @@
+import 'package:appwrite/appwrite.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:idea_tuition_managment_app/constants/colors.dart';
+import 'package:idea_tuition_managment_app/stores/auth/auth_store.dart';
 import 'package:idea_tuition_managment_app/style/custom_text_style.dart';
 import 'package:idea_tuition_managment_app/utils/routes/routes.dart';
 import 'package:idea_tuition_managment_app/widgets/custom_button.dart';
 import 'package:idea_tuition_managment_app/widgets/text_form_field_widget.dart';
+import 'package:provider/provider.dart';
 
 
 class TeacherLoginScreen extends StatefulWidget {
@@ -21,6 +24,15 @@ class _TeacherLoginScreenState extends State<TeacherLoginScreen> {
 
   bool select_account = false;
   bool passwordVisible = true;
+
+  //store
+  late AuthStore _authStore;
+
+  @override
+  void didChangeDependencies() {
+    _authStore = Provider.of<AuthStore>(context);
+    super.didChangeDependencies();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -233,8 +245,28 @@ class _TeacherLoginScreenState extends State<TeacherLoginScreen> {
                           onTap: () async {
                             if (_formkey.currentState!.validate()) {
                               print("All fields are valid");
-                              Navigator.pushReplacementNamed(context, Routes.navigationBarScreen);
-                              //_authStore.createEmailSession(_emailController.text, _passwordController.text);
+                              // try{
+                              //   _authStore.createEmailSession(_emailController.text, _passwordController.text);
+                              //   //Navigator.pushReplacementNamed(context, Routes.navigationBarScreen);
+                              // }catch(e){
+                              //   print("Login Exception ::: $e");
+                              // }
+                              try{
+                                Client client = Client()
+                                    .setEndpoint("http://penciltech001.penciltech.xyz:9080/v1")
+                                    .setProject("652e291be0c85ef77871")
+                                    .setSelfSigned(status: true);
+                                final account = Account(client);
+
+                                final session = await account.createEmailSession(
+                                    email: _emailController.text,
+                                    password: _passwordController.text
+                                );
+                                Navigator.pushReplacementNamed(context, Routes.navigationBarScreen);
+                              }catch(e){
+                                print("Login Exception ::: $e");
+                              }
+
                             } else {
                               //_showErrorMessage("Please fill all the data");
                             }

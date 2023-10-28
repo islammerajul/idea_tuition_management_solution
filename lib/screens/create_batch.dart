@@ -38,6 +38,9 @@ class _CreateBatchState extends State<CreateBatch> {
   late BatchStore batchStore;
   late BatchModel batchModel = BatchModel();
 
+  FocusNode batchNameFocusNode = FocusNode();
+  FocusNode amountFocusNode = FocusNode();
+
   @override
   void initState() {
     super.initState();
@@ -159,6 +162,7 @@ class _CreateBatchState extends State<CreateBatch> {
                   hintStyle: CustomTextStyle.header.copyWith(fontSize: 14),
                   controller: _batchNameController,
                   keyboardType: TextInputType.text,
+                  focusNode: batchNameFocusNode,
                   //maxLength: 11,
                   validator: (value) {
                     if (value!.isEmpty) {
@@ -305,6 +309,7 @@ class _CreateBatchState extends State<CreateBatch> {
                   ),
                   controller: _batchFeeController,
                   keyboardType: TextInputType.number,
+                  focusNode: amountFocusNode,
                   //maxLength: 11,
                   validator: (value) {
                     if (value!.isEmpty) {
@@ -342,7 +347,7 @@ class _CreateBatchState extends State<CreateBatch> {
                       try{
                         batchModel = BatchModel(
                             batch_id: _batchIDController.text,
-                            batch_name: _batchFeeController.text,
+                            batch_name: _batchNameController.text,
                             schedule: select_schedule,
                             time_period: select_timePeriod,
                             amount: _batchFeeController.text,
@@ -363,7 +368,15 @@ class _CreateBatchState extends State<CreateBatch> {
                       }
                       //Navigator.pushNamed(context, Routes.navigationBarScreen);
                     } else {
-                      //_showErrorMessage("Please fill all the data");
+                      if(_batchNameController.text.isEmpty){
+                        FocusScope.of(context).requestFocus(batchNameFocusNode);
+                      }
+                      else if(_batchFeeController.text.isEmpty){
+                        FocusScope.of(context).requestFocus(amountFocusNode);
+                      }
+
+                      print("Something wrong");
+                      print("DM${DateTime.now().year}${DateTime.now().month}${DateTime.now().day}${DateTime.now().millisecond}");
                     }
                   },
                   //onTap: login,

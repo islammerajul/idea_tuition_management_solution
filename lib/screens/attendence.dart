@@ -38,7 +38,7 @@ class _AttendenceScreenState extends State<AttendenceScreen> {
           appBar: PreferredSize(
               preferredSize: Size.fromHeight(toolbarHeight),
               child: CustomAppBar(
-                appbarTitle: 'Create Batch',
+                appbarTitle: 'Create Attendence',
                 needLeading: true,
               )),
           body: SingleChildScrollView(

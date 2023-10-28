@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:idea_tuition_managment_app/constants/colors.dart';
 import 'package:idea_tuition_managment_app/style/custom_text_style.dart';
@@ -26,6 +25,7 @@ class TextFormFieldWidget extends StatelessWidget {
       this.maxLines,
       this.readOnly,
       this.initialValue,
+      this.focusNode,
       this.maxLength})
       : super(key: key);
   TextEditingController? controller;
@@ -38,6 +38,7 @@ class TextFormFieldWidget extends StatelessWidget {
   TextStyle? style, hintStyle;
   int? maxLength, minLines, maxLines;
   Function? onSaved;
+  final FocusNode? focusNode;
 
   @override
   Widget build(BuildContext context) {
@@ -47,10 +48,9 @@ class TextFormFieldWidget extends StatelessWidget {
           Align(
               alignment: Alignment.topLeft,
               child: Text(headerName!,
-                  style: style
-                      ?? CustomTextStyle.icontitle
-                          .copyWith(color: CustomColors.White)
-                      )),
+                  style: style ??
+                      CustomTextStyle.icontitle
+                          .copyWith(color: CustomColors.White))),
           SizedBox(
             height: sizedboxHeight ?? 11,
           ),
@@ -58,7 +58,12 @@ class TextFormFieldWidget extends StatelessWidget {
             height: containerHeight != null ? 56 : containerHeight,
             width: double.infinity,
             child: TextFormField(
-              style: style ?? TextStyle(fontWeight: FontWeight.w400,fontSize: 16,color: CustomColors.White),
+              focusNode: focusNode,
+              style: style ??
+                  TextStyle(
+                      fontWeight: FontWeight.w400,
+                      fontSize: 16,
+                      color: CustomColors.White),
               readOnly: readOnly ?? false,
               initialValue: initialValue,
               controller: controller,
@@ -73,8 +78,9 @@ class TextFormFieldWidget extends StatelessWidget {
               minLines: minLines,
               decoration: InputDecoration(
                 hintText: hint,
-                hintStyle: hintStyle ?? CustomTextStyle.icontitle
-                    .copyWith(color: CustomColors.White),
+                hintStyle: hintStyle ??
+                    CustomTextStyle.icontitle
+                        .copyWith(color: CustomColors.White),
                 counterText: "",
                 filled: true,
                 fillColor: const Color(0xff492E51),

@@ -8,6 +8,8 @@ import 'package:idea_tuition_managment_app/services/navigation_service.dart';
 import 'package:idea_tuition_managment_app/stores/auth/auth_store.dart';
 import 'package:idea_tuition_managment_app/stores/batch/batch_store.dart';
 import 'package:idea_tuition_managment_app/stores/language/language_store.dart';
+import 'package:idea_tuition_managment_app/stores/package/package_store.dart';
+import 'package:idea_tuition_managment_app/stores/student/student_store.dart';
 import 'package:idea_tuition_managment_app/stores/theme/theme_store.dart';
 import 'package:idea_tuition_managment_app/utils/locale/app_localization.dart';
 import 'package:idea_tuition_managment_app/utils/routes/routes.dart';
@@ -30,16 +32,12 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
 
-  // final AuthStore _authStore = AuthStore(getIt<Repository>());
   final ThemeStore _themeStore = ThemeStore(getIt<Repository>());
   final LanguageStore _languageStore = LanguageStore(getIt<Repository>());
   final AuthStore _AuthStore = AuthStore(getIt<Repository>());
   final BatchStore _BatchStore = BatchStore(getIt<Repository>());
-  // final AdminStore _adminStore = AdminStore(getIt<Repository>());
-  // final SplashStore _splashStore = SplashStore(getIt<Repository>());
-  // final OrderStore _orderStore = OrderStore(getIt<Repository>());
-  // final CustomerStore _customerStore = CustomerStore(getIt<Repository>());
-  // final VendorStore _vendorStore = VendorStore(getIt<Repository>());
+  final PackageStore _PackageStore = PackageStore(getIt<Repository>());
+  final StudentStore _studentStore = StudentStore(getIt<Repository>());
   final navigatorKey = GlobalKey<NavigatorState>();
   @override
   Widget build(BuildContext context) {
@@ -49,12 +47,9 @@ class _MyAppState extends State<MyApp> {
         Provider<ThemeStore>(create: (_) => _themeStore),
         Provider<AuthStore>(create: (_) => _AuthStore),
         Provider<BatchStore>(create: (_) => _BatchStore),
+        Provider<PackageStore>(create: (_) => _PackageStore),
         Provider<LanguageStore>(create: (_) => _languageStore),
-        // Provider<AdminStore>(create: (_) => _adminStore),
-        // Provider<SplashStore>(create: (_) => _splashStore),
-        // Provider<OrderStore>(create: (_) => _orderStore),
-        // Provider<CustomerStore>(create: (_) => _customerStore),
-        // Provider<VendorStore>(create: (_) => _vendorStore),
+        Provider<StudentStore>(create: (_) => _studentStore),
       ],
       child: Observer(
         name: 'global-observer',

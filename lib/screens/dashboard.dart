@@ -3,10 +3,14 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:idea_tuition_managment_app/constants/all_constant_values.dart';
 import 'package:idea_tuition_managment_app/constants/colors.dart';
 import 'package:idea_tuition_managment_app/screens/custom_drawer.dart';
+import 'package:idea_tuition_managment_app/stores/batch/batch_store.dart';
+import 'package:idea_tuition_managment_app/stores/package/package_store.dart';
+import 'package:idea_tuition_managment_app/stores/student/student_store.dart';
 import 'package:idea_tuition_managment_app/style/custom_text_style.dart';
 import 'package:idea_tuition_managment_app/widgets/custom_schedule.dart';
 import 'package:idea_tuition_managment_app/widgets/dashboard_box.dart';
 import 'package:idea_tuition_managment_app/widgets/task_widget.dart';
+import 'package:provider/provider.dart';
 
 import '../utils/routes/routes.dart';
 
@@ -22,6 +26,26 @@ class _DashboardState extends State<Dashboard> {
 
   List<String> month = ['January', 'February', 'March'];
   String? select_month = 'January';
+  /*
+  late BatchStore batchStore;
+  late StudentStore studentStore;
+  late PackageStore packageStore;
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
+
+  @override
+  void didChangeDependencies(){
+    super.didChangeDependencies();
+    batchStore = Provider.of<BatchStore>(context);
+    studentStore = Provider.of<StudentStore>(context);
+    batchStore.getBatchList();
+    packageStore.getPackageList();
+  }
+  */
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(

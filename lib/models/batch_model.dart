@@ -5,6 +5,7 @@ class BatchModel{
   String? time_period;
   String? amount;
   String? batch_status;
+  String? document_id;
 
   BatchModel(
       {this.batch_id,
@@ -12,7 +13,9 @@ class BatchModel{
       this.schedule,
       this.time_period,
       this.amount,
-      this.batch_status});
+      this.batch_status,
+        this.document_id
+      });
 
   // Factory method to create a User object from JSON data
   factory BatchModel.fromJson(Map<String, dynamic> json) {
@@ -23,6 +26,7 @@ class BatchModel{
       time_period: json['time_period'],
       amount: json['amount'],
       batch_status: json['batch_status'],
+      document_id: json['\$id'],
     );
   }
 

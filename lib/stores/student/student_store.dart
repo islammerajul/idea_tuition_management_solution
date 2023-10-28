@@ -1,24 +1,23 @@
 import 'package:appwrite/models.dart';
+import 'package:idea_tuition_managment_app/constants/app_data.dart';
 import 'package:idea_tuition_managment_app/constants/database.dart';
 import 'package:idea_tuition_managment_app/data/repository/repository.dart';
 import 'package:idea_tuition_managment_app/models/base/model_response_object.dart';
-import 'package:idea_tuition_managment_app/models/batch_model.dart';
+import 'package:idea_tuition_managment_app/models/student_model.dart';
 import 'package:idea_tuition_managment_app/utils/app_dialog.dart';
 import 'package:mobx/mobx.dart';
+part 'student_store.g.dart';
 
-import '../../constants/app_data.dart';
-part 'batch_store.g.dart';
+class StudentStore = _StudentStore with _$StudentStore;
 
-class BatchStore = _BatchStore with _$BatchStore;
-
-abstract class _BatchStore with Store{
+abstract class _StudentStore with Store{
   // repository instance
   late Repository _repository;
 
   AppDialog dialog = new AppDialog();
 
   // constructor:---------------------------------------------------------------
-  _BatchStore(Repository repository) : this._repository = repository {
+  _StudentStore(Repository repository) : this._repository = repository {
     init();
     _setupDisposers();
   }
@@ -56,21 +55,16 @@ abstract class _BatchStore with Store{
   @observable
   String phone = '';
   @observable
-  String selected_batchName = 'Class 9(Boys)';
+  String selected_img = '';
 
   @observable
-  BatchModel? batchModel;
+  StudentModel? studentModel;
 
   @observable
-  DocumentList? batchList;
-
-  @observable
-  int? TotalBatch = 0;
-  @observable
-  String? select_batchName = '';
-  @observable
-  String? batch_documentID = '';
-  List<String?> batchNameList = [];
+  DocumentList? studentList;
+  //
+  // @observable
+  // int? TotalCustomer = 0;
 
   // @observable
   // String? selectedUserID;
@@ -81,44 +75,45 @@ abstract class _BatchStore with Store{
   // @observable
   // List<CustomerModel>? _originalCustomerList;
   @observable
-  List<BatchModel> batchModelList = [];
+  List<StudentModel> studentModelList = [];
 
 
   // actions:-------------------------------------------------------------------
 
   @action
-  Future createBatch(BatchModel batchModel) async {
-    print("Batch Information::: $batchModel");
+  Future createStudent(StudentModel studentModel) async {
+    print("Student Information::: $studentModel");
     //network call
     print("Network call");
     loading = true;
     apicallstate=APICALLSTATE.LOADING;
-    final future = _repository.addDocument(AppDatabase.batch,batchModel.toJson());
-    print("Batch FUTURE : $future");
+    final future = _repository.addDocument(AppDatabase.student,studentModel.toJson());
+    print("Student FUTURE : $future");
     await future.then((value) async {
       loading = false;
       if (value.id == ResponseCode.SUCCESSFUL) {
         apicallstate=APICALLSTATE.RESPONSE;
-        print("Batch success true");
+        print("Student success true");
         print(value.object);
         success = true;
-        successMessage="Create a batch successfully";
+        successMessage="Create a student successfully";
         print(successMessage);
       } else {
         apicallstate=APICALLSTATE.RESPONSE;
         success = false;
-        noDataFound = value.object as String;
+        //noDataFound = value.object as String;
+        noDataFound = "value.object as String";
       }
     });
   }
 
   @action
-  Future getBatchList() async {
+  Future getStudentList() async {
     List<Map<String, dynamic>> _list = [];
     loading = true;
     apicallstate=APICALLSTATE.LOADING;
-    final future = _repository.getDocumentList(AppDatabase.batch);
-    print("The future result (Batch List) ::: $future");
+    final future = _repository.getDocumentList(AppDatabase.package);
+    print("The future result (Student List) ::: $future");
     await future.then((value) async {
       loading = false;
       if (value.id == ResponseCode.SUCCESSFUL) {
@@ -126,24 +121,22 @@ abstract class _BatchStore with Store{
         print("Response code is : ${value.id}");
         success = true;
         print("Sucess is : $success");
-        successMessage="Get batch list Successfully";
-        batchList=value.object as DocumentList;
+        successMessage="Get student list Successfully";
+        studentList=value.object as DocumentList;
 
-        for(int i = 0; i < batchList!.documents.length; i++){
-          var document = batchList!.documents[i].data;
+        for(int i = 0; i < studentList!.documents.length; i++){
+          var document = studentList!.documents[i].data;
 
           _list.add(document);
 
         }
         try{
-          batchModelList = _list.map((data) => BatchModel.fromJson(data)).toList();
-          print("Batch name list ::: ${batchModelList.reversed}");
-          batchNameList = batchModelList.map((batch) => batch.batch_name).toList();
-          print("All batch name as list ::: ${batchNameList}");
+          studentModelList = _list.map((data) => StudentModel.fromJson(data)).toList();
+          print("Student name list ::: ${studentModelList.reversed}");
         }catch(e){
           print("exception:::${e}");
         }
-        print("The Batch Info is :: $batchList");
+        print("The Student Info is :: $studentList");
       } else {
         apicallstate=APICALLSTATE.RESPONSE;
         success = false;

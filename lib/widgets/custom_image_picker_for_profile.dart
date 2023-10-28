@@ -2,7 +2,9 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:idea_tuition_managment_app/constants/colors.dart';
+import 'package:idea_tuition_managment_app/stores/student/student_store.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:provider/provider.dart';
 
 
 class CustomImagePickerForProfile extends StatefulWidget {
@@ -16,9 +18,15 @@ class CustomImagePickerForProfile extends StatefulWidget {
 class _CustomImagePickerForProfileState
     extends State<CustomImagePickerForProfile> {
 
+  late StudentStore studentStore;
   final TextEditingController _imagePathController = TextEditingController();
   File? imageFile;
 
+  @override
+  void didChangeDependencies(){
+    super.didChangeDependencies();
+    studentStore = Provider.of<StudentStore>(context);
+  }
   Future<void> _showSimpleDialog() async {
     await showDialog<void>(
         context: context,
@@ -56,6 +64,8 @@ class _CustomImagePickerForProfileState
       setState(() {
         imageFile = File(pickedFile.path);
         _imagePathController.text = pickedFile.path;
+        studentStore.selected_img = _imagePathController.text;
+        print("Image Info ::: ${studentStore.selected_img}");
       });
     }
   }
@@ -69,6 +79,8 @@ class _CustomImagePickerForProfileState
       setState(() {
         imageFile = File(pickedFile.path);
         _imagePathController.text = pickedFile.path;
+        studentStore.selected_img = _imagePathController.text;
+        print("Image Info ::: ${studentStore.selected_img}");
       });
     }
   }

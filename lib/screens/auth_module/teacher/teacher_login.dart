@@ -1,11 +1,15 @@
+import 'package:another_flushbar/flushbar_helper.dart';
 import 'package:appwrite/appwrite.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:idea_tuition_managment_app/constants/colors.dart';
+import 'package:idea_tuition_managment_app/screens/navigation_bar.dart';
 import 'package:idea_tuition_managment_app/stores/auth/auth_store.dart';
 import 'package:idea_tuition_managment_app/style/custom_text_style.dart';
 import 'package:idea_tuition_managment_app/utils/routes/routes.dart';
 import 'package:idea_tuition_managment_app/widgets/custom_button.dart';
+import 'package:idea_tuition_managment_app/widgets/progress_indicator_widget.dart';
 import 'package:idea_tuition_managment_app/widgets/text_form_field_widget.dart';
 import 'package:provider/provider.dart';
 
@@ -36,8 +40,33 @@ class _TeacherLoginScreenState extends State<TeacherLoginScreen> {
 
   @override
   Widget build(BuildContext context) {
+    return Stack(
+      children: <Widget>[
+        Center(child: mainBody(context)),
+        Observer(
+          builder: (context) {
+            disableErrorBoundaries: false;
+            print("success-obj${_authStore.success}");
+            return _authStore.success
+                ? _navigate(context)
+                : _showErrorMessage(_authStore.noDataFound);
+          },
+        ),
+        Observer(
+          builder: (context) {
+            return Visibility(
+              visible: _authStore.loading,
+              child: CustomProgressIndicatorWidget(),
+            );
+          },
+        )
+      ],
+    );
+  }
+
+  mainBody(BuildContext context){
     return SafeArea(
-      top: true,
+        top: true,
         child: Scaffold(
           body: Container(
             height: double.infinity,
@@ -97,13 +126,13 @@ class _TeacherLoginScreenState extends State<TeacherLoginScreen> {
                                   height: 72,
                                   width: 72,
                                   decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(5),
+                                    borderRadius: BorderRadius.circular(5),
                                     border: Border.all(width: 1,color: Color(0xffF2F2F2)),
-                                      //color: Colors.white
+                                    //color: Colors.white
                                   ),
                                   child: Center(
-                                      child:
-                                     Image.asset("assets/logo/student.png",height: 50,width: 50,),
+                                    child:
+                                    Image.asset("assets/logo/student.png",height: 50,width: 50,),
                                     //   SvgPicture.asset(
                                     //     "assets/logo/student.svg",
                                     //     height: 32,
@@ -125,7 +154,7 @@ class _TeacherLoginScreenState extends State<TeacherLoginScreen> {
                           InkWell(
                             onTap: () {
                               select_account = !select_account;
-                             Navigator.pushReplacementNamed(context, Routes.teacherLogin);
+                              Navigator.pushReplacementNamed(context, Routes.teacherLogin);
                             },
                             child: Padding(
                               padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -141,12 +170,12 @@ class _TeacherLoginScreenState extends State<TeacherLoginScreen> {
                                       //color: Color(0xffF2F2F2)
                                     ),
                                     child: Center(
-                                        child: Image.asset("assets/logo/teacher.png",height: 50,width: 50,),
-                                        // SvgPicture.asset(
-                                        //   "assets/logo/teacher.svg",
-                                        //   height: 32,
-                                        //   width: 35.27,
-                                        // )
+                                      child: Image.asset("assets/logo/teacher.png",height: 50,width: 50,),
+                                      // SvgPicture.asset(
+                                      //   "assets/logo/teacher.svg",
+                                      //   height: 32,
+                                      //   width: 35.27,
+                                      // )
                                     ),
                                   ),
                                   SizedBox(
@@ -166,15 +195,18 @@ class _TeacherLoginScreenState extends State<TeacherLoginScreen> {
                         height: 20,
                       ),
                       TextFormFieldWidget(
-                          headerName: 'User name',
-                          hint: "Type Your Username",
+                          headerName: 'User email',
+                          hint: "Type Your email",
                           hintStyle: TextStyle(fontSize: 14,fontWeight: FontWeight.w400,color: Color(0xffCCDADC),),
                           controller: _emailController,
                           keyboardType: TextInputType.emailAddress,
                           //maxLength: 11,
                           validator: (value) {
                             if (value!.isEmpty) {
-                              return "Please enter your username";
+                              return "Please enter your email";
+                            }
+                            if (!value.contains("@")) {
+                              return "Invalid Email ";
                             }
                           }),
                       SizedBox(
@@ -251,6 +283,7 @@ class _TeacherLoginScreenState extends State<TeacherLoginScreen> {
                               // }catch(e){
                               //   print("Login Exception ::: $e");
                               // }
+                              /*
                               try{
                                 Client client = Client()
                                     .setEndpoint("http://penciltech001.penciltech.xyz:9080/v1")
@@ -266,9 +299,13 @@ class _TeacherLoginScreenState extends State<TeacherLoginScreen> {
                               }catch(e){
                                 print("Login Exception ::: $e");
                               }
+                              */
+                              //Navigator.pushReplacementNamed(context, Routes.navigationBarScreen);
 
+                              //Need this line
+                              _authStore.createEmailSession(_emailController.text, _passwordController.text);
                             } else {
-                              //_showErrorMessage("Please fill all the data");
+                              _showErrorMessage("Please fill all the data");
                             }
                           },
                           //onTap: login,
@@ -284,5 +321,50 @@ class _TeacherLoginScreenState extends State<TeacherLoginScreen> {
             ),
           ),
         ));
+  }
+
+  // General Methods:-----------------------------------------------------------
+
+  _navigate(context){
+    print("success login");
+    WidgetsBinding.instance.addPostFrameCallback((_){
+
+      // Add Your Code here.
+      Navigator.of(context).pushReplacement(
+          MaterialPageRoute(
+              builder: (context) => const NavigationBarScreen()));
+    });
+
+  }
+  _showErrorMessage(String message) {
+    print('error-$message');
+    if (message.isNotEmpty) {
+      Future.delayed(const Duration(milliseconds: 0), () {
+        if (message.isNotEmpty) {
+          FlushbarHelper.createError(
+            message: message,
+            title: "Error",
+            duration: const Duration(seconds: 3),
+          ).show(context);
+        }
+      });
+    }
+    _setStoreValueAgain();
+
+
+    return SizedBox.shrink();
+  }
+
+  // dispose:-------------------------------------------------------------------
+  @override
+  void dispose() {
+    // Clean up the controller when the Widget is removed from the Widget tree
+    _emailController.dispose();
+    _passwordController.dispose();
+    super.dispose();
+  }
+
+  void _setStoreValueAgain() {
+    _authStore.noDataFound="";
   }
 }

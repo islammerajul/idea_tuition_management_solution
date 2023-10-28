@@ -189,15 +189,18 @@ class _StudentLoginScreenState extends State<StudentLoginScreen> {
                         height: 20,
                       ),
                       TextFormFieldWidget(
-                          headerName: 'User name',
-                          hint: "Type Your Username",
+                          headerName: 'User email',
+                          hint: "Type Your email",
                           hintStyle: TextStyle(fontSize: 14,fontWeight: FontWeight.w400,color: Color(0xffCCDADC),),
                           controller: _emailController,
                           keyboardType: TextInputType.text,
                           //maxLength: 11,
                           validator: (value) {
                             if (value!.isEmpty) {
-                              return "Please enter your username";
+                              return "Please enter your email";
+                            }
+                            if (!value.contains("@")) {
+                              return "Invalid Email ";
                             }
                           }),
                       SizedBox(

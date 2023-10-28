@@ -7,7 +7,8 @@ import 'package:idea_tuition_managment_app/screens/auth_module/teacher/teacher_l
 import 'package:idea_tuition_managment_app/screens/auth_module/teacher/teacher_signup.dart';
 import 'package:idea_tuition_managment_app/screens/create_batch.dart';
 import 'package:idea_tuition_managment_app/screens/menu_journey/news_blogs.dart';
-import 'package:idea_tuition_managment_app/screens/menu_journey/packageMenu.dart';
+import 'package:idea_tuition_managment_app/screens/menu_journey/packages/package.dart';
+import 'package:idea_tuition_managment_app/screens/menu_journey/packages/packageMenu.dart';
 import 'package:idea_tuition_managment_app/screens/menu_journey/privacy_policy.dart';
 import 'package:idea_tuition_managment_app/screens/menu_journey/profile.dart';
 import 'package:idea_tuition_managment_app/screens/menu_journey/settings.dart';
@@ -60,6 +61,7 @@ class Routes {
   static const String studentNavigationBar = '/student-navigationBar';
   static const String studentLeave = '/student-leave';
   static const String attendence = '/attendence';
+  static const String package = '/package';
   // static const String coreNavigation = '/core-navigation';
   // static const String orderRequest = '/order-request';
   // static const String createCustomer = '/create-customer';
@@ -106,6 +108,7 @@ class Routes {
     studentNavigationBar: (BuildContext context) => const StudentNavigationBar(),
     studentLeave: (BuildContext context) => const StudentLeave(),
     attendence: (BuildContext context) => const AttendenceScreen(),
+    package: (BuildContext context) => const PackageScreen(),
 
     // signup: (BuildContext context) => const SignupScreen(),
     // orderRequest: (BuildContext context) => OrderRequestScreen(),

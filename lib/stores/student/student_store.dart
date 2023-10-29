@@ -101,8 +101,8 @@ abstract class _StudentStore with Store{
       } else {
         apicallstate=APICALLSTATE.RESPONSE;
         success = false;
-        //noDataFound = value.object as String;
-        noDataFound = "value.object as String";
+        noDataFound = value.object as String;
+        //noDataFound = "value.object as String";
       }
     });
   }

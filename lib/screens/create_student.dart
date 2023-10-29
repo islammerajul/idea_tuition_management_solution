@@ -54,8 +54,11 @@ class _CreateStudentScreenState extends State<CreateStudentScreen> {
 
   //List<String> batch_documentID = ['653c970cc0e0551642bf', '6539ffa5cdf9be6d03aa'];
   List<String> batch_documentID = [];
+  List<String> package_documentID = [];
   List<String?> batchNameList = [];
-  List<String>? selected_chip_list = [];
+  List<String?> packageNameList = [];
+  List<String>? selected_batch_list = [];
+  List<String>? selected_package_list = [];
   List<String> gender = ['Male', 'Female'];
   String? select_gender;
   List<String> active_status = ['Active', 'Inactive'];
@@ -72,6 +75,8 @@ class _CreateStudentScreenState extends State<CreateStudentScreen> {
   String? select_batch;
   List<String> timeSchedule = ['7:00 AM', '8:00 AM', '9:00 AM', '7:00 PM'];
   String? select_timeSchedule;
+  var batch_List;
+  var package_List;
 
   late BatchStore batchStore;
   late StudentStore studentStore;
@@ -755,23 +760,23 @@ class _CreateStudentScreenState extends State<CreateStudentScreen> {
                     children: batchNameList.map(
                           (batch_name) {
                         bool isSelected = false;
-                        if (selected_chip_list!.contains(batch_name)) {
+                        if (selected_batch_list!.contains(batch_name)) {
                           isSelected = true;
                         }
                         return GestureDetector(
                           onTap: () {
-                            if (!selected_chip_list!.contains(batch_name)) {
-                              if (selected_chip_list!.length < 3) {
-                                selected_chip_list!.add(batch_name!);
+                            if (!selected_batch_list!.contains(batch_name)) {
+                              if (selected_batch_list!.length < batchStore.batchList!.total ) {
+                                selected_batch_list!.add(batch_name!);
                                 setState(() {});
                                 print("selected_chip_list");
-                                print(selected_chip_list);
+                                print(selected_batch_list);
                               }
                             } else {
-                              selected_chip_list!
+                              selected_batch_list!
                                   .removeWhere((element) => element == batch_name);
                               setState(() {});
-                              print(selected_chip_list);
+                              print(selected_batch_list);
                             }
                           },
                           child: FittedBox(
@@ -805,55 +810,113 @@ class _CreateStudentScreenState extends State<CreateStudentScreen> {
               SizedBox(
                 height: 20,
               ),
-              // Column(
-              //   crossAxisAlignment: CrossAxisAlignment.start,
-              //   children: [
-              //     Text(
-              //       "Package",
-              //       style: TextStyle(
-              //           fontWeight: FontWeight.w400,
-              //           fontSize: 16,
-              //           color: CustomColors.White),
-              //     ),
-              //     SizedBox(
-              //       height: 11,
-              //     ),
-              //     DropdownButtonFormField(
-              //         iconEnabledColor: CustomColors.White,
-              //         value: packageStore.select_package = select_package!,
-              //         dropdownColor: CustomColors.AppBarColor,
-              //         decoration: InputDecoration(
-              //           hintText: 'Select Your Package ',
-              //           hintStyle: CustomTextStyle.icontitle
-              //               .copyWith(color: CustomColors.White),
-              //           filled: true,
-              //           fillColor: const Color(0xff492E51),
-              //           border: OutlineInputBorder(
-              //               borderRadius:
-              //               BorderRadius.circular(5),
-              //               borderSide: BorderSide.none),
-              //         ),
-              //         items: packageStore.packageModelList
-              //             ?.map((item) => DropdownMenuItem(
-              //             value: item.package_title,
-              //             child: Text("${item.package_title}",
-              //                 style: TextStyle(
-              //                     fontSize: 14.0,
-              //                     fontWeight: FontWeight.w400,
-              //                     color:
-              //                     CustomColors.White))))
-              //             .toList(),
-              //         onChanged: (item) {
-              //           setState(() {
-              //             select_package = item;
-              //           });
-              //         }),
-              //
-              //   ],
-              // ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    "Package",
+                    style: TextStyle(
+                        fontWeight: FontWeight.w400,
+                        fontSize: 16,
+                        color: CustomColors.White),
+                  ),
+                  SizedBox(
+                    height: 11,
+                  ),
+                  // DropdownButtonFormField(
+                  //     iconEnabledColor: CustomColors.White,
+                  //     value: packageStore.select_package = select_package!,
+                  //     dropdownColor: CustomColors.AppBarColor,
+                  //     decoration: InputDecoration(
+                  //       hintText: 'Select Your Package ',
+                  //       hintStyle: CustomTextStyle.icontitle
+                  //           .copyWith(color: CustomColors.White),
+                  //       filled: true,
+                  //       fillColor: const Color(0xff492E51),
+                  //       border: OutlineInputBorder(
+                  //           borderRadius:
+                  //           BorderRadius.circular(5),
+                  //           borderSide: BorderSide.none),
+                  //     ),
+                  //     items: packageStore.packageModelList
+                  //         ?.map((item) => DropdownMenuItem(
+                  //         value: item.package_title,
+                  //         child: Text("${item.package_title}",
+                  //             style: TextStyle(
+                  //                 fontSize: 14.0,
+                  //                 fontWeight: FontWeight.w400,
+                  //                 color:
+                  //                 CustomColors.White))))
+                  //         .toList(),
+                  //     onChanged: (item) {
+                  //       setState(() {
+                  //         select_package = item;
+                  //       });
+                  //     }),
+
+                ],
+              ),
+              FutureBuilder(
+                  future: filterPackageList(packageStore.packageList),
+                  builder: (BuildContext, Snapshot) {
+                    return Wrap(
+                      spacing: 12,
+                      runSpacing: 12,
+                      children: packageNameList.map(
+                            (package_title) {
+                          bool isSelected = false;
+                          if (selected_package_list!.contains(package_title)) {
+                            isSelected = true;
+                          }
+                          return GestureDetector(
+                            onTap: () {
+                              if (!selected_package_list!.contains(package_title)) {
+                                if (selected_package_list!.length < packageStore.packageList!.total ) {
+                                  selected_package_list!.add(package_title!);
+                                  setState(() {});
+                                  print("selected_package_list");
+                                  print(selected_package_list);
+                                }
+                              } else {
+                                selected_package_list!
+                                    .removeWhere((element) => element == package_title);
+                                setState(() {});
+                                print(selected_package_list);
+                              }
+                            },
+                            child: FittedBox(
+                              fit: BoxFit.fitWidth,
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  //color: Colors.white,
+                                  color: isSelected == true ? CustomColors.BoxColor
+                                      : Color(0xFFF2F2F2),
+                                  borderRadius: BorderRadius.circular(6),
+                                ),
+                                child: Center(
+                                  child: Padding(
+                                    padding: EdgeInsets.symmetric(
+                                        vertical: 10, horizontal: 13),
+                                    child: Text(
+                                        package_title!,
+                                        style: CustomTextStyle.subtitle2.copyWith(color:
+                                        isSelected ? CustomColors.White : CustomColors.SmallTextColor,)
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          );
+                        },
+                      ).toList(),
+                    );
+                  }
+              ),
+          /*
               SizedBox(
                 height: 20,
               ),
+
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -900,6 +963,7 @@ class _CreateStudentScreenState extends State<CreateStudentScreen> {
 
                 ],
               ),
+
               SizedBox(
                 height: 20,
               ),
@@ -949,11 +1013,48 @@ class _CreateStudentScreenState extends State<CreateStudentScreen> {
 
                 ],
               ),
+              */
               SizedBox(
                 height: 100,
               ),
               CustomButton(
                   onTap: () async {
+
+
+                    batch_documentID.clear();
+                    for(int i = 0; i < batch_List.length; i++){
+                      print("List will be arranged");
+                      var document = batch_List[i].data;
+                      for(int k = 0; k < selected_batch_list!.length; k++){
+                        var matchListOfBatch = document.containsKey('batch_name') && document['batch_name'] == selected_batch_list?[k];
+                        if(matchListOfBatch){
+                          print("condition :: $matchListOfBatch");
+                          batchStore.batch_documentID = document['\$id'];
+
+                          batch_documentID.add(document['\$id']);
+                        }
+                      }
+                    }
+                    ///For Package
+                    package_documentID.clear();
+                    for(int j = 0; j < package_List.length; j++){
+                      print("List will be arranged");
+                      var document = package_List[j].data;
+                      for(int l = 0; l < selected_package_list!.length; l++){
+                        var matchListOfPackage = document.containsKey('title') && document['title'] == selected_package_list![l];
+                        if(matchListOfPackage){
+                          print("condition 2 :: $matchListOfPackage");
+                          packageStore.package_documentID = document['\$id'];
+
+                          package_documentID.add(document['\$id']);
+                        }
+                      }
+                    }
+                    print("Selected packages list lenght :: ${selected_package_list!.length}");
+
+
+
+
                     if (_formkey.currentState!.validate()) {
                       print("All fields are valid");
                       try{
@@ -973,12 +1074,10 @@ class _CreateStudentScreenState extends State<CreateStudentScreen> {
                             st_parent_email: _parentEmailController.text,
                             st_address: _addressController.text,
                             active_status: select_active_status,
-                          batch_DocID: selected_chip_list,
-                          packages_DocID: batch_documentID,
-                          attendance_DocID: batch_documentID,
-                          leave_DocID: batch_documentID,
-                          teachers_DocID: batch_documentID,
-                          grade_DocID: batch_documentID,
+                          batch_DocID: batch_documentID,
+                          packages_DocID: package_documentID,
+                          //teachers_DocID: batch_documentID,
+                          //grade_DocID: batch_documentID,
                         );
                         studentStore.createStudent(studentModel);
                         dialog.addMoreCustomDialog(context,
@@ -986,7 +1085,7 @@ class _CreateStudentScreenState extends State<CreateStudentScreen> {
                             desTitle: 'Create a student successfully',
                             headerTitleColor: Color(0xff0BC974),
                             callbackForAdd: (){
-                              Navigator.pushReplacementNamed(context, Routes.createBatch);
+                              Navigator.pushReplacementNamed(context, Routes.createStudent);
                             }, callbackForCancled: (){
                               Navigator.pushReplacementNamed(context, Routes.navigationBarScreen);
                             });
@@ -1036,7 +1135,7 @@ class _CreateStudentScreenState extends State<CreateStudentScreen> {
     }
     var totalBatch = batchList!.total;
     print("Batch Number:: ${totalBatch}");
-    var batch_List = batchList!.documents.toList();
+    batch_List = batchList!.documents.toList();
     print("Batch List:: ${batch_List}");
     List<Map<String, dynamic>> AllBatch = [];
 
@@ -1053,14 +1152,14 @@ class _CreateStudentScreenState extends State<CreateStudentScreen> {
         print("condition :: $matchBatchName");
         batchStore.batch_documentID = document['\$id'];
       }
-      for(int k = 0; k < selected_chip_list!.length; k++){
-        var matchListOfBatch = document.containsKey('batch_name') && document['batch_name'] == selected_chip_list![k];
-        if(matchListOfBatch){
-          print("condition :: $matchListOfBatch");
-          batchStore.batch_documentID = document['\$id'];
-          batch_documentID.add(document['\$id']);
-        }else break;
-      }
+      // for(int k = 0; k < selected_chip_list!.length; k++){
+      //   var matchListOfBatch = document.containsKey('batch_name') && document['batch_name'] == selected_chip_list![k];
+      //   if(matchListOfBatch){
+      //     print("condition :: $matchListOfBatch");
+      //     batchStore.batch_documentID = document['\$id'];
+      //     batch_documentID.add(document['\$id']);
+      //   }else break;
+      // }
     }
     for(var map in AllBatch){
       print("List will be arranged");
@@ -1075,7 +1174,7 @@ class _CreateStudentScreenState extends State<CreateStudentScreen> {
       _batchList = AllBatch.map((data) => BatchModel.fromJson(data)).toList();
       batchNameList = _batchList.map((batch) => batch.batch_name).toList();
       print("All batch name as list ::: ${batchNameList}");
-      print("All selected batch name as list ::: ${selected_chip_list}");
+      print("All selected batch name as list ::: ${selected_batch_list}");
     }catch(e){
       print("exception:::${e}");
     }
@@ -1092,7 +1191,7 @@ class _CreateStudentScreenState extends State<CreateStudentScreen> {
     }
     var totalPackage = packageList!.total;
     print("Package Number:: ${totalPackage}");
-    var package_List = packageList!.documents.toList();
+    package_List = packageList!.documents.toList();
     print("Package List:: ${package_List}");
     List<Map<String, dynamic>> AllPackages = [];
 
@@ -1117,9 +1216,14 @@ class _CreateStudentScreenState extends State<CreateStudentScreen> {
       }
     }
     print("Package list ::: $package_NameList");
+    print("Recent select Package Document ID ::: ${packageStore.package_documentID}");
+    print("Selected Packages Document ID ::: ${package_documentID}");
     //print("Delivery Man's Document ID ::: ${batchStore.batch_documentID}");
     try{
       _packageList = AllPackages.map((data) => PackageModel.fromJson(data)).toList();
+      packageNameList = _packageList.map((package) => package.package_title).toList();
+      print("All packages name as list ::: ${packageNameList}");
+      print("All selected packages name as list ::: ${selected_package_list}");
     }catch(e){
       print("exception:::${e}");
     }

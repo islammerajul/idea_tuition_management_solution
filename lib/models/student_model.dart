@@ -18,8 +18,6 @@ class StudentModel{
   String? active_status;
   List? batch_DocID;
   List? packages_DocID;
-  List? leave_DocID;
-  List? attendance_DocID;
   List? teachers_DocID;
   List? grade_DocID;
   //BatchModel? batchModel;
@@ -41,8 +39,6 @@ class StudentModel{
         this.st_address,
         this.active_status,
         this.batch_DocID,
-        this.attendance_DocID,
-        this.leave_DocID,
         this.packages_DocID,
         this.grade_DocID,
         this.teachers_DocID
@@ -89,8 +85,6 @@ class StudentModel{
     'active_status': active_status,
     'batch': batch_DocID,
     'packages': packages_DocID,
-    'attendance': attendance_DocID,
-    'leave': leave_DocID,
     'teachers': teachers_DocID,
     'grade': grade_DocID,
   };

@@ -56,6 +56,8 @@ abstract class _PackageStore with Store{
   String phone = '';
   @observable
   String select_package = '';
+  @observable
+  String? package_documentID = '';
 
   @observable
   PackageModel? packageModel;

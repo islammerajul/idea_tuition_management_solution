@@ -3,9 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:idea_tuition_managment_app/screens/attendence.dart';
 import 'package:idea_tuition_managment_app/screens/auth_module/student/student_login.dart';
 import 'package:idea_tuition_managment_app/screens/auth_module/student/student_signup.dart';
+import 'package:idea_tuition_managment_app/screens/auth_module/teacher/teacher_form.dart';
 import 'package:idea_tuition_managment_app/screens/auth_module/teacher/teacher_login.dart';
 import 'package:idea_tuition_managment_app/screens/auth_module/teacher/teacher_signup.dart';
 import 'package:idea_tuition_managment_app/screens/create_batch.dart';
+import 'package:idea_tuition_managment_app/screens/create_payment.dart';
 import 'package:idea_tuition_managment_app/screens/menu_journey/news_blogs.dart';
 import 'package:idea_tuition_managment_app/screens/menu_journey/packages/package.dart';
 import 'package:idea_tuition_managment_app/screens/menu_journey/packages/packageMenu.dart';
@@ -22,6 +24,7 @@ import 'package:idea_tuition_managment_app/screens/student_portal_screens/studen
 import 'package:idea_tuition_managment_app/screens/student_portal_screens/student_dashboard.dart';
 import 'package:idea_tuition_managment_app/screens/student_portal_screens/student_leave.dart';
 import 'package:idea_tuition_managment_app/screens/student_portal_screens/student_navigation_bar.dart';
+import 'package:idea_tuition_managment_app/screens/student_portal_screens/student_payment.dart';
 import 'package:idea_tuition_managment_app/screens/student_portal_screens/student_profile.dart';
 import 'package:idea_tuition_managment_app/screens/student_portal_screens/today_schedule.dart';
 import 'package:idea_tuition_managment_app/screens/student_screen.dart';
@@ -62,6 +65,9 @@ class Routes {
   static const String studentLeave = '/student-leave';
   static const String attendence = '/attendence';
   static const String package = '/package';
+  static const String createPayment = '/create-payment';
+  static const String studentPayment = '/student-payment';
+  static const String teacherForm = '/teacher-Form';
   // static const String coreNavigation = '/core-navigation';
   // static const String orderRequest = '/order-request';
   // static const String createCustomer = '/create-customer';
@@ -109,6 +115,9 @@ class Routes {
     studentLeave: (BuildContext context) => const StudentLeave(),
     attendence: (BuildContext context) => const AttendenceScreen(),
     package: (BuildContext context) => const PackageScreen(),
+    createPayment: (BuildContext context) => const CreatePayment(),
+    studentPayment: (BuildContext context) => const StudentPaymentScreen(),
+    teacherForm: (BuildContext context) => const TeacherForm(),
 
     // signup: (BuildContext context) => const SignupScreen(),
     // orderRequest: (BuildContext context) => OrderRequestScreen(),

@@ -265,6 +265,33 @@ class _StudentPortalDashboardState extends State<StudentPortalDashboard> {
                       ],
                     ),
                     SizedBox(
+                      height: 10,
+                    ),
+                    Row(
+                      children: [
+                        Expanded(
+                            flex: 1,
+                            child: TaskWidget(
+                              icon: "assets/person.svg",
+                              task: "Show Payment",
+                              color: Color(0xff492E51),
+                              iconColor: Colors.white,
+                              textColor: CustomColors.White,
+                              onTap: (){
+                                //Navigator.of(context).push(MaterialPageRoute(builder: (_)=>CreateOrders()));
+                                Navigator.pushNamed(context, Routes.studentPayment);
+                              },
+                            )),
+                        SizedBox(
+                          width: 20,
+                        ),
+                        Expanded(
+                          flex: 1,
+                          child: SizedBox(),
+                        ),
+                      ],
+                    ),
+                    SizedBox(
                       height: 20,
                     ),
                     Row(

@@ -3,21 +3,21 @@ import 'package:idea_tuition_managment_app/constants/app_data.dart';
 import 'package:idea_tuition_managment_app/constants/database.dart';
 import 'package:idea_tuition_managment_app/data/repository/repository.dart';
 import 'package:idea_tuition_managment_app/models/base/model_response_object.dart';
-import 'package:idea_tuition_managment_app/models/student_model.dart';
+import 'package:idea_tuition_managment_app/models/teacher_model.dart';
 import 'package:idea_tuition_managment_app/utils/app_dialog.dart';
 import 'package:mobx/mobx.dart';
-part 'student_store.g.dart';
+part 'teacher_store.g.dart';
 
-class StudentStore = _StudentStore with _$StudentStore;
+class TeacherStore = _TeacherStore with _$TeacherStore;
 
-abstract class _StudentStore with Store{
+abstract class _TeacherStore with Store{
   // repository instance
   late Repository _repository;
 
   AppDialog dialog = new AppDialog();
 
   // constructor:---------------------------------------------------------------
-  _StudentStore(Repository repository) : this._repository = repository {
+  _TeacherStore(Repository repository) : this._repository = repository {
     init();
     _setupDisposers();
   }
@@ -40,8 +40,6 @@ abstract class _StudentStore with Store{
   @observable
   bool success = false;
 
-  @observable
-  int Totalcustomer = 0;
 
 
   @observable
@@ -55,16 +53,18 @@ abstract class _StudentStore with Store{
   @observable
   String phone = '';
   @observable
-  String selected_img = '';
+  String teacher_email = '';
+
 
   @observable
-  StudentModel? studentModel;
+  TeacherModel? teacherModel;
 
   @observable
-  DocumentList? studentList;
-  //
-  // @observable
-  // int? TotalCustomer = 0;
+  DocumentList? teacherList;
+
+  @observable
+  String? teacher_documentID = '';
+  List<String?> teacherNameList = [];
 
   // @observable
   // String? selectedUserID;
@@ -75,45 +75,44 @@ abstract class _StudentStore with Store{
   // @observable
   // List<CustomerModel>? _originalCustomerList;
   @observable
-  List<StudentModel> studentModelList = [];
+  List<TeacherModel> teacherModelList = [];
 
 
   // actions:-------------------------------------------------------------------
 
   @action
-  Future createStudent(StudentModel studentModel) async {
-    print("Student Information::: $studentModel");
+  Future createTeacher(TeacherModel teacherModel) async {
+    print("teacher Information::: $teacherModel");
     //network call
     print("Network call");
     loading = true;
     apicallstate=APICALLSTATE.LOADING;
-    final future = _repository.addDocument(AppDatabase.student,studentModel.toJson());
-    print("Student FUTURE : $future");
+    final future = _repository.addDocument(AppDatabase.teacher,teacherModel.toJson());
+    print("teacher FUTURE : $future");
     await future.then((value) async {
       loading = false;
       if (value.id == ResponseCode.SUCCESSFUL) {
         apicallstate=APICALLSTATE.RESPONSE;
-        print("Student success true");
+        print("teacher success true");
         print(value.object);
         success = true;
-        successMessage="Create a student successfully";
+        successMessage="Create a teacher successfully";
         print(successMessage);
       } else {
         apicallstate=APICALLSTATE.RESPONSE;
         success = false;
         noDataFound = value.object as String;
-        //noDataFound = "value.object as String";
       }
     });
   }
 
   @action
-  Future getStudentList() async {
+  Future getTeacherList() async {
     List<Map<String, dynamic>> _list = [];
     loading = true;
     apicallstate=APICALLSTATE.LOADING;
-    final future = _repository.getDocumentList(AppDatabase.student);
-    print("The future result (Student List) ::: $future");
+    final future = _repository.getDocumentList(AppDatabase.teacher);
+    print("The future result (teacher List) ::: $future");
     await future.then((value) async {
       loading = false;
       if (value.id == ResponseCode.SUCCESSFUL) {
@@ -121,22 +120,24 @@ abstract class _StudentStore with Store{
         print("Response code is : ${value.id}");
         success = true;
         print("Sucess is : $success");
-        successMessage="Get student list Successfully";
-        studentList=value.object as DocumentList;
+        successMessage="Get teacher list Successfully";
+        teacherList=value.object as DocumentList;
 
-        for(int i = 0; i < studentList!.documents.length; i++){
-          var document = studentList!.documents[i].data;
+        for(int i = 0; i < teacherList!.documents.length; i++){
+          var document = teacherList!.documents[i].data;
 
           _list.add(document);
 
         }
         try{
-          studentModelList = _list.map((data) => StudentModel.fromJson(data)).toList();
-          print("Student name list ::: ${studentModelList.reversed}");
+          teacherModelList = _list.map((data) => TeacherModel.fromJson(data)).toList();
+          print("teacher name list ::: ${teacherModelList.reversed}");
+          //batchNameList = teacherModelList.map((batch) => batch.batch_name).toList();
+          //print("All teacher name as list ::: ${batchNameList}");
         }catch(e){
           print("exception:::${e}");
         }
-        print("The Student Info is :: $studentList");
+        print("The teacher Info is :: $teacherList");
       } else {
         apicallstate=APICALLSTATE.RESPONSE;
         success = false;

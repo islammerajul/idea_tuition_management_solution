@@ -22,6 +22,42 @@ class AppwriteApi {
   final SentryUtils _sentryUtils = SentryUtils();
 
 
+  //email session
+  Future<ResponseObject> signupSession(String userName,String email,String password) async {
+    try {
+
+      final res = await _clientAppWrite.signUpSession(userName,email,password);
+      if (res is NetworkException) {
+        return ResponseObject(id: ResponseCode.FAILED, object: res.message);
+
+      } else {
+        //_storeUserSession(res);
+        return ResponseObject(id: ResponseCode.SUCCESSFUL, object: res);
+
+      }
+    } catch (e) {
+
+      return ResponseObject(id: ResponseCode.FAILED, object: "Try again.");
+    }
+  }
+Future<ResponseObject> updateSignupInfo(String userId, List<String> labels) async {
+    try {
+
+      final res = await _clientAppWrite.updateSignUp(userId,labels);
+      if (res is NetworkException) {
+        return ResponseObject(id: ResponseCode.FAILED, object: res.message);
+
+      } else {
+        _storeUserSession(res);
+        return ResponseObject(id: ResponseCode.SUCCESSFUL, object: res);
+
+      }
+    } catch (e) {
+
+      return ResponseObject(id: ResponseCode.FAILED, object: "Try again.");
+    }
+  }
+
 
   //email session
   Future<ResponseObject> emailSession(String email,String password) async {

@@ -71,6 +71,22 @@ class Repository {
     });
   }
 
+  // Signup:---------------------------------------------------------------------
+  Future<ResponseObject> signup(String userName, String email, String password) async {
+    return await _appwriteApi.signupSession(userName, email, password).then((res) {
+      return res;
+    }).catchError((error) {
+      return ResponseObject(id: ResponseCode.FAILED, object: "Try again");
+    });
+  }
+
+  Future<ResponseObject> updateSignup(String userId, List<String> labels) async {
+    return await _appwriteApi.updateSignupInfo(userId, labels).then((res) {
+      return res;
+    }).catchError((error) {
+      return ResponseObject(id: ResponseCode.FAILED, object: "Try again");
+    });
+  }
   // Splash:---------------------------------------------------------------------
   // Future<ResponseObject> getAppSettings() async {
   //   return await _appwriteApi.getAppSeetings().then((res) {

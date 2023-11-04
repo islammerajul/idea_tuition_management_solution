@@ -9,7 +9,9 @@ import 'package:idea_tuition_managment_app/stores/auth/auth_store.dart';
 import 'package:idea_tuition_managment_app/stores/batch/batch_store.dart';
 import 'package:idea_tuition_managment_app/stores/language/language_store.dart';
 import 'package:idea_tuition_managment_app/stores/package/package_store.dart';
+import 'package:idea_tuition_managment_app/stores/payment/payment_store.dart';
 import 'package:idea_tuition_managment_app/stores/student/student_store.dart';
+import 'package:idea_tuition_managment_app/stores/teacher_store/teacher_store.dart';
 import 'package:idea_tuition_managment_app/stores/theme/theme_store.dart';
 import 'package:idea_tuition_managment_app/utils/locale/app_localization.dart';
 import 'package:idea_tuition_managment_app/utils/routes/routes.dart';
@@ -38,6 +40,8 @@ class _MyAppState extends State<MyApp> {
   final BatchStore _BatchStore = BatchStore(getIt<Repository>());
   final PackageStore _PackageStore = PackageStore(getIt<Repository>());
   final StudentStore _studentStore = StudentStore(getIt<Repository>());
+  final PaymentStore _paymentStore = PaymentStore(getIt<Repository>());
+  final TeacherStore _teacherStore = TeacherStore(getIt<Repository>());
   final navigatorKey = GlobalKey<NavigatorState>();
   @override
   Widget build(BuildContext context) {
@@ -50,6 +54,8 @@ class _MyAppState extends State<MyApp> {
         Provider<PackageStore>(create: (_) => _PackageStore),
         Provider<LanguageStore>(create: (_) => _languageStore),
         Provider<StudentStore>(create: (_) => _studentStore),
+        Provider<PaymentStore>(create: (_) => _paymentStore),
+        Provider<TeacherStore>(create: (_) => _teacherStore),
       ],
       child: Observer(
         name: 'global-observer',

@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:math';
 
 import 'package:appwrite/appwrite.dart';
 import 'package:appwrite/models.dart';
@@ -19,6 +20,40 @@ class ClientAppWrite{
 
   }
 
+   Future<dynamic> signUpSession(String userName,String email,password) async{
+     print("enter email session");
+     Account account = Account(client);
+
+     try{
+       final user = await account.create(
+           userId: ID.unique(),
+           name: userName,
+           email: email,
+           password: password,
+       );
+       user.name;
+       print("success::$user");
+       return user;
+
+     }catch(e){
+       print("exception::$e");
+       return AppwriteErrorUtil.handleError(e as AppwriteException);
+     }
+   }
+
+   Future<dynamic> updateSignUp(String userId, List<String> labels) async{
+     print("enter email session");
+     //final users =Users(client);
+     try{
+       // final user = await account.update;
+       // print("success::$user");
+       // return user;
+
+     }catch(e){
+       print("exception::$e");
+       return AppwriteErrorUtil.handleError(e as AppwriteException);
+     }
+   }
 
    Future<dynamic> emailSession(String email,password) async{
      print("enter email session");

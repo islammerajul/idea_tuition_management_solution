@@ -20,6 +20,7 @@ class StudentModel{
   List? packages_DocID;
   List? teachers_DocID;
   List? grade_DocID;
+  String? student_documentID;
   //BatchModel? batchModel;
 
   StudentModel(
@@ -41,7 +42,8 @@ class StudentModel{
         this.batch_DocID,
         this.packages_DocID,
         this.grade_DocID,
-        this.teachers_DocID
+        this.teachers_DocID,
+        this.student_documentID,
         //this.batchModel,
       });
 
@@ -63,6 +65,7 @@ class StudentModel{
       st_parent_email: json['st_parent_email'],
       st_address: json['st_address'],
       active_status: json['active_status'],
+      student_documentID: json['\$id'],
       //batchModel: json['batch'] != null ? BatchModel.fromJson(json['batch']) : BatchModel(),
     );
   }

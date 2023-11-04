@@ -163,7 +163,7 @@ class _CreateStudentScreenState extends State<CreateStudentScreen> {
         if (message.isNotEmpty) {
           FlushbarHelper.createSuccess(
             message: message,
-            title: "Create Customer Sucessfully",
+            title: "Create Student Sucessfully",
             duration: const Duration(seconds: 3),
           ).show(context);
         }

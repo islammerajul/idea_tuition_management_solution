@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:idea_tuition_managment_app/constants/colors.dart';
+import 'package:idea_tuition_managment_app/screens/auth_module/teacher/teacher_form.dart';
 import 'package:idea_tuition_managment_app/screens/batch_screen.dart';
 import 'package:idea_tuition_managment_app/screens/tuition_fees_screen.dart';
 import 'package:idea_tuition_managment_app/screens/student_screen.dart';
@@ -17,7 +18,8 @@ class _NavigationBarScreenState extends State<NavigationBarScreen> {
   static final List<Widget> _pages = <Widget>[
     Dashboard(),
     StudentScreen(),
-    BatchScreen(),
+    TeacherForm(),
+    //BatchScreen(),
     TuitionFeesScreen(),
   ];
   void _onItemTapped(int index) {

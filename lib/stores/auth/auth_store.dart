@@ -1,3 +1,4 @@
+import 'package:appwrite/appwrite.dart';
 import 'package:flutter/material.dart';
 import 'package:idea_tuition_managment_app/data/repository/repository.dart';
 import 'package:idea_tuition_managment_app/models/base/model_response_object.dart';
@@ -34,6 +35,8 @@ abstract class _AuthStore with Store {
   bool loading = false;
   @observable
   bool success = false;
+  @observable
+  bool signup_status = false;
 
 
   @observable
@@ -58,6 +61,43 @@ abstract class _AuthStore with Store {
       if (value.id == ResponseCode.SUCCESSFUL) {
         success = true;
 
+
+      } else {
+        success = false;
+        noDataFound = value.object as String;
+      }
+    });
+  }
+
+  @action
+  Future createSignUp(userName, email, password) async {
+    loading = true;
+    final future = _repository.signup(userName, email, password);
+    await future.then((value) async {
+
+      print("Value is ::: $value");
+
+      loading = false;
+      if (value.id == ResponseCode.SUCCESSFUL) {
+        print("Response Code is ::: ${value.id}");
+        success = true;
+        signup_status = true;
+      } else {
+        success = false;
+        signup_status = false;
+        noDataFound = value.object as String;
+      }
+    });
+  }
+
+  @action
+  Future updateSignUpInfo(String userId, List<String> labels) async {
+    loading = true;
+    final future = _repository.updateSignup(userId, labels);
+    await future.then((value) async {
+      loading = false;
+      if (value.id == ResponseCode.SUCCESSFUL) {
+        success = true;
 
       } else {
         success = false;

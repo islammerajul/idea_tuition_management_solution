@@ -105,23 +105,23 @@ class _SplashScrenState extends State<SplashScreen> {
   }
 
 
-  // Widget navigate(BuildContext context) {
-  //   print("init navigate");
-  //   Future.delayed(const Duration(milliseconds: 2000), () async {
-  //     SharedPreferences preferences = await SharedPreferences.getInstance();
-  //     print(preferences.getBool(Preferences.is_logged_in));
-  //
-  //     if (preferences.getBool(Preferences.is_logged_in) ?? false) {
-  //       if(preferences.getBool(Preferences.local_auth_status) ?? false) {
-  //         //Navigator.of(context).pushReplacementNamed(Routes.localAuthScreen);
-  //       }else{
-  //         //Navigator.of(context).pushReplacementNamed(Routes.coreNavigation);
-  //       }
-  //     } else {
-  //       //Navigator.of(context).pushReplacementNamed(Routes.login);
-  //     }
-  //   });
-  //   return Container();
-  // }
+  Widget navigate(BuildContext context) {
+    print("init navigate");
+    Future.delayed(const Duration(milliseconds: 2000), () async {
+      SharedPreferences preferences = await SharedPreferences.getInstance();
+      print(preferences.getBool(Preferences.is_logged_in));
+
+      if (preferences.getBool(Preferences.is_logged_in) ?? false) {
+        if(preferences.getBool(Preferences.local_auth_status) ?? false) {
+          //Navigator.of(context).pushReplacementNamed(Routes.localAuthScreen);
+        }else{
+          Navigator.of(context).pushReplacementNamed(Routes.navigationBarScreen);
+        }
+      } else {
+        Navigator.of(context).pushReplacementNamed(Routes.teacherLogin);
+      }
+    });
+    return Container();
+  }
 }
 

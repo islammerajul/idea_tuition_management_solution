@@ -2,11 +2,14 @@ import 'package:appwrite/appwrite.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:idea_tuition_managment_app/constants/colors.dart';
+import 'package:idea_tuition_managment_app/stores/auth/auth_store.dart';
+import 'package:idea_tuition_managment_app/stores/teacher_store/teacher_store.dart';
 import 'package:idea_tuition_managment_app/style/custom_text_style.dart';
 import 'package:idea_tuition_managment_app/utils/routes/routes.dart';
 import 'package:idea_tuition_managment_app/widgets/custom_button.dart';
 import 'package:idea_tuition_managment_app/widgets/dialogs/show_error_dialog.dart';
 import 'package:idea_tuition_managment_app/widgets/text_form_field_widget.dart';
+import 'package:provider/provider.dart';
 
 class TeacherSignupScreen extends StatefulWidget {
   const TeacherSignupScreen({super.key});
@@ -27,6 +30,17 @@ class _TeacherSignupScreenState extends State<TeacherSignupScreen> {
   bool confirmPasswordVisible = true;
 
   CustomSEdialog dialog = CustomSEdialog();
+
+  //store
+  late AuthStore _authStore;
+  late TeacherStore teacherStore;
+
+  @override
+  void didChangeDependencies() {
+    _authStore = Provider.of<AuthStore>(context);
+    teacherStore = Provider.of<TeacherStore>(context);
+    super.didChangeDependencies();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -225,20 +239,25 @@ class _TeacherSignupScreenState extends State<TeacherSignupScreen> {
                                 } else {
                                   if (_passwordController.text ==
                                       _confirmPasswordController.text) {
-                                    Client client = Client()
-                                        .setEndpoint("http://penciltech001.penciltech.xyz:9080/v1")
-                                        .setProject("652e291be0c85ef77871")
-                                        .setSelfSigned(status: true);
-                                    Account account = Account(client);
-                                    final user = await account.create(
-                                      userId: ID.unique(),
-                                      name: _nameController.text,
-                                      email: _emailController.text,
-                                      password: _passwordController.text,
-                                    );
+                                    // Client client = Client()
+                                    //     .setEndpoint("http://penciltech001.penciltech.xyz:9080/v1")
+                                    //     .setProject("652e291be0c85ef77871")
+                                    //     .setSelfSigned(status: true);
+                                    // Account account = Account(client);
+                                    // final user = await account.create(
+                                    //   userId: ID.unique(),
+                                    //   name: _nameController.text,
+                                    //   email: _emailController.text,
+                                    //   password: _passwordController.text,
+                                    // );
+                                    teacherStore.teacher_email = _emailController.text;
+                                    _authStore.createSignUp(_nameController.text, _emailController.text, _passwordController.text);
+                                    if(_authStore.signup_status == true){
+                                      Navigator.pushReplacementNamed(context, Routes.teacherLogin);
+                                    }
                                   }
-                                  Navigator.pushReplacementNamed(
-                                      context, Routes.navigationBarScreen);
+                                  // Navigator.pushReplacementNamed(
+                                  //     context, Routes.navigationBarScreen);
                                 }
                               } else {
                                 //_showErrorMessage("Please fill all the data");

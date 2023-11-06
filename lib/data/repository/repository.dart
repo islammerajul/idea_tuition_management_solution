@@ -72,8 +72,9 @@ class Repository {
   }
 
   // Signup:---------------------------------------------------------------------
-  Future<ResponseObject> signup(String userName, String email, String password) async {
-    return await _appwriteApi.signupSession(userName, email, password).then((res) {
+  Future<ResponseObject> signup(String userID,String userName, String email, String password) async {
+    return await _appwriteApi.signupSession(userID,userName, email, password).then((res) {
+      print("_appwriteApi.signupSession mehod in repository return res ::: $res");
       return res;
     }).catchError((error) {
       return ResponseObject(id: ResponseCode.FAILED, object: "Try again");
@@ -146,6 +147,11 @@ class Repository {
   //     return ResponseObject(id: ResponseCode.FAILED, object: "Try again");
   //   });
   // }
+
+ /*
+  Future<void> saveUserEmail(String value) => _sharedPrefsHelper.saveUserEmail(value);
+*/
+
   Future<void> saveIsLoggedIn(bool value) => _sharedPrefsHelper.saveIsLoggedIn(value);
   Future<void> saveIsDoctors(bool value) => _sharedPrefsHelper.saveIsDoctor(value);
 

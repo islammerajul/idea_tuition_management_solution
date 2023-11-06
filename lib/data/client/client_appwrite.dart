@@ -4,13 +4,22 @@ import 'dart:math';
 import 'package:appwrite/appwrite.dart';
 import 'package:appwrite/models.dart';
 import 'package:idea_tuition_managment_app/data/exceptions/appwrite_exceptions.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+import 'package:idea_tuition_managment_app/data/sharedpref/constants/preferences.dart' as aw;
+
+import '../sharedpref/shared_preference_helper.dart';
 
 
 
 class ClientAppWrite{
+  String? email;
 
    Client client=Client();
-   AppwriteErrorUtil appwriteErrorUtil=AppwriteErrorUtil();
+  var account;
+  AppwriteErrorUtil appwriteErrorUtil=AppwriteErrorUtil();
+
+
 
    ClientAppWrite(){
      client = Client()
@@ -18,22 +27,28 @@ class ClientAppWrite{
         .setProject("652e291be0c85ef77871")
         .setSelfSigned(status: true); // For self signed certificates, only use for development
 
+      account = Account(client);
   }
 
-   Future<dynamic> signUpSession(String userName,String email,password) async{
+   Future<dynamic> signUpSession(String userID,String userName,String email,password) async{
      print("enter email session");
+     print("enter email :: $email");
+     print("enter UserName :: $userName");
+     print("enter Password :: $password");
+     print("enter UserID :: $userID");
      Account account = Account(client);
 
      try{
        final user = await account.create(
-           userId: ID.unique(),
+           userId: userID,
            name: userName,
            email: email,
            password: password,
        );
-       user.name;
-       print("success::$user");
-       return user;
+       email = user.email;
+       print("get response after registration::$user");
+       print("get response after registration::${user.password}");
+       //return user;
 
      }catch(e){
        print("exception::$e");
@@ -64,6 +79,11 @@ class ClientAppWrite{
          email: email,
          password: password,
        );
+
+/*
+       gotString(email);
+
+*/
        print("success::$session");
        return session;
      }catch(e){
@@ -71,7 +91,11 @@ class ClientAppWrite{
        return AppwriteErrorUtil.handleError(e as AppwriteException);
      }
    }
-
+/*
+   gotString(String email){
+     return email;
+   }
+*/
    Future<dynamic> getDocument(String databaseId,List doc)async {
      final databases = Databases(client);
      try{
@@ -108,6 +132,7 @@ class ClientAppWrite{
      }
 
    }
+
 
 
 

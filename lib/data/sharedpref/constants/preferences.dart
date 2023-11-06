@@ -13,6 +13,9 @@ class Preferences {
 
 
 
+  static const String user_email = "user_email";
+
+
   static const String user_session = "user_session";
   static const String product_list = "product_list";
   static const String order_list = "order_list";

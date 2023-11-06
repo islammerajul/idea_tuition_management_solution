@@ -1,15 +1,19 @@
 import 'package:another_flushbar/flushbar_helper.dart';
+import 'package:appwrite/models.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:idea_tuition_managment_app/constants/app_data.dart';
 import 'package:idea_tuition_managment_app/constants/colors.dart';
 import 'package:idea_tuition_managment_app/models/teacher_model.dart';
+import 'package:idea_tuition_managment_app/screens/dashboard.dart';
 import 'package:idea_tuition_managment_app/stores/teacher_store/teacher_store.dart';
 import 'package:idea_tuition_managment_app/utils/routes/routes.dart';
 import 'package:idea_tuition_managment_app/widgets/custom_button.dart';
 import 'package:idea_tuition_managment_app/widgets/progress_indicator_widget.dart';
 import 'package:idea_tuition_managment_app/widgets/text_form_field_widget.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:idea_tuition_managment_app/data/sharedpref/constants/preferences.dart' as aw;
 
 class TeacherForm extends StatefulWidget {
   const TeacherForm({super.key});
@@ -34,6 +38,7 @@ class _TeacherFormState extends State<TeacherForm> {
   FocusNode phoneFocusNode = FocusNode();
   FocusNode addressFocusNode = FocusNode();
 
+
   @override
   void initState() {
     super.initState();
@@ -57,6 +62,7 @@ class _TeacherFormState extends State<TeacherForm> {
   void didChangeDependencies() {
     teacherStore = Provider.of<TeacherStore>(context);
     super.didChangeDependencies();
+
   }
 
   @override
@@ -206,7 +212,9 @@ class _TeacherFormState extends State<TeacherForm> {
                       headerName: 'Email',
                       hint: "Type Your Email ",
                       hintStyle: TextStyle(fontSize: 14,fontWeight: FontWeight.w400,color: Color(0xffCCDADC),),
-                      controller: _emailController,
+                      controller: TextEditingController(
+                        text: _emailController.text = "${teacherStore.teacher_email}"
+                      ),
                       keyboardType: TextInputType.emailAddress,
                       focusNode: emailFocusNode,
                       //maxLength: 11,
@@ -271,7 +279,11 @@ class _TeacherFormState extends State<TeacherForm> {
                           }catch(e){
                             print("Teacher create exception ::: $e");
                           }
-                          //Navigator.pushNamed(context, Routes.navigationBarScreen);
+                          Navigator.pushNamed(context, Routes.navigationBarScreen,
+                          //     arguments: {
+                          //   'arg1' : count,
+                          // }
+                          );
                         } else {
                           if(_nameController.text.isEmpty){
                             FocusScope.of(context).requestFocus(nameFocusNode);

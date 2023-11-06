@@ -39,6 +39,10 @@ abstract class _TeacherStore with Store{
 
   @observable
   bool success = false;
+  @observable
+  bool loadListsuccess = false;
+  @observable
+  bool createSuccess = false;
 
 
 
@@ -95,12 +99,12 @@ abstract class _TeacherStore with Store{
         apicallstate=APICALLSTATE.RESPONSE;
         print("teacher success true");
         print(value.object);
-        success = true;
+        createSuccess = true;
         successMessage="Create a teacher successfully";
         print(successMessage);
       } else {
         apicallstate=APICALLSTATE.RESPONSE;
-        success = false;
+        createSuccess = false;
         noDataFound = value.object as String;
       }
     });
@@ -122,6 +126,7 @@ abstract class _TeacherStore with Store{
         print("Sucess is : $success");
         successMessage="Get teacher list Successfully";
         teacherList=value.object as DocumentList;
+        loadListsuccess = true;
 
         for(int i = 0; i < teacherList!.documents.length; i++){
           var document = teacherList!.documents[i].data;
@@ -142,6 +147,7 @@ abstract class _TeacherStore with Store{
         apicallstate=APICALLSTATE.RESPONSE;
         success = false;
         noDataFound = value.object as String;
+        loadListsuccess = false;
       }
     });
   }

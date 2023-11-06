@@ -4,6 +4,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:idea_tuition_managment_app/constants/colors.dart';
+import 'package:idea_tuition_managment_app/data/sharedpref/shared_preference_helper.dart';
 import 'package:idea_tuition_managment_app/screens/navigation_bar.dart';
 import 'package:idea_tuition_managment_app/stores/auth/auth_store.dart';
 import 'package:idea_tuition_managment_app/style/custom_text_style.dart';
@@ -12,6 +13,9 @@ import 'package:idea_tuition_managment_app/widgets/custom_button.dart';
 import 'package:idea_tuition_managment_app/widgets/progress_indicator_widget.dart';
 import 'package:idea_tuition_managment_app/widgets/text_form_field_widget.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+import '../../../data/client/client_appwrite.dart';
 
 
 class TeacherLoginScreen extends StatefulWidget {
@@ -28,6 +32,10 @@ class _TeacherLoginScreenState extends State<TeacherLoginScreen> {
 
   bool select_account = false;
   bool passwordVisible = true;
+
+ // SharedPreferenceHelper sharedPreferenceHelper = SharedPreferenceHelper(_sharedPreference);
+
+  //injecting dio instance
 
   //store
   late AuthStore _authStore;
@@ -304,6 +312,8 @@ class _TeacherLoginScreenState extends State<TeacherLoginScreen> {
 
                               //Need this line
                               _authStore.createEmailSession(_emailController.text, _passwordController.text);
+
+
                             } else {
                               _showErrorMessage("Please fill all the data");
                             }
@@ -325,7 +335,7 @@ class _TeacherLoginScreenState extends State<TeacherLoginScreen> {
 
   // General Methods:-----------------------------------------------------------
 
-  _navigate(context){
+  Widget _navigate(context){
     print("success login");
     WidgetsBinding.instance.addPostFrameCallback((_){
 
@@ -334,7 +344,7 @@ class _TeacherLoginScreenState extends State<TeacherLoginScreen> {
           MaterialPageRoute(
               builder: (context) => const NavigationBarScreen()));
     });
-
+    return SizedBox.shrink();
   }
   _showErrorMessage(String message) {
     print('error-$message');

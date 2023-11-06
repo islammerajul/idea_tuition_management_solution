@@ -61,7 +61,6 @@ abstract class _AuthStore with Store {
       if (value.id == ResponseCode.SUCCESSFUL) {
         success = true;
 
-
       } else {
         success = false;
         noDataFound = value.object as String;
@@ -70,9 +69,9 @@ abstract class _AuthStore with Store {
   }
 
   @action
-  Future createSignUp(userName, email, password) async {
+  Future createSignUp(userID,userName, email, password) async {
     loading = true;
-    final future = _repository.signup(userName, email, password);
+    final future = _repository.signup(userID,userName, email, password);
     await future.then((value) async {
 
       print("Value is ::: $value");
@@ -86,6 +85,7 @@ abstract class _AuthStore with Store {
         success = false;
         signup_status = false;
         noDataFound = value.object as String;
+        print("noDataFound is ::: $noDataFound");
       }
     });
   }

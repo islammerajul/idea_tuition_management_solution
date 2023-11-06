@@ -437,6 +437,7 @@ class _CreatePaymentState extends State<CreatePayment> {
                           //     }, callbackForCancled: (){
                           //       Navigator.pushReplacementNamed(context, Routes.navigationBarScreen);
                           //     });
+                          Navigator.pushReplacementNamed(context, Routes.navigationBarScreen);
                         }catch(e){
                           print("Payment create exception ::: $e");
                         }

@@ -13,6 +13,7 @@ import 'package:idea_tuition_managment_app/stores/teacher_store/teacher_store.da
 import 'package:idea_tuition_managment_app/style/custom_text_style.dart';
 import 'package:idea_tuition_managment_app/widgets/custom_schedule.dart';
 import 'package:idea_tuition_managment_app/widgets/dashboard_box.dart';
+import 'package:idea_tuition_managment_app/widgets/dialogs/add_more_dialogs.dart';
 import 'package:idea_tuition_managment_app/widgets/dialogs/email_not_match.dart';
 import 'package:idea_tuition_managment_app/widgets/progress_indicator_widget.dart';
 import 'package:idea_tuition_managment_app/widgets/task_widget.dart';
@@ -36,6 +37,8 @@ class _DashboardState extends State<Dashboard> {
   List<String> month = ['January', 'February', 'March'];
   String? select_month = 'January';
   int count = 0;
+  AddMoreDialog dialog = AddMoreDialog();
+  bool hasFilteredTeacherList = false;
 
 
 
@@ -56,27 +59,29 @@ class _DashboardState extends State<Dashboard> {
     super.didChangeDependencies();
      teacherStore = Provider.of<TeacherStore>(context);
      teacherStore.getTeacherList();
+     teacherStore.teacherList;
     // Ensure you have the teacherList data before calling filterTeacherList
     if (teacherStore.teacherList == null) {
       // Fetch the teacher list if it's not available
       teacherStore.getTeacherList().then((_) {
         // Now that you have the teacher list, call your filtering function
-        filterTeacherList(teacherStore.teacherList);
+          filterTeacherList(teacherStore.teacherList);
+
       });
     } else {
       // If the teacher list is already available, simply call the filtering function
-      filterTeacherList(teacherStore.teacherList);
+        filterTeacherList(teacherStore.teacherList);
     }
-     //filterTeacherList( teacherStore.teacherList);
-    //batchStore = Provider.of<BatchStore>(context);
-    //studentStore = Provider.of<StudentStore>(context);
-    //batchStore.getBatchList();
-    //packageStore.getPackageList();
+
   }
 
 
   @override
   Widget build(BuildContext context) {
+    // final Map<String, dynamic> arg =
+    // ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
+    // count = arg['arg1'];
+
     return SafeArea(
         top: true,
         child: Scaffold(
@@ -138,10 +143,12 @@ class _DashboardState extends State<Dashboard> {
           body: Stack(
             children: [
               Observer(builder: (BuildContext context) {
+                print("loadListsuccess is :: ${teacherStore.loadListsuccess}");
                 return teacherStore.loading
                     ? const Center(child: CustomProgressIndicatorWidget())
                     : _mainContent(context);
               }),
+
               // Observer(builder: (BuildContext context){
               //   if (teacherStore.apicallstate == APICALLSTATE.LOADING){
               //     return teacherStore.success
@@ -376,6 +383,10 @@ class _DashboardState extends State<Dashboard> {
                 SizedBox(
                   height: 20,
                 ),
+                //count == 0 ? Text("New User") : Text("Old User"),
+                SizedBox(
+                  height: 20,
+                ),
                 Container(
                   height: 500,
                   width: double.infinity,
@@ -428,7 +439,8 @@ class _DashboardState extends State<Dashboard> {
             ),
           ),
         ),
-        // if (count == 0) TeacherNotFoundDialog(),
+         //if (count == 0) {Text("New User")},
+        if(count == 0) TeacherNotFoundDialog()
       ],
     );
   }
@@ -452,13 +464,18 @@ class _DashboardState extends State<Dashboard> {
       print("List will be arranged");
       var document = teacher_List[i].data;
       AllTeacher.add(document);
-      var checkEmailList = document.containsKey('email') && document['email'] == "liton@gmail.com";
+      SharedPreferences preferences = await SharedPreferences.getInstance();
+      var checkEmailList = document.containsKey('email') && document['email'] == preferences.getString(aw.Preferences.user_email);
 
       if(checkEmailList){
         count++;
+        if(count == 1){
+          var d = document['\$id'];
+        }
       }
       //print("How many email are same : $count");
     }
+    //hasFilteredTeacherList = true;
     print("How many email are same : $count");
 
 
@@ -472,12 +489,14 @@ class _DashboardState extends State<Dashboard> {
     }
     //return "done";
     // Return a flag indicating whether the dialog should be shown
+    //hasFilteredTeacherList = false;
     return count == 0;
   }
 
   Future getPreference() async{
     SharedPreferences preferences = await SharedPreferences.getInstance();
-    print("Get User Session :: ${preferences.getString(aw.Preferences.user_session)}");
+    teacherStore.teacher_email = preferences.getString(aw.Preferences.user_email)!;
+        print("Get User Session :: ${preferences.getString(aw.Preferences.user_email)}");
   }
 
 }

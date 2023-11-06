@@ -6,6 +6,7 @@ import 'package:idea_tuition_managment_app/data/exceptions/network_exceptions.da
 import 'package:idea_tuition_managment_app/data/sharedpref/constants/preferences.dart';
 import 'package:idea_tuition_managment_app/data/sharedpref/shared_preference_helper.dart';
 import 'package:idea_tuition_managment_app/models/base/model_response_object.dart';
+import 'package:idea_tuition_managment_app/models/user_model_for_signup.dart';
 import 'package:idea_tuition_managment_app/utils/sentry_utils.dart';
 
 
@@ -23,15 +24,23 @@ class AppwriteApi {
 
 
   //email session
-  Future<ResponseObject> signupSession(String userName,String email,String password) async {
+  Future<ResponseObject> signupSession(String userID,String userName,String email,String password) async {
     try {
 
-      final res = await _clientAppWrite.signUpSession(userName,email,password);
+      final res = await _clientAppWrite.signUpSession(userID,userName,email,password);
+      print("_clientAppWrite.signUpSession mehod in AppwriteApi class return res ::: $res");
       if (res is NetworkException) {
         return ResponseObject(id: ResponseCode.FAILED, object: res.message);
 
       } else {
         //_storeUserSession(res);
+/*
+        final user = res.object as UserModel;
+        email = user.email;
+        print("User email from api_appwrite(signupSession function) ::: $email");
+
+*/
+        sharedPreferenceHelper.setEmailFromLogin(email);
         return ResponseObject(id: ResponseCode.SUCCESSFUL, object: res);
 
       }
@@ -69,6 +78,7 @@ Future<ResponseObject> updateSignupInfo(String userId, List<String> labels) asyn
 
       } else {
         _storeUserSession(res);
+        sharedPreferenceHelper.setEmailFromLogin(email);
         return ResponseObject(id: ResponseCode.SUCCESSFUL, object: res);
 
       }
@@ -190,9 +200,15 @@ Future<ResponseObject> updateSignupInfo(String userId, List<String> labels) asyn
     }
   }
 
-  void _storeUserSession(aw.Session session) {
+  Future<void> _storeUserSession(aw.Session session) async {
     sharedPreferenceHelper.saveSession(session);
     sharedPreferenceHelper.saveIsLoggedIn(true);
+
+
+    final email = await _clientAppWrite..account;
+    print("get Email::$email");
+
+
   }
   void _storeProducts(aw.DocumentList documentList) {
     sharedPreferenceHelper.setDocumentList( documentList.toMap(),Preferences.product_list);

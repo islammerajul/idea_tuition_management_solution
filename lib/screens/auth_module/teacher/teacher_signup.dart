@@ -1,13 +1,17 @@
+import 'package:another_flushbar/flushbar_helper.dart';
 import 'package:appwrite/appwrite.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:idea_tuition_managment_app/constants/colors.dart';
+import 'package:idea_tuition_managment_app/screens/auth_module/teacher/teacher_login.dart';
 import 'package:idea_tuition_managment_app/stores/auth/auth_store.dart';
 import 'package:idea_tuition_managment_app/stores/teacher_store/teacher_store.dart';
 import 'package:idea_tuition_managment_app/style/custom_text_style.dart';
 import 'package:idea_tuition_managment_app/utils/routes/routes.dart';
 import 'package:idea_tuition_managment_app/widgets/custom_button.dart';
 import 'package:idea_tuition_managment_app/widgets/dialogs/show_error_dialog.dart';
+import 'package:idea_tuition_managment_app/widgets/progress_indicator_widget.dart';
 import 'package:idea_tuition_managment_app/widgets/text_form_field_widget.dart';
 import 'package:provider/provider.dart';
 
@@ -25,6 +29,8 @@ class _TeacherSignupScreenState extends State<TeacherSignupScreen> {
   TextEditingController _passwordController = TextEditingController();
   TextEditingController _confirmPasswordController = TextEditingController();
   TextEditingController _phoneNumController = TextEditingController();
+
+  String? userID;
 
   bool passwordVisible = true;
   bool confirmPasswordVisible = true;
@@ -44,6 +50,31 @@ class _TeacherSignupScreenState extends State<TeacherSignupScreen> {
 
   @override
   Widget build(BuildContext context) {
+    return Stack(
+      children: <Widget>[
+        Center(child: mainBody(context)),
+        Observer(
+          builder: (context) {
+            disableErrorBoundaries: false;
+            print("success-obj${_authStore.success}");
+            return _authStore.success
+                ? _navigate(context)
+                : _showErrorMessage(_authStore.noDataFound);
+          },
+        ),
+        Observer(
+          builder: (context) {
+            return Visibility(
+              visible: _authStore.loading,
+              child: CustomProgressIndicatorWidget(),
+            );
+          },
+        )
+      ],
+    );
+  }
+
+  mainBody(BuildContext context){
     return SafeArea(
         child: Scaffold(
           body: Container(
@@ -64,7 +95,7 @@ class _TeacherSignupScreenState extends State<TeacherSignupScreen> {
               child: Form(
                   key: _formkey,
                   child: Padding(
-                      padding: const EdgeInsets.only(left: 31, right: 26),
+                    padding: const EdgeInsets.only(left: 31, right: 26),
                     child: Column(
                       children: [
                         Image.asset("assets/logo/idea_logo.png",height: 200,width: 260,),
@@ -106,23 +137,6 @@ class _TeacherSignupScreenState extends State<TeacherSignupScreen> {
                         SizedBox(
                           height: 15,
                         ),
-                        /*
-                        TextFormFieldWidget(
-                            headerName: 'Phone Number',
-                            hint: "Type Your phone number",
-                            hintStyle: TextStyle(fontSize: 14,fontWeight: FontWeight.w400,color: Color(0xffCCDADC),),
-                            controller: _phoneNumController,
-                            keyboardType: TextInputType.phone,
-                            maxLength: 11,
-                            validator: (value) {
-                              if (value!.isEmpty) {
-                                return "Please type Your phone number";
-                              }
-                            }),
-                        SizedBox(
-                          height: 15,
-                        ),
-                        */
                         TextFormFieldWidget(
                             headerName: 'Email',
                             hint: "Type Your Email ",
@@ -250,11 +264,16 @@ class _TeacherSignupScreenState extends State<TeacherSignupScreen> {
                                     //   email: _emailController.text,
                                     //   password: _passwordController.text,
                                     // );
-                                    teacherStore.teacher_email = _emailController.text;
-                                    _authStore.createSignUp(_nameController.text, _emailController.text, _passwordController.text);
-                                    if(_authStore.signup_status == true){
-                                      Navigator.pushReplacementNamed(context, Routes.teacherLogin);
-                                    }
+
+                                    //teacherStore.teacher_email = _emailController.text;
+                                    print("User Name : ${_nameController.text}");
+                                    print("Email : ${_emailController.text}");
+                                    print("Password : ${_passwordController.text}");
+                                    userID = "6548a${DateTime.now().year}${DateTime.now().month}d${DateTime.now().day}f${DateTime.now().minute}e${DateTime.now().millisecond}";
+                                    _authStore.createSignUp(userID,_nameController.text, _emailController.text, _passwordController.text);
+                                    // if(_authStore.signup_status == true){
+                                    //   Navigator.pushReplacementNamed(context, Routes.teacherLogin);
+                                    // }
                                   }
                                   // Navigator.pushReplacementNamed(
                                   //     context, Routes.navigationBarScreen);
@@ -293,5 +312,50 @@ class _TeacherSignupScreenState extends State<TeacherSignupScreen> {
             ),
           ),
         ));
+  }
+
+  // General Methods:-----------------------------------------------------------
+
+  Widget _navigate(context){
+    print("success login");
+    WidgetsBinding.instance.addPostFrameCallback((_){
+
+      // Add Your Code here.
+      Navigator.of(context).pushReplacement(
+          MaterialPageRoute(
+              builder: (context) => const TeacherLoginScreen()));
+    });
+    return SizedBox.shrink();
+  }
+  _showErrorMessage(String message) {
+    print('error-$message');
+    if (message.isNotEmpty) {
+      Future.delayed(const Duration(milliseconds: 0), () {
+        if (message.isNotEmpty) {
+          FlushbarHelper.createError(
+            message: message,
+            title: "Error",
+            duration: const Duration(seconds: 3),
+          ).show(context);
+        }
+      });
+    }
+    _setStoreValueAgain();
+
+
+    return SizedBox.shrink();
+  }
+
+  // dispose:-------------------------------------------------------------------
+  @override
+  void dispose() {
+    // Clean up the controller when the Widget is removed from the Widget tree
+    _emailController.dispose();
+    _passwordController.dispose();
+    super.dispose();
+  }
+
+  void _setStoreValueAgain() {
+    _authStore.noDataFound="";
   }
 }

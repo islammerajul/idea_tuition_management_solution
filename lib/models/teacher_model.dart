@@ -4,13 +4,16 @@ class TeacherModel{
   String? teacher_email;
   String? teacher_address;
   String? teacher_institution;
+  String? document_id;
 
   TeacherModel(
       {this.teacher_name,
       this.teacher_phone,
       this.teacher_email,
       this.teacher_address,
-      this.teacher_institution});
+      this.teacher_institution,
+        this.document_id,
+      });
 
   // Factory method to create a User object from JSON data
   factory TeacherModel.fromJson(Map<String, dynamic> json) {
@@ -20,6 +23,7 @@ class TeacherModel{
       teacher_phone: json['contract_number'],
       teacher_address: json['address'],
       teacher_institution: json['institution'],
+      document_id:  json['\$id'],
 
       //batchModel: json['batch'] != null ? BatchModel.fromJson(json['batch']) : BatchModel(),
     );
@@ -31,7 +35,5 @@ class TeacherModel{
     'contract_number': teacher_phone,
     'address': teacher_address,
     'institution': teacher_institution,
-
-
   };
 }

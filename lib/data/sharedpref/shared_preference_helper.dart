@@ -123,4 +123,14 @@ class SharedPreferenceHelper {
     return _sharedPreference.remove(key);
   }
 
+  Future<void> setEmailFromLogin(String email) {
+    return _sharedPreference.setString(Preferences.user_email,email);
+  }
+
+/*
+
+  Future<bool> saveUserEmail(String value) async {
+    return _sharedPreference.setString(Preferences.user_email, value);
+  }
+*/
 }

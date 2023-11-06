@@ -30,17 +30,17 @@ class ClientAppWrite{
       account = Account(client);
   }
 
-   Future<dynamic> signUpSession(String userID,String userName,String email,password) async{
+   Future<dynamic> signUpSession(String userName,String email,password) async{
      print("enter email session");
      print("enter email :: $email");
      print("enter UserName :: $userName");
      print("enter Password :: $password");
-     print("enter UserID :: $userID");
+     //print("enter UserID :: $userID");
      Account account = Account(client);
 
      try{
        final user = await account.create(
-           userId: userID,
+           userId: ID.unique(),
            name: userName,
            email: email,
            password: password,

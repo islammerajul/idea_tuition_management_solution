@@ -56,7 +56,7 @@ class _TeacherSignupScreenState extends State<TeacherSignupScreen> {
         Observer(
           builder: (context) {
             disableErrorBoundaries: false;
-            print("success-obj${_authStore.success}");
+            print("success-obj for Signup :: ${_authStore.success}");
             return _authStore.success
                 ? _navigate(context)
                 : _showErrorMessage(_authStore.noDataFound);
@@ -270,7 +270,7 @@ class _TeacherSignupScreenState extends State<TeacherSignupScreen> {
                                     print("Email : ${_emailController.text}");
                                     print("Password : ${_passwordController.text}");
                                     userID = "6548a${DateTime.now().year}${DateTime.now().month}d${DateTime.now().day}f${DateTime.now().minute}e${DateTime.now().millisecond}";
-                                    _authStore.createSignUp(userID,_nameController.text, _emailController.text, _passwordController.text);
+                                    _authStore.createSignUp(_nameController.text, _emailController.text, _passwordController.text);
                                     // if(_authStore.signup_status == true){
                                     //   Navigator.pushReplacementNamed(context, Routes.teacherLogin);
                                     // }
@@ -317,7 +317,7 @@ class _TeacherSignupScreenState extends State<TeacherSignupScreen> {
   // General Methods:-----------------------------------------------------------
 
   Widget _navigate(context){
-    print("success login");
+    print("success SignUP");
     WidgetsBinding.instance.addPostFrameCallback((_){
 
       // Add Your Code here.

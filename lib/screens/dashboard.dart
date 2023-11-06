@@ -143,7 +143,7 @@ class _DashboardState extends State<Dashboard> {
           body: Stack(
             children: [
               Observer(builder: (BuildContext context) {
-                print("loadListsuccess is :: ${teacherStore.loadListsuccess}");
+                print("loadListsuccess is :: ${teacherStore.loading}");
                 return teacherStore.loading
                     ? const Center(child: CustomProgressIndicatorWidget())
                     : _mainContent(context);
@@ -475,7 +475,7 @@ class _DashboardState extends State<Dashboard> {
       }
       //print("How many email are same : $count");
     }
-    //hasFilteredTeacherList = true;
+    hasFilteredTeacherList = true;
     print("How many email are same : $count");
 
 

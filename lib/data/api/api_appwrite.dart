@@ -24,10 +24,10 @@ class AppwriteApi {
 
 
   //email session
-  Future<ResponseObject> signupSession(String userID,String userName,String email,String password) async {
+  Future<ResponseObject> signupSession(String userName,String email,String password) async {
     try {
 
-      final res = await _clientAppWrite.signUpSession(userID,userName,email,password);
+      final res = await _clientAppWrite.signUpSession(userName,email,password);
       print("_clientAppWrite.signUpSession mehod in AppwriteApi class return res ::: $res");
       if (res is NetworkException) {
         return ResponseObject(id: ResponseCode.FAILED, object: res.message);

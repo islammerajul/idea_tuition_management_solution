@@ -105,7 +105,8 @@ abstract class _TeacherStore with Store{
       } else {
         apicallstate=APICALLSTATE.RESPONSE;
         createSuccess = false;
-        noDataFound = value.object as String;
+        noDataFound = (value.object == null) ? "Signup not work" : value.object as String;
+        print("noDataFound is ::: $noDataFound");
       }
     });
   }

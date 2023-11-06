@@ -7,7 +7,7 @@ import 'package:idea_tuition_managment_app/screens/auth_module/teacher/teacher_f
 import 'package:idea_tuition_managment_app/screens/auth_module/teacher/teacher_login.dart';
 import 'package:idea_tuition_managment_app/screens/auth_module/teacher/teacher_signup.dart';
 import 'package:idea_tuition_managment_app/screens/create_batch.dart';
-import 'package:idea_tuition_managment_app/screens/create_payment.dart';
+import 'package:idea_tuition_managment_app/screens/payment_module/create_payment.dart';
 import 'package:idea_tuition_managment_app/screens/menu_journey/news_blogs.dart';
 import 'package:idea_tuition_managment_app/screens/menu_journey/packages/package.dart';
 import 'package:idea_tuition_managment_app/screens/menu_journey/packages/packageMenu.dart';

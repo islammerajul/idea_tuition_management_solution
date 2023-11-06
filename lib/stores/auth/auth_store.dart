@@ -63,15 +63,17 @@ abstract class _AuthStore with Store {
 
       } else {
         success = false;
-        noDataFound = value.object as String;
+        //noDataFound = value.object as String;
+        noDataFound = (value.object == null) ? "Signup not work" : value.object as String;
+        print("noDataFound is ::: $noDataFound");
       }
     });
   }
 
   @action
-  Future createSignUp(userID,userName, email, password) async {
+  Future createSignUp(userName, email, password) async {
     loading = true;
-    final future = _repository.signup(userID,userName, email, password);
+    final future = _repository.signup(userName, email, password);
     await future.then((value) async {
 
       print("Value is ::: $value");
@@ -84,7 +86,7 @@ abstract class _AuthStore with Store {
       } else {
         success = false;
         signup_status = false;
-        noDataFound = value.object as String;
+        noDataFound = (value.object == null) ? "Signup not work" : value.object as String;
         print("noDataFound is ::: $noDataFound");
       }
     });

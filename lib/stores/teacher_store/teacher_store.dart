@@ -6,6 +6,8 @@ import 'package:idea_tuition_managment_app/models/base/model_response_object.dar
 import 'package:idea_tuition_managment_app/models/teacher_model.dart';
 import 'package:idea_tuition_managment_app/utils/app_dialog.dart';
 import 'package:mobx/mobx.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:idea_tuition_managment_app/data/sharedpref/constants/preferences.dart' as aw;
 part 'teacher_store.g.dart';
 
 class TeacherStore = _TeacherStore with _$TeacherStore;
@@ -43,7 +45,12 @@ abstract class _TeacherStore with Store{
   bool loadListsuccess = false;
   @observable
   bool createSuccess = false;
-
+  @observable
+  bool hasFilteredTeacherList = false;
+  @observable
+  bool functionLoading = false;
+  @observable
+  bool isTeacherCountFetched = false;
 
 
   @observable
@@ -58,6 +65,10 @@ abstract class _TeacherStore with Store{
   String phone = '';
   @observable
   String teacher_email = '';
+  @observable
+  int count = 0;
+  @observable
+  int sameEmailCount = 0;
 
 
   @observable
@@ -129,6 +140,7 @@ abstract class _TeacherStore with Store{
         teacherList=value.object as DocumentList;
         loadListsuccess = true;
 
+        print("Total Teacher Number ::${teacherList!.documents.length}");
         for(int i = 0; i < teacherList!.documents.length; i++){
           var document = teacherList!.documents[i].data;
 
@@ -138,8 +150,6 @@ abstract class _TeacherStore with Store{
         try{
           teacherModelList = _list.map((data) => TeacherModel.fromJson(data)).toList();
           print("teacher name list ::: ${teacherModelList.reversed}");
-          //batchNameList = teacherModelList.map((batch) => batch.batch_name).toList();
-          //print("All teacher name as list ::: ${batchNameList}");
         }catch(e){
           print("exception:::${e}");
         }
@@ -154,10 +164,61 @@ abstract class _TeacherStore with Store{
   }
 
 
-  @action
-  void clearCartData()  {
-
-  }
+  // @action
+  // Future<int> filterTeacherList( DocumentList? teacherList) async {
+  //   print("Now list is created");
+  //   if (teacherList == null) {
+  //     // Handle the case where deliveryManList is null
+  //     print("Teacher Number:: null value");
+  //     //return "done";
+  //   }
+  //   var totalTeacher = teacherList!.total;
+  //   print("Teacher Number:: ${totalTeacher}");
+  //   var teacher_List = teacherList!.documents.toList();
+  //   print("Teacher List:: ${teacher_List}");
+  //   List<Map<String, dynamic>> AllTeacher = [];
+  //
+  //   print("teacher_List.length in filterTeacherList :: ${teacher_List.length}");
+  //   for(int i = 0; i < teacher_List.length; i++){
+  //     print("List will be arranged");
+  //     var document = teacher_List[i].data;
+  //     AllTeacher.add(document);
+  //     SharedPreferences preferences = await SharedPreferences.getInstance();
+  //     var checkEmailList = document.containsKey('email') && document['email'] == preferences.getString(aw.Preferences.user_email);
+  //     print("Show email :: ${preferences.getString(aw.Preferences.user_email)}");
+  //     if(checkEmailList){
+  //       count++;
+  //       if(count == 1){
+  //         var d = document['\$id'];
+  //       }
+  //     }
+  //   }
+  //   hasFilteredTeacherList = true;
+  //   print("How many email are same : $count");
+  //   try{}catch(e){
+  //     print("exception:::${e}");
+  //   }
+  //   // Return a flag indicating whether the dialog should be shown
+  //   //hasFilteredTeacherList = false;
+  //   return count;
+  // }
+  //
+  // @action
+  // Future countSameMail() async {
+  //   print("Enter countSameMail function");
+  //   getTeacherList();
+  //   sameEmailCount = await filterTeacherList(teacherList);
+  //   functionLoading =true;
+  //   isTeacherCountFetched = true;
+  //   print("Stop countSameMail function");
+  //   functionLoading = false;
+  // }
+  //
+  // @action
+  // void clearCartData()  {
+  //   count = 0;
+  //   sameEmailCount = 0;
+  // }
 
 
   // general:-------------------------------------------------------------------

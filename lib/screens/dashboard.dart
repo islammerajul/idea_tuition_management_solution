@@ -38,7 +38,8 @@ class _DashboardState extends State<Dashboard> {
   String? select_month = 'January';
   int count = 0;
   AddMoreDialog dialog = AddMoreDialog();
-  bool hasFilteredTeacherList = false;
+  //bool hasFilteredTeacherList = false;
+  bool isTeacherCountFetched = false;
 
 
 
@@ -60,6 +61,9 @@ class _DashboardState extends State<Dashboard> {
      teacherStore = Provider.of<TeacherStore>(context);
      teacherStore.getTeacherList();
      teacherStore.teacherList;
+     // teacherStore.filterTeacherList(teacherStore.teacherList);
+     // teacherStore.countSameMail();
+    isTeacherCountFetched = false;
     // Ensure you have the teacherList data before calling filterTeacherList
     if (teacherStore.teacherList == null) {
       // Fetch the teacher list if it's not available
@@ -74,7 +78,11 @@ class _DashboardState extends State<Dashboard> {
     }
 
   }
-
+  @override
+  void dispose() {
+    super.dispose();
+    //teacherStore.clearCartData();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -142,12 +150,37 @@ class _DashboardState extends State<Dashboard> {
 
           body: Stack(
             children: [
+
               Observer(builder: (BuildContext context) {
-                print("loadListsuccess is :: ${teacherStore.loading}");
-                return teacherStore.loading
+                print("functionLoading in targeted function is :: ${teacherStore.functionLoading}");
+                print("Same Email Count :: ${teacherStore.sameEmailCount}");
+                print("Same Email Count 2nd way:: ${teacherStore.count}");
+                return (teacherStore.loading)
                     ? const Center(child: CustomProgressIndicatorWidget())
                     : _mainContent(context);
               }),
+
+/*
+              Observer(builder: (BuildContext context) {
+               return RefreshIndicator(child: TeacherNotFoundDialog(), onRefresh: () async {
+                 teacherStore.getTeacherList();
+                 teacherStore.countSameMail();
+                 count = await teacherStore.filterTeacherList(teacherStore.teacherList);
+                 print("Count:: $count");
+                 print("Counter count:: ${teacherStore.sameEmailCount}");
+                  await Future.delayed(const Duration(seconds: 34));
+                },);
+              }),
+*/
+              // Observer(builder: (BuildContext context) {
+              //   if (!isTeacherCountFetched) {
+              //     return const Center(child: CustomProgressIndicatorWidget());
+              //   } else if (teacherStore.sameEmailCount == 0) {
+              //     return TeacherNotFoundDialog();
+              //   } else {
+              //     return _mainContent(context);
+              //   }
+              // })
 
               // Observer(builder: (BuildContext context){
               //   if (teacherStore.apicallstate == APICALLSTATE.LOADING){
@@ -440,7 +473,15 @@ class _DashboardState extends State<Dashboard> {
           ),
         ),
          //if (count == 0) {Text("New User")},
-        if(count == 0) TeacherNotFoundDialog()
+        FutureBuilder(
+          future: filterTeacherList(teacherStore.teacherList),
+          builder: (BuildContext, Snapshot) {
+            //return Text("$count",style: TextStyle(fontSize: 50,color: Colors.green),);
+            return count == 0 ? TeacherNotFoundDialog() : SizedBox.shrink();
+          }
+        ),
+        //if(count == 0) TeacherNotFoundDialog()
+
       ],
     );
   }
@@ -475,7 +516,7 @@ class _DashboardState extends State<Dashboard> {
       }
       //print("How many email are same : $count");
     }
-    hasFilteredTeacherList = true;
+    //hasFilteredTeacherList = true;
     print("How many email are same : $count");
 
 

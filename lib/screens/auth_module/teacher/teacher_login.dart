@@ -7,6 +7,7 @@ import 'package:idea_tuition_managment_app/constants/colors.dart';
 import 'package:idea_tuition_managment_app/data/sharedpref/shared_preference_helper.dart';
 import 'package:idea_tuition_managment_app/screens/navigation_bar.dart';
 import 'package:idea_tuition_managment_app/stores/auth/auth_store.dart';
+import 'package:idea_tuition_managment_app/stores/teacher_store/teacher_store.dart';
 import 'package:idea_tuition_managment_app/style/custom_text_style.dart';
 import 'package:idea_tuition_managment_app/utils/routes/routes.dart';
 import 'package:idea_tuition_managment_app/widgets/custom_button.dart';

@@ -72,6 +72,8 @@ class ClientAppWrite{
 
    Future<dynamic> emailSession(String email,password) async{
      print("enter email session");
+     print("enter email :: $email");
+     print("enter password :::$password");
      Account account = Account(client);
      Session? session;
      try{
@@ -116,6 +118,9 @@ class ClientAppWrite{
 
    Future<dynamic> addDocument(String databaseId,tag,data)async {
      final databases = Databases(client);
+     print("enter tag :: $tag");
+     print("enter data :: $data");
+     print("enter databaseID :: $databaseId");
      try{
        Document response = await databases.createDocument(
          databaseId:databaseId,

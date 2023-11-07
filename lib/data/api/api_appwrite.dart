@@ -73,6 +73,7 @@ Future<ResponseObject> updateSignupInfo(String userId, List<String> labels) asyn
     try {
 
       final res = await _clientAppWrite.emailSession(email,password);
+      print("_clientAppWrite.emailSession is ::: $res");
       if (res is NetworkException) {
         return ResponseObject(id: ResponseCode.FAILED, object: res.message);
 

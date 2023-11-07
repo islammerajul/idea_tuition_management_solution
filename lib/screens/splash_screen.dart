@@ -6,6 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:idea_tuition_managment_app/constants/colors.dart';
 import 'package:idea_tuition_managment_app/data/sharedpref/constants/preferences.dart';
+import 'package:idea_tuition_managment_app/stores/teacher_store/teacher_store.dart';
 import 'package:idea_tuition_managment_app/style/custom_text_style.dart';
 import 'package:idea_tuition_managment_app/utils/routes/routes.dart';
 import 'package:provider/provider.dart';
@@ -19,8 +20,7 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScrenState extends State<SplashScreen> {
-  //
-  // late SplashStore splashStore;
+
   // late OrderStore orderStore;
   // late SharedPreferenceHelper sharedPreferenceHelper;
 
@@ -33,11 +33,11 @@ class _SplashScrenState extends State<SplashScreen> {
   }
   @override
   void didChangeDependencies() {
-    // splashStore = Provider.of<SplashStore>(context);
     // orderStore = Provider.of<OrderStore>(context);
     //
     // splashStore.getProductList();
     // splashStore.getAppSettings();
+
 
     super.didChangeDependencies();
   }

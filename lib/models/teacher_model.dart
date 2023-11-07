@@ -30,10 +30,10 @@ class TeacherModel{
   }
 
   Map<String, dynamic> toJson() => {
-    'name': teacher_name,
-    'email': teacher_email,
-    'contract_number': teacher_phone,
-    'address': teacher_address,
-    'institution': teacher_institution,
+    "name": teacher_name,
+    "email": teacher_email,
+    "contract_number": teacher_phone,
+    "address": teacher_address,
+    "institution": teacher_institution,
   };
 }

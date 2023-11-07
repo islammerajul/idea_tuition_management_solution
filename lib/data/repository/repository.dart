@@ -65,6 +65,7 @@ class Repository {
   // Login:---------------------------------------------------------------------
   Future<ResponseObject> login(String userName, String password) async {
     return await _appwriteApi.emailSession(userName, password).then((res) {
+      print("_appwriteApi.emailSession is ::: $res");
       return res;
     }).catchError((error) {
       return ResponseObject(id: ResponseCode.FAILED, object: "Try again");

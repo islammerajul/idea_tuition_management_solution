@@ -7,7 +7,9 @@ import 'package:idea_tuition_managment_app/constants/all_constant_values.dart';
 import 'package:idea_tuition_managment_app/constants/app_data.dart';
 import 'package:idea_tuition_managment_app/constants/colors.dart';
 import 'package:idea_tuition_managment_app/models/base/model_response_object.dart';
+import 'package:idea_tuition_managment_app/models/batch_model.dart';
 import 'package:idea_tuition_managment_app/models/payment_model.dart';
+import 'package:idea_tuition_managment_app/models/student_model.dart';
 import 'package:idea_tuition_managment_app/stores/batch/batch_store.dart';
 import 'package:idea_tuition_managment_app/stores/payment/payment_store.dart';
 import 'package:idea_tuition_managment_app/stores/student/student_store.dart';
@@ -43,6 +45,16 @@ class _CreatePaymentState extends State<CreatePayment> {
   bool? matchStudentName;
   bool? matchMonth;
   var document;
+  List<BatchModel> _batchList = [];
+  List<StudentModel> _studentList = [];
+  List<Map<String, dynamic>> batch_NameList = [];
+  List<Map<String, dynamic>> student_NameList = [];
+  List<String> batch_documentID = [];
+  List<String?> batchNameList = [];
+  List<String?> studentNameList = [];
+  List<String>? selected_batch_list = [];
+  var batch_List;
+  var student_List;
 
   late PaymentStore paymentStore;
   late BatchStore batchStore;
@@ -52,7 +64,6 @@ class _CreatePaymentState extends State<CreatePayment> {
 
   //StudentModel studentModel = StudentModel();
   List<PaymentModel> _paymentList = [];
-  List<Map<String, dynamic>> batch_NameList = [];
 
   @override
   void initState() {
@@ -327,7 +338,7 @@ class _CreatePaymentState extends State<CreatePayment> {
                     ),
                     DropdownButtonFormField(
                         iconEnabledColor: CustomColors.White,
-                        value: select_student,
+                        value: studentStore.select_studentName = select_student,
                         dropdownColor: CustomColors.AppBarColor,
                         decoration: InputDecoration(
                           hintText: 'Select',
@@ -681,5 +692,117 @@ class _CreatePaymentState extends State<CreatePayment> {
     }
     return "done";
   }
+
+  Future<String> filterBatchList(DocumentList? batchList) async {
+    print("Now list is created");
+    if (batchList == null) {
+      // Handle the case where deliveryManList is null
+      print("Batch Number:: null value");
+      return "done";
+    }
+    var totalBatch = batchList!.total;
+    print("Batch Number:: ${totalBatch}");
+    batch_List = batchList!.documents.toList();
+    print("Batch List:: ${batch_List}");
+    List<Map<String, dynamic>> AllBatch = [];
+
+
+    batchStore.TotalBatch = batch_List.length;
+    print("Total Batch List number :: ${batchStore.TotalBatch}");
+    for(int i = 0; i < batch_List.length; i++){
+      print("List will be arranged");
+      var document = batch_List[i].data;
+      AllBatch.add(document);
+      print("Show Batch names :: ${AllBatch}");
+      var matchBatchName = document.containsKey('batch_name') && document['batch_name'] == batchStore.select_batchName;
+      if(matchBatchName){
+        print("condition :: $matchBatchName");
+        batchStore.batch_documentID = document['\$id'];
+      }
+      // for(int k = 0; k < selected_chip_list!.length; k++){
+      //   var matchListOfBatch = document.containsKey('batch_name') && document['batch_name'] == selected_chip_list![k];
+      //   if(matchListOfBatch){
+      //     print("condition :: $matchListOfBatch");
+      //     batchStore.batch_documentID = document['\$id'];
+      //     batch_documentID.add(document['\$id']);
+      //   }else break;
+      // }
+    }
+    for(var map in AllBatch){
+      print("List will be arranged");
+      if (map.containsKey('batch_name')) {
+        batch_NameList.add({'batch_name': map['batch_name']});
+      }
+    }
+    print("Batch list ::: $batch_NameList");
+    print("Batch's Document ID ::: ${batchStore.batch_documentID}");
+    print("Selected Batch Document ID ::: ${batch_documentID}");
+    try{
+      _batchList = AllBatch.map((data) => BatchModel.fromJson(data)).toList();
+      batchNameList = _batchList.map((batch) => batch.batch_name).toList();
+      print("All batch name as list ::: ${batchNameList}");
+      print("All selected batch name as list ::: ${selected_batch_list}");
+    }catch(e){
+      print("exception:::${e}");
+    }
+    return "done";
+  }
+
+  Future<String> filterStudentList(DocumentList? studentList) async {
+    print("Now Student list is created");
+    if (studentList == null) {
+      // Handle the case where StudentList is null
+      print("Student Number:: null value");
+      return "done";
+    }
+    var totalStudent = studentList!.total;
+    print("Student Number:: ${totalStudent}");
+    student_List = studentList!.documents.toList();
+    print("Student List:: ${student_List}");
+    List<Map<String, dynamic>> AllStudent = [];
+
+
+    studentStore.TotalStudent = student_List.length;
+    print("Total Student List number :: ${studentStore.TotalStudent}");
+    for(int i = 0; i < student_List.length; i++){
+      print("Student List will be arranged");
+      var document = student_List[i].data;
+      AllStudent.add(document);
+      print("Show Student names :: ${AllStudent}");
+      var matchStudentName = document.containsKey('student_name') && document['student_name'] == studentStore.select_studentName;
+      if(matchStudentName){
+        print("condition :: $matchStudentName");
+        studentStore.student_documentID = document['\$id'];
+      }
+      // for(int k = 0; k < selected_chip_list!.length; k++){
+      //   var matchListOfBatch = document.containsKey('batch_name') && document['batch_name'] == selected_chip_list![k];
+      //   if(matchListOfBatch){
+      //     print("condition :: $matchListOfBatch");
+      //     batchStore.batch_documentID = document['\$id'];
+      //     batch_documentID.add(document['\$id']);
+      //   }else break;
+      // }
+    }
+    for(var map in AllStudent){
+      print("List will be arranged");
+      if (map.containsKey('student_name')) {
+        student_NameList.add({'student_name': map['student_name']});
+      }
+    }
+    print("Student list ::: $student_NameList");
+    print("Student's Document ID ::: ${studentStore.student_documentID}");
+    //print("Selected Student Document ID ::: ${batch_documentID}");
+    print("Selected Student name--- ::: ${studentStore.select_studentName}");
+    try{
+      _studentList = AllStudent.map((data) => StudentModel.fromJson(data)).toList();
+      studentNameList = _studentList.map((student) => student.student_name).toList();
+      print("All Student name as list ::: ${studentNameList}");
+      //print("All selected Student name as list ::: ${selected_batch_list}");
+    }catch(e){
+      print("exception:::${e}");
+    }
+    return "done";
+  }
+
 
 }

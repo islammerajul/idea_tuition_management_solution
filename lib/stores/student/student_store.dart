@@ -63,11 +63,13 @@ abstract class _StudentStore with Store{
   @observable
   DocumentList? studentList;
   //
-  // @observable
-  // int? TotalCustomer = 0;
+  @observable
+  int? TotalStudent = 0;
 
-  // @observable
-  // String? selectedUserID;
+  @observable
+  String? student_documentID = '';
+  @observable
+  String? select_studentName = '';
 
   @observable
   APICALLSTATE apicallstate = APICALLSTATE.INICIAL;
@@ -140,7 +142,9 @@ abstract class _StudentStore with Store{
       } else {
         apicallstate=APICALLSTATE.RESPONSE;
         success = false;
-        noDataFound = value.object as String;
+        //noDataFound = value.object as String;
+        noDataFound = (value.object == null) ? "Student List not work" : value.object as String;
+        print("noDataFound is ::: $noDataFound");
       }
     });
   }

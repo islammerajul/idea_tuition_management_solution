@@ -78,8 +78,11 @@ abstract class _TeacherStore with Store{
   DocumentList? teacherList;
 
   @observable
-  String? teacher_documentID = '';
+  List<String?> selected_teacher_documentID_List = [];
+  @observable
   List<String?> teacherNameList = [];
+  @observable
+  String? selected_teacher_name = '';
 
   // @observable
   // String? selectedUserID;

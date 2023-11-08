@@ -12,6 +12,7 @@ import 'package:idea_tuition_managment_app/models/student_model.dart';
 import 'package:idea_tuition_managment_app/stores/batch/batch_store.dart';
 import 'package:idea_tuition_managment_app/stores/package/package_store.dart';
 import 'package:idea_tuition_managment_app/stores/student/student_store.dart';
+import 'package:idea_tuition_managment_app/stores/teacher_store/teacher_store.dart';
 import 'package:idea_tuition_managment_app/style/custom_text_style.dart';
 import 'package:idea_tuition_managment_app/utils/routes/routes.dart';
 import 'package:idea_tuition_managment_app/widgets/custom_appbar.dart';
@@ -44,6 +45,7 @@ class _CreateStudentScreenState extends State<CreateStudentScreen> {
   TextEditingController _addressController = TextEditingController();
   TextEditingController _parentEmailController = TextEditingController();
   TextEditingController _parentPhoneController = TextEditingController();
+  TextEditingController _teacherController = TextEditingController();
 
   AddMoreDialog dialog = AddMoreDialog();
 
@@ -81,6 +83,7 @@ class _CreateStudentScreenState extends State<CreateStudentScreen> {
   late BatchStore batchStore;
   late StudentStore studentStore;
   late PackageStore packageStore;
+  late TeacherStore teacherStore;
   StudentModel studentModel = StudentModel();
 
   @override
@@ -95,6 +98,7 @@ class _CreateStudentScreenState extends State<CreateStudentScreen> {
     batchStore = Provider.of<BatchStore>(context);
     studentStore = Provider.of<StudentStore>(context);
     packageStore = Provider.of<PackageStore>(context);
+    teacherStore = Provider.of<TeacherStore>(context);
     filterBatchList(batchStore.batchList);
     batchStore.getBatchList();
     packageStore.getPackageList();
@@ -190,11 +194,23 @@ class _CreateStudentScreenState extends State<CreateStudentScreen> {
               ),
               TextFormFieldWidget(
                 readOnly: true,
-                headerName: 'Batch ID',
+                headerName: 'Student ID',
                 style: CustomTextStyle.header,
                 sizedboxHeight: 11,
                 controller: TextEditingController(
                   text: _studentIDController.text = "st${DateTime.now().year}${DateTime.now().month}${DateTime.now().day}${DateTime.now().minute}-${DateTime.now().millisecond}",
+                ),
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              TextFormFieldWidget(
+                readOnly: true,
+                headerName: 'Teacher Name',
+                style: CustomTextStyle.header,
+                sizedboxHeight: 11,
+                controller: TextEditingController(
+                  text: _teacherController.text = "${teacherStore.selected_teacher_name}",
                 ),
               ),
               SizedBox(
@@ -627,14 +643,13 @@ class _CreateStudentScreenState extends State<CreateStudentScreen> {
                   controller: _parentEmailController,
                   keyboardType: TextInputType.emailAddress,
                   //maxLength: 11,
-                  validator: (value) {
-                    if (value!.isEmpty) {
-                      return "Please enter your email";
-                    }
-                    if (!value.contains("@")) {
-                      return "Invalid Email ";
-                    }
-                  }),
+                  // validator: (value) {
+                  //
+                  //   if (!value.contains("@")) {
+                  //     return "Invalid Email ";
+                  //   }
+                  // }
+                  ),
               SizedBox(
                 height: 20,
               ),
@@ -1076,13 +1091,14 @@ class _CreateStudentScreenState extends State<CreateStudentScreen> {
                             active_status: select_active_status,
                           batch_DocID: batch_documentID,
                           packages_DocID: package_documentID,
+                          //teachers_DocID: teacherStore.selected_teacher_documentID,
                           //teachers_DocID: batch_documentID,
                           //grade_DocID: batch_documentID,
                         );
                         studentStore.createStudent(studentModel);
                         dialog.addMoreCustomDialog(context,
                             headerTitle: 'Congratulation',
-                            desTitle: 'Create a student successfully',
+                            desTitle: studentStore.successMessage == true ? studentStore.successMessage : "Failed to create a student",
                             headerTitleColor: Color(0xff0BC974),
                             callbackForAdd: (){
                               Navigator.pushReplacementNamed(context, Routes.createStudent);

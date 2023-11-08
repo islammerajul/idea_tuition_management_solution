@@ -141,7 +141,9 @@ abstract class _PackageStore with Store{
       } else {
         apicallstate=APICALLSTATE.RESPONSE;
         success = false;
-        noDataFound = value.object as String;
+        //noDataFound = value.object as String;
+        noDataFound = (value.object == null) ? "Package List not work" : value.object as String;
+        print("noDataFound is ::: $noDataFound");
       }
     });
   }

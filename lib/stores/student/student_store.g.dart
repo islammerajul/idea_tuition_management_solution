@@ -183,6 +183,54 @@ mixin _$StudentStore on _StudentStore, Store {
     });
   }
 
+  late final _$TotalStudentAtom =
+      Atom(name: '_StudentStore.TotalStudent', context: context);
+
+  @override
+  int? get TotalStudent {
+    _$TotalStudentAtom.reportRead();
+    return super.TotalStudent;
+  }
+
+  @override
+  set TotalStudent(int? value) {
+    _$TotalStudentAtom.reportWrite(value, super.TotalStudent, () {
+      super.TotalStudent = value;
+    });
+  }
+
+  late final _$student_documentIDAtom =
+      Atom(name: '_StudentStore.student_documentID', context: context);
+
+  @override
+  String? get student_documentID {
+    _$student_documentIDAtom.reportRead();
+    return super.student_documentID;
+  }
+
+  @override
+  set student_documentID(String? value) {
+    _$student_documentIDAtom.reportWrite(value, super.student_documentID, () {
+      super.student_documentID = value;
+    });
+  }
+
+  late final _$select_studentNameAtom =
+      Atom(name: '_StudentStore.select_studentName', context: context);
+
+  @override
+  String? get select_studentName {
+    _$select_studentNameAtom.reportRead();
+    return super.select_studentName;
+  }
+
+  @override
+  set select_studentName(String? value) {
+    _$select_studentNameAtom.reportWrite(value, super.select_studentName, () {
+      super.select_studentName = value;
+    });
+  }
+
   late final _$apicallstateAtom =
       Atom(name: '_StudentStore.apicallstate', context: context);
 
@@ -260,6 +308,9 @@ phone: ${phone},
 selected_img: ${selected_img},
 studentModel: ${studentModel},
 studentList: ${studentList},
+TotalStudent: ${TotalStudent},
+student_documentID: ${student_documentID},
+select_studentName: ${select_studentName},
 apicallstate: ${apicallstate},
 studentModelList: ${studentModelList}
     ''';

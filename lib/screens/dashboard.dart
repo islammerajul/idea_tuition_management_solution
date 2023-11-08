@@ -9,6 +9,8 @@ import 'package:idea_tuition_managment_app/constants/colors.dart';
 import 'package:idea_tuition_managment_app/data/api/api_appwrite.dart';
 import 'package:idea_tuition_managment_app/data/sharedpref/shared_preference_helper.dart';
 import 'package:idea_tuition_managment_app/screens/custom_drawer.dart';
+import 'package:idea_tuition_managment_app/stores/batch/batch_store.dart';
+import 'package:idea_tuition_managment_app/stores/student/student_store.dart';
 import 'package:idea_tuition_managment_app/stores/teacher_store/teacher_store.dart';
 import 'package:idea_tuition_managment_app/style/custom_text_style.dart';
 import 'package:idea_tuition_managment_app/widgets/custom_schedule.dart';
@@ -40,11 +42,12 @@ class _DashboardState extends State<Dashboard> {
   AddMoreDialog dialog = AddMoreDialog();
   //bool hasFilteredTeacherList = false;
   bool isTeacherCountFetched = false;
+  List<Map<String, dynamic>> teacher_DocumentIDList = [];
 
 
 
-  //late BatchStore batchStore;
-  //late StudentStore studentStore;
+  late BatchStore batchStore;
+  late StudentStore studentStore;
   //late PackageStore packageStore;
   late TeacherStore teacherStore;
   @override
@@ -59,6 +62,10 @@ class _DashboardState extends State<Dashboard> {
   void didChangeDependencies(){
     super.didChangeDependencies();
      teacherStore = Provider.of<TeacherStore>(context);
+     batchStore = Provider.of<BatchStore>(context);
+     studentStore = Provider.of<StudentStore>(context);
+     batchStore.getBatchList();
+     studentStore.getStudentList();
      teacherStore.getTeacherList();
      teacherStore.teacherList;
      // teacherStore.filterTeacherList(teacherStore.teacherList);
@@ -498,6 +505,8 @@ class _DashboardState extends State<Dashboard> {
     var teacher_List = teacherList!.documents.toList();
     print("Teacher List:: ${teacher_List}");
     List<Map<String, dynamic>> AllTeacher = [];
+    var d;
+    var e;
 
     //batchStore.TotalBatch = batch_List.length;
     //print("Total Payment List number :: ${batchStore.TotalBatch}");
@@ -510,14 +519,26 @@ class _DashboardState extends State<Dashboard> {
 
       if(checkEmailList){
         count++;
-        if(count == 1){
-          var d = document['\$id'];
+        d = document['\$id'];
+        e = document['name'];
+        if (document.containsKey('name')) {
+          teacher_DocumentIDList.add({'teacher_name': document['name']});
         }
+        // if(count < 1){
+        //   d = document['\$id'];
+        //   e = document['name'];
+        // }
       }
       //print("How many email are same : $count");
     }
+    //teacherStore.selected_teacher_documentID = d;
+    teacherStore.selected_teacher_name = e;
     //hasFilteredTeacherList = true;
     print("How many email are same : $count");
+    print("Matched Teacher's document ID is : $d");
+    //print("Matched Teacher's document ID is : ${teacherStore.selected_teacher_documentID}");
+    print("Matched Teacher's name is : $e");
+    print("Matched Teacher's name is : ${teacherStore.selected_teacher_name}");
 
 
     try{
